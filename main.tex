@@ -1,0 +1,456 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem*{remark}{Remark}
+\newtheorem*{notation}{Notation}
+\newtheorem{construction}{Construction}
+
+\title{Statistical Analysis of Permutations}
+\author{Jojo W. Whaley Aboaf, Martin T. Wells}
+\date{February 2021}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\begin{abstract}
+We Construct a general methods to analyze permutations.
+We present an empirical method for analyzing ordered in order to test for nationality bias in International Surf Competitions.
+We show this method can be applied in other settings, particularly for random graphs.
+
+To state what we are setting out to do in its full generality simply:
+- We are interested in a (finite) set of things, $E = \{e_1, e_2, \dots, e_n \} $
+		- the number of things we are interested in is $|E| = n$
+- We observe some data, $D = (d_i)_i^N$
+		- each data point provides some information about a subset $ \{ e_a \: e_b \: \dots e_c \} \subseteq E$.
+		- The number of things we observe are $|\{ e_a \: e_b \: \dots e_c \} |$ = k
+        - We can observe
+        		- a full ordering, for example $ [e_c \:  e_a \dots e_b] $
+				- or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
+                - or no ordering at all.
+- We wish to assign $\mathbb{P}( Something |D)$
+
+\end{abstract}
+
+\section{Introduction}
+
+\paragraph{Ordered data} Recommendation systems attempt to leverage information regarding one’s preferences to suggest new content (e.g. music, movies) or products (e.g. books). Ranked-choice voting is used for local, provincial/state, and national level elections across the globe. Many institutions, such as Cornell University, use ranked-choice for its elections. In sports, orderings frequently determine tournament structures and season schedules, and in games or general forms of competition, ordered data is a natural way to express outcomes.
+
+\paragraph{Graphical Data} Some Stuff about graphs blah blah blah THIS IS EVERYWHERE and everyone loves graphs.
+
+\section{Background: Surfing}
+Surfing has a long history, starting in BLANK with BLANK and spreading throughout the BLANK. Its origins are aesthetic and subliminal.
+
+With growing interest in the dynamic sport, organized surf competition emerged over the past 60 years. The International Surfing Federation was founded in the 1960s and held a single event, the World Surfing Championships, every two years. After the ISF struggled with the event’s format and sponsorships, Fred Hemmings and Randy Rarick founded the world governing body of professional surfing, called International Professional Surfers (IPS). From 1976 to 1982, the IPS administered a series of events, called the World Circuit. Starting in 1983, the Association of Surfing Professionals (ASP) took over the operations of the ISP and renamed the “World Circuit,” the “World Championship Tour” (WCT). In 2015 the ASP rebranded to the World Surf League (WSL) and renamed the “World Championship Tour,” the “Championship Tour” (CT).  
+
+The WSL Championship Tour (CT) is a series of events in which surfers are allocated points based on their placement in each of the constituent events and the surfer with the most points at the end of the season is crowned the WSL CT champion. While event formats and point allocation mechanisms have changed, surfers that advance though more rounds of an event are allocated more points. In addition to Championship Tour (CT), the WSL operates multiple Qualifying Series (QS): QS10000, QS6000, QS3000, QS1500, and QS1000. The number associated with a certain qualifying series indicates the number of points awarded to the winner of one of its constituent events. The specific breakdown of points awarded for various placement at QS events can be found in Appendix B of the WSL Rule Book.
+
+In this paper, we focus on the 2017, 2018, and 2019 seasons of the Men’s Championship Tour because it offers the fullest set of waves that list judge scores along with their nationality.
+
+However, a wide range of non-performance based biases are documented and researched using various methods; for example, Price and Wolfers study own-race bias in NBA refereeing using [        ], [   ] and [  ] investigate nationality bias in synchronized swimming judging using [       ], and ordering bias of gymnastics judges. These are only a few examples in sports, but the social-cognitive underpinnings of biases are a key area of research in psychology and legal studies.
+
+This study uses 21,615 waves surfed in 2017, 2018, and 2019 seasons to empirically analyze the role of judge nationalities in the Men's Championship Tour.
+
+\section{Existing Models for Ordered Data}
+The present methods for analyzing permutations are probability models. A \textit{probability} model is not necessary to analyze permutation data.
+Q: What about test hypotheses or perform inference?...
+
+% Using the following sources:
+% Marden, John. Notes on Statistical Models for Ranking Data. 2017. http://www.istics.net/pdfs/notes.pdf
+
+Have n objects, which we consider $ \{1,\dots,n\}$
+Parameter vector, denoted as $\theta$, which is typically understood and representing a quantity. 
+In sports this parameter vector is usually "skill"
+In graphs this parameter vector is usually "friendliness"
+
+\subsection{Thurstone Order Statistic Model}
+$ Z_i = N(\theta_i, \sigma_i) $
+\( P(\pi) := P(Z_{\pi(1)} < Z_{\pi(2)} < \dots < Z_{\pi(n)} ) \)
+
+\subsection{Bradley-Terry-Mallows}
+Parameter: \(\theta = [\theta_1, \dots, \theta_n]^T\)
+The Comparison: \( p_{a,b} := \frac{\theta_a}{\theta_a + \theta_b} \)
+\( 
+\prod_{i<j} p_{\pi(i),\pi(j)} = \frac{ \prod_{i=1}^n \theta_{\pi(i)}^{n-i} }{ \prod_{i<j}(\theta_i + \theta_j) }
+\)
+
+\(
+P_\theta(\pi) = \frac{1}{ c(\theta) } \prod_{i<j}p_{\pi(i),\pi(j)} 
+= \frac{1}{c(\theta)} \prod_{i=1}^n \prod_{j=i+1}^n p_{\pi(i),\pi(j)}
+\)
+\(c(\theta) := \sum_{\pi \in \mathcal{S}_n} \prod_{i<j} p_{\pi(i),\pi(j)}
+\)
+
+\subsection{Mallows Model}
+\(
+P_\theta(\pi) = \frac{1}{ c(\theta) }e^{\gamma d_K(\pi)}
+d_K(\pi):= \sum_{i<j} I_{\pi(i)>\pi(j)}
+\)
+
+\subsection{Plackett-Luce}
+See some stuff about using different distance functions. Metric spaces.....
+Metric Methods by Flinger and Verducci
+
+\section{Construction}
+\subsection{Motivation}
+Our goal in constructing method is to determine if judges have a tendency to give higher scores to surfers from their home countries compared to judges with nationalities different from the surfer. To achieve this we identify empirical distributions of orderings of judges and test if this distribution is significantly different from a uniform distribution.
+
+We are chiefly concerned with the ordering of judges which we analyze by "match" and by country. A "matching" judge is one that has the same nationality as the surfer being scored. A non-matching judge is a judge with a different nationality than the surfer being scored. 
+
+
+To analyze the orderings of judges "by match", it suffices to study orderings of $M :=\{$Match, Non-Match$\}$. 
+
+To analyze the orders of judges by nationality, it suffices to analyze the orderings of the set $C := \{AUS, BRA, FRA, \dots, ZAF\}$, which is the set of all nationalities of judges who scored any wave from 2017 to 2019.
+
+\section{Symmetric Group}
+
+\begin{definition} The 
+
+\end{definition}
+
+\section{Probability on The Symmetric Group}
+
+Probability on the symmetric group of a finite set doesn't require as much legwork as typical probability because we are interested in the probability of n! outcomes.  Instead of constructing probability measures in the formal terminology:
+
+\begin{definition}  A measure on $S_{\{1,\dots,n\}}$, is an element of the group algebra $\mathbb{C}[S_n]$. \end{definition}
+\begin{definition} A probability measure on $S_n$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_n$ if and only if $\sum_{\tau \in S_n} f_\tau = 1$ \end{definition}
+
+\begin{definition} A linear or "faithful" representation of a group G, is the ordered pair $(\rho, V)$, $\rho: G \rightarrow GL(V)$ satisfying:
+\(\forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y) \) where $\cdot $ is multiplication in $GL(V)$.
+\( \rho(e) = I \), where e is the identity element in $G$ and I is the identity element in $ GL(V) $.
+\( \forall x \in G, \rho(x^{-1}) = \rho(x)^*, \text{ where * denotes involution in GL(V)} \).
+\end{definition}
+Note: This amounts to saying that $\rho$ is a group hom from $(G, \circ)$ to $GL(V)$
+
+\begin{definition}The representation of a measure F, is: $ \hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau) $. \end{definition}
+Note: This is sometimes called the Fourier transform at a representation, I avoid that 
+
+Let $ H := S_n / ^{-1}$ 
+$ h in H \iff \forall x,y \in h x*y = |
+associativity	(a+b)+c=a+(b+c)
+(ab)c=a(bc)
+commutativity	a+b=b+a	
+ab=ba
+distributivity	a(b+c)=ab+ac	
+(a+b)c=ac+bc
+identity	a+0=a=0+a	
+a·1=a=1·a
+inverses	a+(-a)=0=(-a)+a	
+aa^(-1)=1=a^(-1)a if a!=0
+
+
+
+
+
+
+
+
+
+
+
+\begin{definition}(Convolution of two functions on a group G) is a binary operation $ (A * B)(g) = \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g) $. equivalently:
+\end{definition}
+
+Note: $ \widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma) 
+= \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma ) $
+
+We take $\rho_M $ the permutation representation acting on the vector space $V := \mathbb{R}^n$ with basis indexed by OneTon $ := \{1, \dots n\} $. So a typical element of V is of the form: $ \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix}$ which could be rewritten as $\sum_{i \in \text{OneTon} } a_i e_i$. But remember, we are interested in functions that act on the basis. Our interest is specifically permutations of elements of OneTon, denoted $S_n $
+
+Example : $V_{C} = [ e_{\text{AUS}} \: e_{\text{BRA}} \: \dots \: e_{\text{ZAF}} ]$
+For example: $V_{M} = [ e_{\text{Match}} \: e_{\text{Non-Match}} ]$
+
+$U(\cdot)$ is the uniform measure $ U: 2^{S_n} \rightarrow \mathbb{R} $ , where $ U(A) := \frac{ |A| }{n!}$, so we have $U(S_n) = 1$ and for every $\tau \in S_n \: o(\tau) = \frac{1}{n!}$. (For the advanced reader, consider how to approach $ S_\mathbb{N}$ throughout the paper.).
+
+
+Note: for any $A \in 2^{S_n} $, P(A) is not a number. P(A) is a set, namely the image of P when restricted to A. 
+
+Given any probability measure, $P$, on $S_n$, the probability of $A$ w.r.t $P$ is $ P_A  := \sum_{\tau \in A} P(\tau) $, which may be represented as $\hat{P}_A := \sum_{\tau \in A} P(\tau) \rho(\tau) $, observe $\hat{P}_A = \sum_{\tau \in A} \hat{P}_\tau $. 
+
+Point Mass at $\gamma$: $ P_\gamma(\tau) = 1 $ if $\tau = \gamma$ else 0
+( MGF is $\exp(\hat{P}_\gamma)$ )
+
+See other section.... I don't know why they are detached FIX!
+
+Though this may seem a bit bland, consider how elements of a group may be constructed from a set of generators. Suppose $S_n$ is generated by the set K, ie. $S_n = < K > = <k_1, \dots, k_p >$. So we could construct a probability distribution defined by
+
+\( P(\tau) = P( k_1^{a_1} \dots k_p^{a_p}) = P( k_1)^{a_1}\dots P(k_p )^{a_p} \) where $a_i$ are the smallest such $a_i$.
+
+This provides an example of distributions that "factorize" into probabilities defined on a basis for the group (the basis criteria is necessary because if we can construct an element of $S_n$ in different ways with our generating set, then the value of $P(\tau)$ may not be well defined). (I HAVE TO MAKE THIS PRECISE, I HAVE NOTES ON THIS SOMEWHERE). It is not necessary that the generators generate the full symmetric group, only that the function is defined on every element.
+
+An example of such a K is $K= \{(1,2), (1,3), \cdots, (1,n) \}$. Jojo... prove me this works. Implement it.
+
+$S_n$ has some interesting structure.
+The period of a permutation. (Sort of like a "Hitting time")
+Really just a cyclic group generated by an element
+
+\section{Some Math Things}
+\begin{definition}
+Let $V=\mathbb{R}^n$ be real vector space with the standard (orthonormal) basis, $\{e_i\}_{i=1}^n$, with an inner product $\langle \cdot,\cdot \rangle$ defined by $\langle x,y\rangle := x^T Iy = x^Ty$. This satisfies:
+$\forall x \in V \: \langle x,x \rangle \geq 0 $ and $\langle x,x\rangle=0 \iff x=\vec{0} $.
+$\forall x,y,z \in V \: \langle x,y+z \rangle= \langle x,y \rangle +  \langle x,z \rangle$.
+$\forall c \in \mathbb{R} \: \forall x,y \in V \: c\langle x,y \rangle=\langle x,cy \rangle$
+\end{definition}
+NOTE: I don't want/need this anymore. Inner products are nice, but multi linear forms are nicer.
+
+We will represent $S_n$ in $GL(V)$ by $\rho : \mathcal{S}_n \rightarrow M_n(V)$, defined by: \( \rho(\tau) := [ e_{\tau(1)} \dots e_{\tau(n)} ]= \rho_{\tau} \)
+This representation is a faithful representation (see Serre P.5).
+NOTE: In the given basis, this representation is irreducible. 
+
+The Exponential Map for $  P_\tau $ for some $\tau \in \mathcal{S}_n $:
+$ \exp(P_\tau ) := \sum_{n=0}^\infty \frac{ (P_\tau)^n}{n!} $
+
+Notes abt power series:
+baby rudin
+3.4 
+Let: $ x_n \in \mathbb{R}^k $
+Let: $x^{(n)} := (\alpha_{1,n}, \dots, \alpha_{k,n})$
+$ \lim_{n\rightarrow \infty}x^{(n)} = x \iff \forall i \in \{1,\dots,k\} \lim_{n\rightarrow \infty} x_i^{(n)} = x_i $
+
+3.38, 3.40b,
+Power Series: Given $(c_k \in \mathbb{C})_{k\in\mathbb{N}}$, then $ \sum_{k=1}^\infty c_k x^k := \lim_{n \rightarrow \infty} \sum_{k=1}^n c_k x^k $ is a power series.
+Radius of Convergence, $R:= \frac{1}{\alpha}$, where $\alpha := \lim_{n \rightarrow \infty} \sup |c_n|^{1/n} $
+For $(\frac{1}{k!})_{k\in\mathbb{N}} $, $R=+\infty$
+
+3.43
+Suppose [$ |c_1|\geq |c_2| \dots $ AND $\forall m \in \mathbb{N} \: c_{2m-1} \geq 0, c_{2m} \leq 0 $ AND $\lim_{n\rightarrow \infty} c_n = 0$] THEN $\sum c_n$ converges
+
+3.48
+Cauchy Product of $\sum a_n$ and $\sum b_n$ is $ \sum c_n $ where $ c_n :=\sum_{k=0}^n a_k b_{n-k}$
+
+3.50
+IF [ $\sum_{n=0}^\infty a_n $ converges absolutely AND $\sum a_n = A$ AND $\sum b_n = B$ ] THEN [ $\sum a_n \sum b_k = \sum c_m = AB$ where the product of the series is the cauchy product]
+
+3.51
+IF [ $\sum_{n=0}^\infty a_n $ converges to A  AND $\sum b_n $ converges to B AND $\sum c_n = C$ where $ c_n :=\sum_{k=0}^n a_k b_{n-k}$ ] THEN [ $(\sum a_n)( \sum b_k) = AB = C$ ]
+
+4.3 defn and 4.4 rmk
+Suppose $E \subseteq (\mathrm{X}, d)$ and $p \in \bar{E} $ and f,g are complex fns on E and $\lim_{x\rightarrow p} f(x) = A$ and $\lim_{x\rightarrow p} g(x) = B$
+then 
+a) $\lim_{x\rightarrow p} (f+g)(x) = A+B$ 
+b)  $\lim_{x\rightarrow p} (fg)(x) = AB$
+c)  $\lim_{x\rightarrow p} (\frac{f}{g})(x) = \frac{A}{B}$
+NOTE: if f,g map E into $\mathbb{R}^k$ then (a) holds, and $\lim_{x\rightarrow p} (f\cdot g)(x) = A \cdot B $
+
+ 10.26 on of ch 10
+
+
+About convolutions
+$D_t(f*g) = D_t f * g = f * D_t g $ 
+$\partial_{x_i}(f*g) = \partial_{x_i}f * g = f* \partial_{x_i}g $
+
+NOTE: Choice of field is very important her...
+Question: R prob makes most sense, but C lets us solve all polynomials
+
+First, we proceed with the group algebra $\mathbb{F}[S_n]$
+
+NOTE/ Question to self: This * is intended as multiplication,... maybe we should just work with it as convolution or see Simon's construction of unitary representations in Representations of Finite Groups.
+Definition of + in $\mathbb{F}[S_n]$: $A + B =\sum_{g\in S_n} a_g g + \sum_{h \in S_n} b_h h :=\sum_{g \in S_n} (a_g + b_g) g $
+Definition of $*$ in $\mathbb{F}[S_n]$: $A * B = (\sum_{g\in S_n} a_g g) * (\sum_{h \in S_n} b_h h) :=\sum_{g,h \in S_n} (a_g b_h) gh $
+Definition of scalar mult. in $\mathbb{F}[S_n]$. For $ c \in \mathbb{F}$: $cA = c\sum_{g\in G} a_g g := \sum_{g\in G} (c a_g) g $  
+
+\begin{construction}
+Now, it is important to note that there is no zero element in $S_n$, but we need a zero element for $\mathbb{F}[S_n]$ to show it is a ring.
+
+Since $0 \in \mathbb{F}$, let $0_n := \sum_{g\in S_n}0g$.
+Given $ T := \sum_{g \in S_n} a_g g $, define $ -T := \sum_{g \in S_n} -a_g g $ where $-a_g$ is the additive inverse of $a_g$ in $\mathbb{F}$
+
+First we show that $\mathbb{F}[S_n]$ is a Ring:
+Additive Identity: $ A + 0_n = 0_n + A = A$
+PF: $A + 0_n = \sum_{g \in G} a_g g + \sum_{g\in S_n} 0g = \sum_{g \in S_n} (a_g + 0)g = \sum_{g \in S_n} a_g g = A  $
+Additive Inverses: $ A - A = 0_n $ 
+PF: $A + -A = \sum_{g\in S_n} a_g g + \sum_{h \in S_n} -a_h h = \sum_{g \in S_n} (a_g + -a_g) g = \sum_{g \in S_n} 0g = 0_n $
+Addition is Commutative: $A+ B = A + B$
+
+Right Distributive: $ A * (B +C) = (A*B) + (A*C)$
+PF: $\sum_{g\in S_n} a_g g * ( \sum_{h \in S_n} b_h h + \sum_{k \in S_n} c_k k) =\sum_{g\in S_n} a_g g * (\sum_{h \in S_n} (b_h + c_h) h ) = \sum_{g,h \in S_n} a_g(b_h + c_h) gh$ $= \sum_{g,h \in S_n} (a_g b_h + a_g c_h) gh = \sum_{g,h \in S_n} a_g b_h gh + \sum_{g,h \in S_n} a_g c_h gh
+= A*B + A*C$
+
+Left Distributive: $ (G+H)*F = (G*F) + (H*F)$
+PF: 
+
+Multiplicative Associativity (By Group Hom): $(A*B) *C = A* (B*C)$
+$ (\sum_{g\in S_n} a_g g * \sum_{h\in S_n} b_h h) * \sum_{k\in S_n} c_k k   = \sum_{g,h\in S_n} a_g b_h gh * \sum_{k\in S_n} c_k k = \sum_{g,h,k\in S_n} a_g b_h c_k ghk $
+$= \sum_{g,h\in S_n} a_g g * (\sum_{h,k\in S_n} b_h c_k hk) = \sum_{g\in S_n} a_g g * (\sum_{h\in S_n} b_h h * \sum_{k\in S_n} c_k k) =  A *(B*C)     $
+
+It also has a Multiplicative Identity: $ \exists I | \forall A \quad  I*A = A*I = A $
+Let $I := \sum_{g\in S_n} 1_{g=e} g $. So, $I * A = (\sum_{g\in S_n} 1_{g=e} g) * (\sum_{h\in S_n} a_h h) = \sum_{g,h\in S_n} 1_{g=e} a_h gh = \sum_{g\in S_n} 1_{e=e}a_h eh = \sum_{h\in S_n} a_h h = A$
+\end{construction}
+
+Note: We first worked with the group below because using a representation $(\rho, V(\mathbb{F}))$ would describe a particular ring $ \mathbb{R}[\rho(\mathcal{S}_n)] $. However, a representation affords us more flexibility. Namely, it satisfies all of the conditions of a ring, but it also provides us with multiplicative inverses (THIS ONLY HOLDS IF COEFFs ARE NON-NEG, ... ). Thus, in a representation we have Division Algebra.
+$A = \sum_{g\in S_n} a_g \rho_g $. 
+
+
+
+Claim: If $ H \leq S_n $ Then  $ \mathbb{F}[H] \leq  \mathbb{F}[S_n]  $
+PF:
+
+All of the below analogues for $g\in S_n$ and  $P_\infty[g]$ are easy.
+
+Note: $\forall n \in \mathbb{N} \quad  P_\infty[S_n] \leq \mathbb{F}[S_n]  $. This is a matter of definitions. For $ A \in P_\infty[S_n]$,  (WE ASSUME: $\sum |a_k|$ converges  so $\lim_m \sum_{k=0}^m |a_k| $ converges by defn of convergence). General Element in $P_\infty[S_n] $ is $A := \sum_{k=0}^\infty a_k \prod_{g \in S_n}  g^{b_{k,g}} $. But we know that $\prod_{g \in S_n}  g^{b_{k,g} }\in S_n $, so let us define $g_k := \prod_{g \in S_n}  g^{b_{k,g} } $. Which gives: $A = \sum_{k =0}^\infty a_k g_k = \sum_{g \in S_n} (\sum_{j \in J_h} a_j) h$, where $ J_h \subset \mathbb{N} | \forall j \in J_h \quad g_j = h $. And the convergence of $\sum_{j \in J_h} a_j $ follows from the assumption that $\sum_{k \in \mathbb{N}} a_k$ converges. Since, $\sum a_k $ converges absolutely, we know $\forall \sigma \in S_\mathbb{N} \: \sum_{k \in \mathbb{N} } a_{\sigma(k) } = \sum_{k} a_{k} $, hence $ 
+A = \sum_{h \in S_n} (\sum_{j \in J_h} a_j)h \in \mathbb{F}[S_n]  $ (Q: really ????).
+
+Claim: (true or not true?) Assuming $\sum a_k = a \neq 0$. $P_\infty[S_n]$ is a group
+PF:
+(ID) is I. because
+$ I *A  =  e*(\sum_{k} a_k h_k) = (\sum_{g \in S_n} 1_{g=e}e)*(\sum_{h \in S_n} a_h h) = \sum_{g,h \in S_n} (1_{g=e}a_h)gh = \sum_{h \in S_n} (1_{e=e}a_h)eh = \sum_{h \in S_n }a_h h = A$
+(Comp) is valid
+$A * B = (\sum_{m\in \mathbb{N}} a_k g_k) * (\sum_{k \in \mathbb{N}} b_k h_k) = (\sum_{g\in S_n} a_g g ) * (\sum_{h \in S_n } b_h h) = \sum_{g,h \in S_n} a_g b_h gh $
+(Inv) is well defined (assuming $a_k \neq 0$
+$ A^{-1} := (\sum_{k \in \mathbb{N}} a_k g_k)^{-1} = (\sum_{g\in S_n} a_g g)^{-1} = \sum_{g\in S_n} a_g^{-1} g^{-1}$
+So  $ A^{-1} * A = (\sum_{g \in S_n} a_g^{-1} g^{-1}) * (\sum_{h \in S_n} a_h h) = \sum_{g,h \in S_n} a_g a_h g^{-1} h = \sum_{\tau \in S_n} c_\tau \tau$ 
+..... I think we have to use an invariance property of sorts. 
+
+Note: can we/ should we let sums converge to anything? If so, don't we need closure, in which case working with F = C would solve our problems thanks to algebraic closure, or do we really only need to add limit pt at infty in R.
+
+Q: Do we get anything by defining multiplication of series point wise, where I is $\sum_{k\in \mathbb{N}} 1 e$ ? ... This is possible, point wise is in a sequence space is generally fine, but if we let the sum converge to anything, then we have very very small sums,This is like hyperbolic distance...
+
+Also: \(
+L^p(S_n) = \{ f:S_n \rightarrow V \mid \|f\|_p^p = \frac{1}{o(S_n)}\sum_{\tau \in S_n} |f(\tau)|^p \}
+\)
+
+\section{Probability Distributions}
+\subsection{What is a Distribution on Permutations?}
+Many models either implicitly or explicitly identify a distribution on a set of permutations. Paired Comparison Models do this by modelling pairs of objects and patching them all together. Thurstone Ordered Statistic models use normal random variables to assign probabilities to permutations ..... some more intro
+
+What is a distribution on Permutations? Anything that can assign a number to an element of the symmetric group, ie. any function $f$ of the form \(f:\mathcal{S}_n \rightarrow \mathbf{R}_+ \). So what kind of things do we want from such a function? Here are the literature's axioms. 
+% See Probability Models on Rankings by Critchlow, Flinger, Verducci
+
+Re: label invariance & reversibility....
+    don't these follow if you properly construct a model on the symmetric group?
+
+Re: strong unimodality
+    There are enough unimodal disrtibutions and models out there. Critchlow,Flinger,Verducci, dont give a reason this should be the case. I can construct useful, non-unimodal distributions.
+    
+complete concensus, and L-decomposability
+
+\subsection{Methods of Constructing Distributions}
+
+\section{Minimum, Constant, and Maximum Entropy of a Permutation }
+
+A Random Variable on the symmetric group:
+$ \pi $ ~ $ \varepsilon_p := \{\varepsilon_p(A_n) =p, \quad \varepsilon_p(\mathcal{S}_n / A_n) = 1-p \} $ where $A_n$ is the alternating group, and $\mathcal{S}_n / A_n$ denotes the quotient of the symmetric group by the alternating group
+
+
+\section{General Statistical Models}
+\subsection{A Model for a Data Set}
+Consider a set of data, \( \mathbf{X} := \{ x_i \}_{i=1}^N\)
+Let \(
+\Theta := \{ \theta \in \mathbf{R}_{\geq 0}^d \mid  \|\theta\|_1 = 1\} = \{x\in \mathbf{R}_{\geq 0}^d \mid \sum_{i=1}^d \theta_i = 1\} 
+\) 
+which defines the model, \(
+\mathcal{M}_\Theta = \{ P_\theta \mid \theta \in \Theta \}
+\)
+What is $P_\theta$ ? 
+
+% I should define haar measure first and then develop random variables as measurable maps.
+Well it could be a lot of things. We will present a couple of options and compare them. But first we make a key observation. 
+We could have $ \forall \pi \in \mathcal{S}_n \: P_\theta(\pi) = P_\theta(\pi^{-1}) $
+Or define some $c(\cdot):\mathcal{S}_n \rightarrow \mathbf{R} $ where $. c(\pi) = c(\pi^{-1}) $ so that $ \forall \pi \in \mathcal{S}_n \: P_\theta(\pi) + P_\theta(\pi^{-1})  = c( \pi ) $. More generally, $c(\cdot) $ would be considered a class function
+
+Suppose \( P_\theta(\pi) := \frac{1}{n!}\sum_{i=1}^n \theta_i\theta_{\pi(i)} = \frac{1}{n!}\theta^t P_\pi\theta \) 
+This would satisfy constant on conjugacy classes. ie. $ P_\theta(\pi) = P_\theta(\pi^{-1}) $
+
+\subsection{A Model for a Data Sequence}
+Suppose we are given a set of labels, L, and observe a sequence of N data points: $ (X_i \in S_L)_{i=1}^N$
+It doesn't matter whether we wish to think of $X_i$ as a matrix or a element in the group... all the same.
+
+(This is not a stochastic process. Measures in stochastic processes are invariant permutations. We are getting sequences of probability measures, none of which are invariant under $\pi \: \forall \pi \in S_L$. With the one exception being the uniform measure)
+
+Suppose we are interested in how we move forward in our index (this could be interpreted as time). So we are interested in how we get from $X_i$ to $X_{i+1}$. Now suppose there exists a function F that tells us how we do in fact move forward in time.
+Then F satisfies: $F X_i = X_{i+1} $. So we have $FX_i X_i^{-1} = X_{i+1}X_i^{-1} \implies FI = X_{i+1}X_i^{-1} \implies F = X_{i+1}X_i^{-1} $ 
+
+Suppose we are interested in how we move backward in our index (such as moving back in time). So we want to know how to get from $X_{i+1}$ to $X_i$. Now suppose there is a function B that tells us how to move backward in time:
+Then B satisfies: $BX_{i+1}= X_i$. So we have $BX_{i+1}X_{i+1}^{-1} = X_i X_{i+1}^{-1} \implies B I = X_i X_{i+1}^{-1} \implies  B = X_i X_{i+1}^{-1} $
+
+Recall: $ F = X_{i+1}X_{i}^{-1}$ and $B = X_{i}X_{i+1}^{-1}$. Observe the relation: $F^{-1} = (X_{i+1}X_{i}^{-1})^{-1} = X_{i}X_{i+1}^{-1} = B$. Which gives $F = B^{-1}$.
+
+Perhaps we are interested in the difference between backwards and forwards innovations, ie. the distribution, $F - B$. Which is the same as $F - F^{-1}$ and $B^{-1} - B$. The magnitude of the difference 
+
+
+\subsection{Empirical Distributions}
+
+\section{Families of Distributions}
+\subsection{General Exponential Models}
+\subsection{Hyperbolic Functions}
+Note: Using sinh and conh might lead to a more enlightening proof.f
+Also, the remaining identities for hyperbolic functions follow from these)
+$\sinh(\rho_\tau) := \frac{e^{\rho_\tau} - e^{-\rho_\tau}}{2} = \frac{e^{2\rho_\tau} - 1}{2e^\rho_\tau} = -\sinh(-\rho_\tau)$
+$\cosh(\rho_\tau) := \frac{e^{\rho_\tau} + e^{-\rho_\tau}}{2} = \frac{1+e^{-2\rho_\tau}}{2e^{-\rho_\tau}}= \cosh(-\rho_\tau)$
+
+Reminder: $e^{\rho_\tau}$ is an operator (which one may consider as a permutation with exponential density). If we let $A := e^{\rho_\tau} $ and $B:= e^{-\rho_\tau}$
+
+A text for asymmetry: tanh(x)
+
+Now we may have plenty of dynamical systems.
+
+Lets also take a second to recognize that we started we started with a very combinitorial view of permutations, but now we have some very transcendental functions which we may regard as operators in n dimensions. That's nice.
+
+\subsection{Computational Considerations}
+\subsection{The Infinite Dimensional Case????}
+
+\section{Random Graph Models}
+\subsection{Exponential Random Graph Models}
+\( \mathcal{M} := \{ p_\theta \mid \theta \in \Theta \} \)
+\( p_\theta(g) = \exp(\langle T(g),\theta \rangle - \psi(\theta))\) where \(\psi(\theta) := \sum_{g}\exp(\langle T(g),\theta \rangle)\)
+\( \mathcal{F}_{t_{obs}} := \{ g \mid T(g) = t_{obs} \} \)
+
+\subsection{General Problems}
+
+\paragraph{General Problem 1:} Fix a random graph model $\mathcal{M}$ with sufficient statistics $T$. Develop an efficient algorithm that samples from the space of graphs with arbitrary fixed value of $T(g) = t_{obs}$.
+
+\paragraph{General Problem 2:} Determine a set of moves sufficient to connect the space of graphs, consisting of both directed and bi-directed (reciprocated)
+edges, with a given directed degree sequence and number of reciprocated edges.
+
+\paragraph{General Problem 3:} Determine a set of moves sufficient to connect the space of hypergraphs, uniform, layered or general, with a given degree sequence.
+
+\subsection{General Solutions}
+\paragraph{Solution for Degree Sequence Graphs}
+The sufficient statistic is the degree sequence $\bar{d}$. Given an adjacency matrix A, $\bar{d} = A \mathbf{1}$ where $\mathbf{1}$ is the all ones vector. We will return to this shortly.
+
+Procedure to generate a degree sequence graph (directed case, for $x \in E, N(x) = \{y \mid (x,y) \in E\}$, the number outgoing edges, and $\deg(x) := |N(x)|$).
+Sort $\bar{d}$ in decreasing order, so \( d_1 \geq d_2 \geq \dots \geq d_n \)
+
+Procedure to generate a degree sequence graph (Undirected edges)
+Alternating Group
+
+The fiber is
+\( \mathcal{F}_{t_{obs}} := \{ g \mid T(g) = t_{obs} \} \)
+
+
+\section{All of the defns}
+
+\subsection{Symmetric Group}
+\begin{definition}[Symmetric Group] The Symmetric Group is denoted $S_X$, and satisfies the following:
+\begin{itemize}
+\item \( \forall a,b \in \mathcal{S}_X  a \circ b \in \mathcal{S}_X \)
+\item \( \exists e \in \mathcal{S}_X s.t. \forall a \in \mathcal{S}_X a \circ e = e \circ a = a\)
+\item \( \forall a \in \mathcal{S}_X \exists b \in \mathcal{S}_X \: \text{s.t.} \: a \circ b = b \circ a = e\)
+\end{itemize}
+\end{definition}
+
+\subsection{Graphs}
+A graph, $G$, is a pair $G=(V,E)$, where $V$ is a set of vertices (sometimes called nodes) and $E$ is set of edges. The set of neighbors of a node $v \in V$ is $ \text{Nbrs}(v) := \{u \in V \mid (v,u) \in E\}$, and the degree of v is $\deg(v) := |\text{Nbrs}(v) |$. 
+
+We require 2 conditions for $G=(V,E)$ to be considered a graph:
+\begin{itemize}
+\item[Gh1] No self loops: $E \subseteq V \times V \setminus \{(v,v) \mid v \in V\}$
+\item[Gh2] Outgoing edge: $ \text{Nbrs}(v) \neq \emptyset $
+\end{itemize}
+If $G$ also satisfies (Gh3), then $G$ may be called a bi-directed graph.
+\begin{itemize}
+\item[Gh3] $(a,b) \in E \implies (b,a) \in E$
+\end{itemize}
+
+Some disclaimers:
+The set of bi-directed graphs is a strict subset of the set of all graphs. 
+
+ISSUE: V is a set, so no elements of V occur with multiplicity, which implies E has no multiplicities. This is not a problem until we construct graphs where multiple edges from v to u may occur, thought the larger the gragh we have the less probabale this is.
+
+\end{document}
