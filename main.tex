@@ -26,15 +26,19 @@ We present an empirical method for analyzing ordered in order to test for nation
 We show this method can be applied in other settings, particularly for random graphs.
 
 To state what we are setting out to do in its full generality simply:
+
 - We are interested in a (finite) set of things, $E = \{e_1, e_2, \dots, e_n \} $
+	
 		- the number of things we are interested in is $|E| = n$
+
 - We observe some data, $D = (d_i)_i^N$
 		- each data point provides some information about a subset $ \{ e_a \: e_b \: \dots e_c \} \subseteq E$.
 		- The number of things we observe are $|\{ e_a \: e_b \: \dots e_c \} |$ = k
         - We can observe
-        		- a full ordering, for example $ [e_c \:  e_a \dots e_b] $
-				- or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
-                - or no ordering at all.
+        	- a full ordering, for example $ [e_c \:  e_a \dots e_b] $
+			- or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
+            - or no ordering at all.
+            
 - We wish to assign $\mathbb{P}( Something |D)$
 
 \end{abstract}
@@ -100,73 +104,67 @@ Metric Methods by Flinger and Verducci
 
 \section{Construction}
 \subsection{Motivation}
-Our goal in constructing method is to determine if judges have a tendency to give higher scores to surfers from their home countries compared to judges with nationalities different from the surfer. To achieve this we identify empirical distributions of orderings of judges and test if this distribution is significantly different from a uniform distribution.
+Our goal is to determine if judges have a tendency to give higher scores to surfers from their home country when compared to judges with a different home country.
 
-We are chiefly concerned with the ordering of judges which we analyze by "match" and by country. A "matching" judge is one that has the same nationality as the surfer being scored. A non-matching judge is a judge with a different nationality than the surfer being scored. 
+For any given ride, there is one surfer. The surfer has a nationality. Each judge on the panel has a nationality. So we can identify two subsets of the panel:
 
+Matching Judges = {judge on Panel | judge nationality = surfer nationality }
+Non-Matching Judges = {judge on Panel | judge nationality != surfer nationality}
 
-To analyze the orderings of judges "by match", it suffices to study orderings of $M :=\{$Match, Non-Match$\}$. 
+A judge in Matching Judges is called a match. A judge in Non-Matching Judges is called a non-match. This may seem to be a fairly straightforward statistical problem where testing for differences in means or rank tests may be applied. (These come with some dissatifactions though: wave scores are certainly not determined by parametric distributions of judge countries (they are functions of wave quality and surfer performance), we can only carry out rank tests on an individual wave because that is the only level at which scores are I.I.D, going up to heat level ie. multiple waves gives lots of variability from wave to wave and iid assumptions would be ridiculous.)
+
+(In a way) we can answer our question by labelling each judge on the panel for a wave using $M :=\{$Match, Non-Match$\}$, and analyzing the frequencies of arrangements of M: [Match, Non-Match], [Non-Match, Match].
+
+However, in analyzing our data from the "Match or Non-match" standpoint we have made the overarching assumption that the  surfer's country is immaterial, which is particularly concerning because it is the single factor determining if a judge is a match or non-match. And in this viewpoint "surfer A is from Brazil and Judge 3 is from Brazil " vs. "surfer B is from Australia and Judge 2 is from Australia". Precisely, the assumption is that, nationality bias is uniform over all of the countries. 
 
 To analyze the orders of judges by nationality, it suffices to analyze the orderings of the set $C := \{AUS, BRA, FRA, \dots, ZAF\}$, which is the set of all nationalities of judges who scored any wave from 2017 to 2019.
 
-\section{Symmetric Group}
+In 2019 WCT, event      , round     , heat   , wave    . The surfer is     . The panel is composed of 5 judges with nationalities {  ,  ,  ,  ,  }. For this wave the matching judges are { , }, and the non-matching judges are { , , }.
 
-\begin{definition} The 
+In order to carry out these analyses with rigor, we must construct some methods for permutations.
 
+\subsection{Symmetric Group}
+\begin{definition}[The Symmetric Group on a set, $X$,] is $S_X := Isomorphisms(X,X)$. When $|X|<\infty$, $S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} $
+\end{definition}
+\begin{definition} $S_n := S_{\{ 1 ,\dots, n\}}. $\end{definition}
+
+\subsection{Probability on The Symmetric Group}
+
+\begin{definition} A measure on $S_n$, is an element of the group algebra $\mathbb{C}[S_n]$.\end{definition}
+\begin{remark} $\mathbb{C}[S_n]$ is comprised on formal linear combinations of elements of $S_n$. This may be understood as two different ways:
+\item There exists a function $ f:S_n \rightarrow \mathbb{C}$ and $F =  \sum_{\tau} f(\tau) \tau \quad \in \mathbb{C}[S_n]$.
+\item $ F = \begin{bmatrix} \pi_1 \dots \pi_{n!} \end{bmatrix}\begin{bmatrix}  f_{\pi_1} \\ \vdots \\ f_{\pi_{n!} }\end{bmatrix} = \sum_{\tau} f_\tau \tau \in \mathbb{C}[S_n]$
+\end{remark}
+
+\begin{definition} Multiplication on $\mathbb{C}[S_n]$ is defined by $A*B = (\sum_{\tau} a_\tau \tau)*(\sum_{\pi} b_\pi \pi) = \sum_{\tau} \sum_{\pi} a_\tau b_\pi \tau \pi $ \end{definition}
+\begin{definition} Addition on $\mathbb{C}[S_n]$ is definition by $A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\pi b_\pi \pi) = \sum_\tau a_\tau b_\tau \tau$ \end{definition}
+\begin{definition} A measure on $S_n$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_n$ if and only if $\forall \tau \in S_n f_\tau \geq 0 $ and $\sum_{\tau \in S_n} f_\tau = 1 $
 \end{definition}
 
-\section{Probability on The Symmetric Group}
-
-Probability on the symmetric group of a finite set doesn't require as much legwork as typical probability because we are interested in the probability of n! outcomes.  Instead of constructing probability measures in the formal terminology:
-
-\begin{definition}  A measure on $S_{\{1,\dots,n\}}$, is an element of the group algebra $\mathbb{C}[S_n]$. \end{definition}
-\begin{definition} A probability measure on $S_n$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_n$ if and only if $\sum_{\tau \in S_n} f_\tau = 1$ \end{definition}
-
-\begin{definition} A linear or "faithful" representation of a group G, is the ordered pair $(\rho, V)$, $\rho: G \rightarrow GL(V)$ satisfying:
-\(\forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y) \) where $\cdot $ is multiplication in $GL(V)$.
-\( \rho(e) = I \), where e is the identity element in $G$ and I is the identity element in $ GL(V) $.
-\( \forall x \in G, \rho(x^{-1}) = \rho(x)^*, \text{ where * denotes involution in GL(V)} \).
+\begin{definition} A linear representation of a group G, is a group homomorphism, $\rho : (G,\circ) \rightarrow (GL(V),\cdot)$. A group homomorphism satisfies:
+\item \(\forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y) \) where $\cdot $ is multiplication in $GL(V)$.
+\item \( \rho(e) = I \), where e is the identity element in $G$ and I is the identity element in $ GL(V) $.
+\item \( \forall x \in G, \rho(x^{-1}) = \rho(x)^*, \text{ where * denotes involution in GL(V)} \).
 \end{definition}
-Note: This amounts to saying that $\rho$ is a group hom from $(G, \circ)$ to $GL(V)$
 
 \begin{definition}The representation of a measure F, is: $ \hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau) $. \end{definition}
-Note: This is sometimes called the Fourier transform at a representation, I avoid that 
+Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. 
 
-Let $ H := S_n / ^{-1}$ 
-$ h in H \iff \forall x,y \in h x*y = |
-associativity	(a+b)+c=a+(b+c)
-(ab)c=a(bc)
-commutativity	a+b=b+a	
-ab=ba
-distributivity	a(b+c)=ab+ac	
-(a+b)c=ac+bc
-identity	a+0=a=0+a	
-a·1=a=1·a
-inverses	a+(-a)=0=(-a)+a	
-aa^(-1)=1=a^(-1)a if a!=0
-
-
-
-
-
-
-
-
-
-
-
-\begin{definition}(Convolution of two functions on a group G) is a binary operation $ (A * B)(g) = \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g) $. equivalently:
+\begin{definition}(Convolution of two functions on $S_n$) is a binary operation $ A * B := \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g) $. equivalently:
 \end{definition}
 
 Note: $ \widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma) 
 = \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma ) $
 
-We take $\rho_M $ the permutation representation acting on the vector space $V := \mathbb{R}^n$ with basis indexed by OneTon $ := \{1, \dots n\} $. So a typical element of V is of the form: $ \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix}$ which could be rewritten as $\sum_{i \in \text{OneTon} } a_i e_i$. But remember, we are interested in functions that act on the basis. Our interest is specifically permutations of elements of OneTon, denoted $S_n $
+We take $\rho_n $ the permutation representation acting on the vector space $V := \mathbb{R}^n$ with basis indexed by $ \{1, \dots n\} $. So a typical element of V is of the form: 
+\[ \begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} = a^1 e_1 + a^2 e_2 + \dots a^n e_n \]
+which could be rewritten as $\sum_{i \in \{1,\dots,n\} } a^i e_i$. But remember, we are interested in functions that act on the basis.
 
-Example : $V_{C} = [ e_{\text{AUS}} \: e_{\text{BRA}} \: \dots \: e_{\text{ZAF}} ]$
-For example: $V_{M} = [ e_{\text{Match}} \: e_{\text{Non-Match}} ]$
+For Example: $V_{M} := [ e_{\text{Match}} \: e_{\text{Non-Match}} ]$
 
-$U(\cdot)$ is the uniform measure $ U: 2^{S_n} \rightarrow \mathbb{R} $ , where $ U(A) := \frac{ |A| }{n!}$, so we have $U(S_n) = 1$ and for every $\tau \in S_n \: o(\tau) = \frac{1}{n!}$. (For the advanced reader, consider how to approach $ S_\mathbb{N}$ throughout the paper.).
+For Example  : $V_{C} = [ e_{\text{AUS}} \: e_{\text{BRA}} \: \dots \: e_{\text{ZAF}} ]$
+
+
 
 
 Note: for any $A \in 2^{S_n} $, P(A) is not a number. P(A) is a set, namely the image of P when restricted to A. 
@@ -177,6 +175,8 @@ Point Mass at $\gamma$: $ P_\gamma(\tau) = 1 $ if $\tau = \gamma$ else 0
 ( MGF is $\exp(\hat{P}_\gamma)$ )
 
 See other section.... I don't know why they are detached FIX!
+
+
 
 Though this may seem a bit bland, consider how elements of a group may be constructed from a set of generators. Suppose $S_n$ is generated by the set K, ie. $S_n = < K > = <k_1, \dots, k_p >$. So we could construct a probability distribution defined by
 
@@ -393,20 +393,71 @@ Now we may have plenty of dynamical systems.
 Lets also take a second to recognize that we started we started with a very combinitorial view of permutations, but now we have some very transcendental functions which we may regard as operators in n dimensions. That's nice.
 
 \subsection{Computational Considerations}
-\subsection{The Infinite Dimensional Case????}
 
 \section{Random Graph Models}
+\begin{definition}[ A graph, $G$, is a pair $G=(V,E)$ ], where $V$ is a set of vertices (sometimes called nodes) and $E$ is set of edges satisfying:
+\item $E \subseteq V \times V $
+\item At least one outgoing edge: $ \{ u \mid (v,u) \in E\} \neq \emptyset $
+\item At least one incoming edge: $ \{ u \mid (u,v) \in E\} \neq \emptyset $
+\end{definition}
+
+(Note: this is equivalent to $ \neg \exists W \subsetneq V s.t. E \subseteq W\times V  or E \subseteq V\times W $.)
+
+\begin{remark} The above definition is quite succinct. But please note that E is a set, and $E \subseteq V \times V$ means that an edge does not occur with multiplicity. The second condition requires that the adjacency matrix of a graph has a 1 in every row. The third condition requires that the adjacency matrix of a graph has a 1 in every column. These are no preposterous assumptions, and they certainly permit for self loops.
+\end{remark}
+
+\begin{definition}[A bi-directed graph is a graph (V,E)] where $(a,b) \in E \iff (b,a) \in E$ \end{definition}
+
+
+
+
+
+
+
 \subsection{Exponential Random Graph Models}
 \( \mathcal{M} := \{ p_\theta \mid \theta \in \Theta \} \)
 \( p_\theta(g) = \exp(\langle T(g),\theta \rangle - \psi(\theta))\) where \(\psi(\theta) := \sum_{g}\exp(\langle T(g),\theta \rangle)\)
 \( \mathcal{F}_{t_{obs}} := \{ g \mid T(g) = t_{obs} \} \)
 
+\subsection{Beta-Model MLE}
+We consider the set of graphs on n vertices, $ G  := \{ g=(\{1,\dots,n\},E) \mid \text{g is a graph} \}$.
+$A_g $ will denote the adjacency matrix of the graph g ( $A_g := (a_{i,j}) $ where $a_{i,j} = 1$ if $(i,j) \in E$ else 0).
+
+An exponential random graph model is defined by a collection of probability measures, $ \mathcal{M} := \{P_\beta \mid \beta \in \Theta \} $, where:
+\begin{itemize}
+\item $\Theta := \{\beta \in \mathbb{R}^n \mid \|\beta \|_2  = 1 \}$
+\item $ P_\beta(g) := \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) $
+\item $ \psi(\beta) := \sum_{g \in G} \exp( \langle \beta, T(g) \rangle )$
+\item $T(g) = \begin{bmatrix}\deg(1) \\ \vdots \\ \deg(n) \end{bmatrix}$
+\end{itemize}
+
+$\bf{1}$ is the all ones vector. K is the $n\times n$ matrix of ones, ie. the adjacency for the complete graph on V.
+
+First, $\psi(\beta)$ is solely determined by one's definition of the set of all graphs.
+\( 
+\psi(\beta) := \sum_{g \in G} \exp( \langle \beta, T(g) \rangle) 
+= \sum_{g \in G} \exp( \beta^t A_g 1 ) 
+= \sum_{g \in G} \exp(  (\beta^t I) A_g (I 1) )
+= \sum_{g \in G} (\beta^t I)\exp(A_g) (I 1)
+= (\beta^t I) \sum_{g \in G} \exp(A_g)  (I 1)
+\)
+ Letting $Q := \sum_{g \in G} \exp(A_g) $, we have $(\beta^t I) Q (I 1) $ . Note that Q is finite by $|G|$ finite and $K - A_g \geq 0 $, so $Q\leq |G|\exp(K)$. Moreover, Q is a constant matrix because we may symmetrize any $A_g$. In which case, $Q = qK$ for some $q \in \mathbb{R}$. So $ \beta^t I Q I 1 =  \beta^t Q 1  = \beta^t (q K) 1 = q \beta^t K 1 = q \beta^t K 1 = q \beta^t n1 = qn \|\beta\|_1 = qn$
+
+\( P_\beta(g) := \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle) \exp( - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle) \exp( - qn ) 
+\)
+Let $\hat{P}_\beta(g) := \frac{P_\beta(g)}{exp(-qn)} = \exp( \langle \beta, T(g) \rangle) = \exp(\beta^t A_g 1) = \exp(\beta^t I A_g I 1) = \beta^t I \exp(A_g ) I 1  $
+
+Data is $(g_i)_i^N$.
+MLE is: $L_\beta = \prod_{i=1}^N \hat{P}_\beta(g_i) = \prod_{i=1}^N\exp(A_g ) I 1 = $
+
 \subsection{General Problems}
 
 \paragraph{General Problem 1:} Fix a random graph model $\mathcal{M}$ with sufficient statistics $T$. Develop an efficient algorithm that samples from the space of graphs with arbitrary fixed value of $T(g) = t_{obs}$.
 
-\paragraph{General Problem 2:} Determine a set of moves sufficient to connect the space of graphs, consisting of both directed and bi-directed (reciprocated)
-edges, with a given directed degree sequence and number of reciprocated edges.
+\paragraph{General Problem 2:} Determine a set of moves sufficient to connect the space of graphs, consisting of both directed and bi-directed (reciprocated) edges, with a given directed degree sequence and number of reciprocated edges.
 
 \paragraph{General Problem 3:} Determine a set of moves sufficient to connect the space of hypergraphs, uniform, layered or general, with a given degree sequence.
 
@@ -436,18 +487,6 @@ The fiber is
 \end{definition}
 
 \subsection{Graphs}
-A graph, $G$, is a pair $G=(V,E)$, where $V$ is a set of vertices (sometimes called nodes) and $E$ is set of edges. The set of neighbors of a node $v \in V$ is $ \text{Nbrs}(v) := \{u \in V \mid (v,u) \in E\}$, and the degree of v is $\deg(v) := |\text{Nbrs}(v) |$. 
-
-We require 2 conditions for $G=(V,E)$ to be considered a graph:
-\begin{itemize}
-\item[Gh1] No self loops: $E \subseteq V \times V \setminus \{(v,v) \mid v \in V\}$
-\item[Gh2] Outgoing edge: $ \text{Nbrs}(v) \neq \emptyset $
-\end{itemize}
-If $G$ also satisfies (Gh3), then $G$ may be called a bi-directed graph.
-\begin{itemize}
-\item[Gh3] $(a,b) \in E \implies (b,a) \in E$
-\end{itemize}
-
 Some disclaimers:
 The set of bi-directed graphs is a strict subset of the set of all graphs. 
 
