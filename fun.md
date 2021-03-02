@@ -38,21 +38,29 @@ Discrete:
 | rnd      | {0,1,2,3,4,5,6,7}                                                                                                             | 1   |
 | heat     | {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}                                                                                      | 16  |
 | athOrig  | {AUS, BRA, FRA, IDN, ITA, JPN, NZL, PRT,USA,ZAF}                                                                              | 10  |
+| I_match  | {1,0}                                                                                                                         | 2   |
 
 Note: Questions:
 
-heat variable as categorical —\> dim=16   vs.  heat as ordinal/cts —\> dim=1 ?
+-   heat variable as categorical —\> dim=16 vs. heat as ordinal/cts —\> dim=1 ?
 
-rnd variable is ordinal, so dim should be 1, right?
+-   rnd variable is ordinal, so dim should be 1, right?
+
+    -   values are very much not independent
+
+-   I_match := 1 if athOrig in panelOrigs, else 0
+
+    -   Do we need a panelOrigs variable?
 
  
 
-Continuous:
+Cts or Integer-Valued:
 
 | Feature       | Range of Feature | dim |
 |---------------|------------------|-----|
 | currentPoints | [0, 57855]       | 1   |
 | endingPoints  | [265, 62490]     | 1   |
+| waveInHt      | [3,42]           | 1   |
 | actualSco     | [0, 10]          | 1   |
 
 Note 1: I should pick a more indicative name than “actualSco”, perhaps “wslSco”.
@@ -68,7 +76,12 @@ less subjectivity, but also simply less variance (is this truncation?) ).
 
  
 
-In conclusion we need array with dims = (3,7,11,11,16,10,1,1,1)
+ 
+
+dims are: (evtYear, evtOrig, evtName, rnd, heat, athOrig, I_match, waveInHt,
+actualSco)
+
+In conclusion we need tensor with dims = (3,7,11,1,16,10,2,1,1)
 
  
 

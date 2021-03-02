@@ -1,6 +1,6 @@
-include("SymGrpAndReps.jl")
-
 using JSON: parse
+
+include("SymGrpAndReps.jl")
 
 isoDict = Dict([
     "Australia" => :AUS,
@@ -24,7 +24,7 @@ ISOs = sort(unique(collect(values(isoDict))))
 #Index = Dict([ var => Dict() for var in [ ] ])
 #Ind["evtYear"]
 
-data = parse(open("../Data/CleanAllDataCC.txt", "r"))
+data = parse( open("../Data/CleanAllDataCC.txt", "r"))
 
 waves = []
 for wid in keys(data)
@@ -68,7 +68,6 @@ for wid in keys(data)
             panelOrigs= Set(map(x->isoDict[x], data[wid]["subScoOrig"])),
             I_match = matchIndicator
         )
-
         push!(waves, wave)
     end
 end
