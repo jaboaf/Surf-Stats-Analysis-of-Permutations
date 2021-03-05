@@ -31,3 +31,7 @@ end
 function isordered(X::Array{Array{T,1},1}) where T <: Number
     return all( isordered.(Base.product(X...) ))
 end
+
+
+
+

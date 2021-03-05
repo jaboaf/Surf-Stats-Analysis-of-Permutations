@@ -37,7 +37,7 @@ for wid in keys(data)
 
         origScoPairs = zip(data[wid]["subScoOrig"], data[wid]["subSco"])
         for p in origScoPairs
-            # PsuedoCode: push!( array of judge scores from country p[1], score=p[2] )
+            # Psuedo: push!( array of judge scores from country p[1], score=p[2] )
             push!(labeledScos[ isoDict[p[1]] ], p[2])
             if p[1] == data[wid]["athOrig"]
                 push!(labeledScosBinary[:Match], p[2])

@@ -64,7 +64,7 @@ function RepSym(n::Integer)
 end
 
 function Rep(t::Array)
-    M = zeros(Bool, length(t),length(t))
+    M = falses(length(t),length(t))
     for i in 1:length(t)
         M[ t[i] , i ] = 1
     end
@@ -83,7 +83,7 @@ function Rep(t::Array, Res::Array)
     return M
 end
 
-function Rep(t::Array, Ind::Array)
+function Rep(t::Array{Int8,1}, Ind::Array)
     if !(issubset(t, Ind))
         error("The image of the perm t is not contained in the Induced space")
     end
@@ -93,3 +93,44 @@ function Rep(t::Array, Ind::Array)
     end
     return M
 end
+
+function sgn(a::Array{Int8,1})
+    d = length(a)
+    return prod([ sign(a[j] - a[i]) for i in 1:d for j in i+1:d ])
+end
+
+function sgn(M::BitArray{2})
+    d = size(M,1)
+    negs = 0
+    for i in 1:d
+        ti = findfirst( M[:,i] )
+        negs += sum( M[ 1:(ti-1) , (i+1):d ] )
+    end
+    return negs%2 == 0 ? 1 : -1
+end
+
+function SymOp( M::Array{ <:Number, d}) where d
+    return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
+end
+
+function SymOp( M::BitArray{d}) where d
+    return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
+end
+
+function AltOp( M::Array{ <:Number, d}) where d
+    return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
+end
+
+function AltOp( M::BitArray{d}) where d
+    return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
+end
+
+
+
+
+
+
+
+
+
+
