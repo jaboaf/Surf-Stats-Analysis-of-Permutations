@@ -109,18 +109,22 @@ function sgn(M::BitArray{2})
     return negs%2 == 0 ? 1 : -1
 end
 
+# Symmetrization operations
+# for a permutation
 function SymOp( M::Array{ <:Number, d}) where d
     return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
-
+# for a d-dimensional array
 function SymOp( M::BitArray{d}) where d
     return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
 
+# Alternating operations
+# for a permutation
 function AltOp( M::Array{ <:Number, d}) where d
     return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
-
+# for a d-dimensional array
 function AltOp( M::BitArray{d}) where d
     return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end

@@ -30,15 +30,15 @@ Our Predictors/Regressors/Features are:
 
 Discrete:
 
-| Feature  | Range of Feature                                                                                                              | dim |
-|----------|-------------------------------------------------------------------------------------------------------------------------------|-----|
-| evtYears | {2017, 2018, 2019}                                                                                                            | 3   |
-| evtOrig  | {AUS, BRA, FRA, IDN, PRT, USA, ZAF}                                                                                           | 7   |
-| evtName  | {Bali Pro, Bells Beach, France, Gold Coast, J-Bay Open, Margaret River, Peniche Pro, Pipe Masters, Rio Pro, Tahiti, Trestles} | 11  |
-| rnd      | {0,1,2,3,4,5,6,7}                                                                                                             | 1   |
-| heat     | {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}                                                                                      | 16  |
-| athOrig  | {AUS, BRA, FRA, IDN, ITA, JPN, NZL, PRT,USA,ZAF}                                                                              | 10  |
-| I_match  | {1,0}                                                                                                                         | 2   |
+| Feature  | Range of Feature                                                                                                              | dim | Notes                               |
+|----------|-------------------------------------------------------------------------------------------------------------------------------|-----|-------------------------------------|
+| evtYears | {2017, 2018, 2019}                                                                                                            | 3   |                                     |
+| evtOrig  | {AUS, BRA, FRA, IDN, PRT, USA, ZAF}                                                                                           | 7   |                                     |
+| evtName  | {Bali Pro, Bells Beach, France, Gold Coast, J-Bay Open, Margaret River, Peniche Pro, Pipe Masters, Rio Pro, Tahiti, Trestles} | 11  |                                     |
+| rnd      | {1,2,3,4,5,6,7,8}                                                                                                             | 8   | 1 is final, everything else follows |
+| heat     | {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}                                                                                      | 16  |                                     |
+| athOrig  | {AUS, BRA, FRA, IDN, ITA, JPN, NZL, PRT,USA,ZAF}                                                                              | 10  |                                     |
+| I_match  | {1,2}                                                                                                                         | 2   | 1 if athOrig in PanelOrigs, else 2  |
 
 Note: Questions:
 

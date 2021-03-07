@@ -1,4 +1,5 @@
 t = [2,1,1,2,4,1,2,1]
+
 function graphFromDeg(T::Array)
     G = Array[]
     t = sort(copy(T), rev=true)

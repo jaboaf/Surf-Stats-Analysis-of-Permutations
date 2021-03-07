@@ -71,9 +71,3 @@ for wid in keys(data)
         push!(waves, wave)
     end
 end
-
-AthIds = sort(unique(map(x-> x.athId, waves)))
-EvtIds = sort(unique(map(x-> x.evtId, waves)))
-RndIds = sort(unique(map(x-> x.rndId, waves)))
-HeatIds = sort(unique(map(x-> x.heatId, waves)))
-WaveIds = sort(map(x-> x.id, waves))
