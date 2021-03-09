@@ -1,32 +1,60 @@
-(Bayesian?) Statistics with the Symmetric Group
-===============================================
+Statistics Using The Symmetric Group
+====================================
 
  
 
-We are interested in a finite set of things:
+We have some data from WSL Surfing Competitions.
 
-General Case: N = {1,2,…,n-1,n}
+The data is comprised of waves
 
-Binary Example: M = {Match, Non-Match}
+ 
 
-Real-World Example: C = {AUS, BRA, ESP, FJI, FRA, IDN, ITA, JPN, NZL, PRT, USA,
+ 
+
+ 
+
+ 
+
+We are interested in some finite sets:
+
+Binary Example: B = {Match, Non-Match} = { M, \\neg M }
+
+Country Example: C = {AUS, BRA, ESP, FJI, FRA, IDN, ITA, JPN, NZL, PRT, USA,
 ZAF}
+
+General Case: Dimensional = D = { 1, 2, … , d-1, d}
 
  
 
 Number of things we are interested in:
 
-\|N\| = n
+Binary Example: \|B\| = 2
 
-\|M\| = 2
+Country Example: \|C\| = 12
 
-\|C\| = 12
+General Case: \|D\| = d
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
 
  
 
 Our Predictors/Regressors/Features are:
-
- 
 
 Discrete:
 
