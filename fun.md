@@ -3,15 +3,106 @@ Statistics Using The Symmetric Group
 
  
 
-We have some data from WSL Surfing Competitions.
+ 
 
-The data is comprised of waves
+Data
+----
+
+We have some data from WSL Surfing Competitions comprised of 21,615 waves surfed
+in the 2017, 2018, and 2019 World Surf League Championship Tour.
 
  
 
- 
+The rules of the World Surf League Championship Tour were modified between each
+season. The 2019 rules are as follows:
+
+Chapter 1 Article 3.01: "CT events are limited to 13 per year and a limited
+number of events in any one country as decided by the Office of Tours and
+Competition. For this purpose Tahiti, Reunion, Hawaii, and other places as
+determined by the Office of Tours and Competiion are classified as countries."
+
+Chapter 1 Article 7.01: Mens CT events, consist of 36 surfers, in the following
+format:
+
+-   Round 1 has 12 Heats of 3 Surfers where
+
+    -   1st & 2nd Place —\> Round 3
+
+    -   3rd Place —\> Round 2
+
+-   Round 2 has 4 Heats of 3 Surfers where
+
+    -   1st & 2nd Place of each heat —\> Round 3
+
+    -   3rd Place —\> exit
+
+-   Round 3 has 16 Heats of 2 Surfers
+
+    -   1st Place —\> Round 4
+
+    -   2nd Place —\> exit
+
+-   Round 4 has 8 heats of 2 surfers where
+
+    -   1st Place —\> Quarter Finals
+
+    -   2nd Place —\> exit
+
+-   Quarter Finals has 4 heats of 2 Surfers where
+
+    -   1st place —\> Semi Finals
+
+    -   2nd place —\> exit
+
+-   Semi Finals has 2 Heats of 2 Surfers where
+
+    -   1st place —\> Final
+
+    -   2nd place —\> exit
+
+-   Final has 1 Heat of 2 Surfers where
+
+    -   1st place —\> Final
 
  
+
+Chapter 13 Article 179: Judging Panel Composition
+
+179.01 For mens CT events, there will be 1 International Head Judge, 7
+International Judges, and 1 International Priority Judge.
+
+179.13 The WSL Head Judge is responsible for assuring that a minimum of 5 judges
+sit on the panel for every heat of all CT Events. These 5 judges must be subset
+of the 7 International Judges and the 1 WSL Head Judge.
+
+179.17 "At CT Events, the number of Judges from any one Regional area is limited
+to 3"
+
+ 
+
+Chapter 13 Article 182 Judges analyze major elements:
+
+-   Commitment and degree of difficulty
+
+-   Innovative and progressive maneuvers
+
+-   Combination of major maneuvers
+
+-   Variety of maneuvers
+
+-   Speed, power, and flow
+
+Note that elements may be emphasized depending on the location, conditions, and
+changes of conditions.
+
+ 
+
+Chapter 13 Article 183: General Judging Rules
+
+183.01 "Judges should be visually separated." "Judges should not discuss scores
+or interference calls"
+
+183.02 "Judges may not change their scores or interference calls"
 
  
 
@@ -32,21 +123,7 @@ Binary Example: \|B\| = 2
 
 Country Example: \|C\| = 12
 
-General Case: \|D\| = d
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
+General Case: \|D\| =
 
  
 
