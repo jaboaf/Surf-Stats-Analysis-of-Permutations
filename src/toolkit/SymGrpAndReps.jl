@@ -1,8 +1,28 @@
-function Sym(A::Union{Set,Array})
+function Sym(A::Array)
+    unique!(A)
     if length(A) >= 14
         error("Slow down... be careful, n >= 14, and |S_n| = $(factorial(big(length(A)))) ")
     end
-    unique!(A)
+    Perms = Array{eltype(A),1}[]
+    function continuePerm(head,tail)
+        if length(tail) > 0
+            for t in tail
+                newHead = union(head, [t])
+                newTail = setdiff(tail, [t])
+                continuePerm(newHead, newTail)
+            end
+        else
+            push!(Perms, head)
+        end
+    end
+    continuePerm(eltype(A)[], A)
+    return Perms
+end
+
+function Sym(A::Set)
+    if length(A) >= 14
+        error("Slow down... be careful, n >= 14, and |S_n| = $(factorial(big(length(A)))) ")
+    end
     Perms = Array{eltype(A),1}[]
     function continuePerm(head,tail)
         if length(tail) > 0
