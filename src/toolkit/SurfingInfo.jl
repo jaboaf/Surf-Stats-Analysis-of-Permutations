@@ -24,10 +24,11 @@ ISOs = sort(unique(collect(values(isoDict))))
 #Index = Dict([ var => Dict() for var in [ ] ])
 #Ind["evtYear"]
 
-data = parse( open("../Data/CleanAllDataCC.txt", "r"))
+data = parse( open("../../Data/CleanAllDataCC.txt", "r"))
 
 waves = []
-for wid in keys(data)
+WaveIds = []
+for wid in sort(collect(keys(data)))
     if data[wid]["nJudOrigs"] == 5 & data[wid]["nSubScos"] == 5
         origs = unique(data[wid]["subScoOrig"])
         matchIndicator = (data[wid]["athOrig"] in origs)
@@ -69,5 +70,6 @@ for wid in keys(data)
             I_match = matchIndicator
         )
         push!(waves, wave)
+        push!(WaveIds, wid)
     end
 end

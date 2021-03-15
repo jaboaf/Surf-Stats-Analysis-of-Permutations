@@ -2,7 +2,7 @@ import Base: one,inv,*,^,==
 include("SymGrpAndReps.jl")
 
 struct Perm{T}
-	A::Vector{T}
+	A::Array{T,1}
 end
 
 # Making perms into functors
@@ -35,12 +35,12 @@ Base.:*(A::Array{Perm}, B::Array{Perm}) = [ *(z...) for z in Base.product(A,B) ]
 Base.:*(X::Array{Perm}...) = [ *(x...) for x in Base.product(X...)]
 
 
-SymGroup(S::Set) = Set( (Perm(t)) for t in Sym(S::Set) )
+SymGroup(S::Set) = [ (Perm(t)) for t in Sym(S::Set) ]
 
 # Conceptually I dont like these. SymGroup() is not 
 # Note: Sym calls unique!() on Arrays
-SymGroup(S::Array) = Set( (Perm(t)) for t in Sym(S) )
-SymGroup(d::Integer) = Set( (Perm(t)) for t in Sym(d) )
+SymGroup(S::Array) = [ (Perm(t)) for t in Sym(S) ]
+SymGroup(d::Integer) = [ (Perm(t)) for t in Sym(d) ]
 
 
 #= Sym group idea
@@ -50,62 +50,38 @@ struct SymGroup{T} where T <: Symbol
 end
 =#
 
-mutable struct GrpAlgElem{F<:Number, Perm}
-	vals::Vector{F}
-	perms::Vector{Perm}
-end
-
-
-# Group is (S::Set, op::Function) where op: S x S --> S
-
-G = SymGroup(4)
-SgnDecomp = Dict([-1 => Perm[], 1 => Perm[] ])
-for p in G
-	push!(SgnDecomp[sgn(p)], p)
-end
-
-PeriodDecomp = [Perm[] for i in 1:4]
-for p in G
-	z = period(p)
-	if z in keys(PeriodDecomp) push!(PeriodDecomp[z], p)
-	else PeriodDecomp[z] = [p]
+function SgnDecomp(G::Array{Perm})
+	Decomp = Dict([-1 => Perm[], 1 => Perm[] ])
+	for p in G
+		push!(Decomp[sgn(p)], p)
 	end
+	return Decomp
 end
 
-FixedDecomp = [Perm[] for i in 1:(4+1)]
-for p in G
-	hasfixed = false
-	for i in 1:4
-		if p(i) == i
-			push!(FixedDecomp[i], p)
-			hasfixed = true
+function FixedDecomp(G::Array{Perm})
+	X = one(G[1])
+	Decomp = [Perm[] for i in 1:(length(X)+1)]
+	for p in G
+		hasfixed = false
+		for i in X
+			if p(i) == i
+				push!(Decomp[i], p)
+				hasfixed = true
+			end
+		end
+		if hasfixed == false push!(Decomp[end], p) end
+	end
+	return Decomp
+end
+
+function PeriodDecomp(G::Array{Perm})
+	Decomp = Dict{Integer,Array{Perm,1}}()
+	maxPeriod = 0
+	for p in G
+		z = period(p)
+		if z in keys(Decomp) push!(Decomp[z], p)
+		else Decomp[z] = [p]
 		end
 	end
-	if hasfixed == false push!(FixedDecomp[end], p) end
+	return Decomp
 end
-
-⊗(A::Array{Perm{T},1}, B::Array{Perm{T},1}) where T  = [ a*b for a in A, b in B ]
-⊗(A::Array{Perm{T},N}, B::Array{Perm{T},M}) where T  = [ a*b for (a,b) in Iterators.product(A,B) ]
-
-
-#subsets of Gk
-A = rand(G, 14) 
-B = rand(G, 14)
-#sgn operator
-ϵ = [ sgn(a*b) == s for a in A for b in B, s in [-1,1] ] 
-ε(X::Array{Perm{T}}, Z::Array{Perm{T}}...) where T = [ sgn( *(z...) ) for z in Iterators.product(X,Y...) ]
-
-∘
-
-SgnDecomp(A::Array{Perm{T},1}, B::Array{Perm{T},1})
-sum(ϵ)
-
-ρ(p::Perm) = Rep(p.A)
-
-# Woudl this work? or just use GroupAlgebra elements hmmm
-⊗(A::Array{Tuple{UniformScaling{T<:Number},Perm{T}},1}, B::Array{Tuple{uniformScalar,Perm{T}},1}) where T  = [ a*b for a in A for b in B ]
-⊗(A::Array{Perm,1}, B::Array{Perm,1})  = [ a*b for a in A for b in B ]
-⊗(A::Array{Perm{T},1}, B::Array{Perm{T},1}) where T  = [ a*b for a in A for b in B ]
-
-
-

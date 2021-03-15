@@ -91,23 +91,22 @@ function Rep(t::Array)
     return M
 end
 
-
 function Rep(t::Array, Res::Array)
     if !(issubset(Res, t))
         error("Restriction is not contained in the domain of the perm, t.")
     end
-    M = zeros(Bool, length(t), length(t))
+    M = falses(length(t), length(t))
     for j in Res
         M[ t[j] , j ] = 1
     end
     return M
 end
 
-function Rep(t::Array{Int8,1}, Ind::Array)
+function Rep(t::Array, Ind::Array)
     if !(issubset(t, Ind))
         error("The image of the perm t is not contained in the Induced space")
     end
-    M = zeros(Bool, length(Ind), length(Ind))
+    M = falses( length(Ind), length(Ind))
     for j in sort(t)
         M[ t[j] , j ] = 1
     end
