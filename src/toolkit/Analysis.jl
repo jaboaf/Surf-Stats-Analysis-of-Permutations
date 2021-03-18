@@ -34,7 +34,19 @@ C_sgn = Array{BitArray{2},1}[]
 C_fixed = Array{BitArray{2},1}[]
 C_period =  Array{BitArray{2},1}[]
 global i = 0
-for panel in C_panels
+
+Concord_Indicator = map(C_panels) do panel
+	for p in Sym( Set(keys(panel)) )
+		if isordered([ panel[c] for c in p ])
+			return true
+		end
+	end
+	return false
+end
+
+Concordant_panels = C_panels[ Concord_Indicator ]
+
+for panel in Concordant_panels
 	concordant = Array{Int8,1}[]
 	sub = collect(keys(panel))
 	for p in Sym_C
@@ -48,7 +60,7 @@ for panel in C_panels
 	end
 	push!(C_prjs, sub)
 	global i += 1
-	print(i)
+	if i % 100 == 0 print(i) end
 end
 
 #=

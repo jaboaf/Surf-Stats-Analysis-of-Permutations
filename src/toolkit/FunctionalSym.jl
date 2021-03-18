@@ -48,7 +48,12 @@ function NormalSubgroup(H::Set{Perm})
 end
 
 
-#= Sym group idea
+#= STILL NEED THE FOLLOWING
+
+*(::Perm, ::Set{Perm}) & vise versa... do i want this though?
+Tensor Representation, Should prolly go in SymGrpAndReps
+
+Sym group idea
 struct SymGroup{T} where T <: Symbol
 	S::Set{T}
 	D Set( (Perm(t)) for t in Sym(S) )
