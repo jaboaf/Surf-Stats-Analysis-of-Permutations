@@ -6,11 +6,16 @@ struct Perm{T}
 end
 
 # Making perms into functors
-function (p::Perm)(x) return p.A[x] end
+function (p::Perm{T})(x::T) where T return p.A[x] end
 
 Base.one(p::Perm) = Perm(sort(p.A))
 Base.inv(p::Perm) = Perm(invperm(p.A))
+
+# Definitions of product
 Base.:*(a::Perm, b::Perm) = Perm(a.A[b.A])
+Base.:*(A::Set{Perm}, B::Set{Perm}...) = Set( *(z...) for z in Base.product(A,B...) )
+Base.:*(A::Array{Perm}, B::Array{Perm}...) = [ *(z...) for z in Base.product(A,B...) ]
+
 function ^(p::Perm, k::Integer)
 	if k > 1 return p * ^(p, k-1)
 	elseif k < 0 return ^(inv(p), abs(k))
@@ -18,8 +23,10 @@ function ^(p::Perm, k::Integer)
 	else return one(p)
 	end
 end
+function ^(a::Perm{T}, b::Perm{T}) where T = b * a * b^-1
+function ^(H::Set{Perm{T}}, b::Perm{T}) where T = b * H * b^-1
 
-==(p::Perm{T}, q::Perm{T}) where T  = (p.A == q.A)
+==(p::Perm, q::Perm) = (p.A == q.A)
 sgn(p::Perm) = sgn(p.A)
 function period(p::Perm)
 	k=1
@@ -29,18 +36,16 @@ function period(p::Perm)
 	return k
 end
 
-Base.:*(A::Set{Perm}, B::Set{Perm}) = Set( *(z...) for z in Base.product(A,B) )
-Base.:*(X::Set{Perm}, Y::Set{Perm}, Z::Set{Perm}...) = Set( *(z...) for z in Base.product(X...) )
-Base.:*(A::Array{Perm}, B::Array{Perm}) = [ *(z...) for z in Base.product(A,B) ]
-Base.:*(X::Array{Perm}...) = [ *(x...) for x in Base.product(X...)]
-
-
 SymGroup(S::Set) = [ (Perm(t)) for t in Sym(S::Set) ]
 
 # Conceptually I dont like these. SymGroup() is not 
 # Note: Sym calls unique!() on Arrays
 SymGroup(S::Array) = [ (Perm(t)) for t in Sym(S) ]
 SymGroup(d::Integer) = [ (Perm(t)) for t in Sym(d) ]
+
+function NormalSubgroup(H::Set{Perm})
+	return all(a-> (H^a == H), Sym(first(H).A))
+end
 
 
 #= Sym group idea
