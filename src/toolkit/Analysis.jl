@@ -18,9 +18,11 @@ for panel in B_panels
 	push!(B_valids, concordant)
 end
 
-println(count(x-> length(x) >0, B_valids))
-println(count(x-> length(x) >1, B_valids))
-println(count(x-> length(x) >0, B_valids))
+println(count(x-> length(x) ==0, B_valids))
+println(count(x-> length(x) ==1, B_valids))
+println(count(x-> length(x) ==2, B_valids))
+
+
 
 C = union(map(w->w.panelOrigs, waves)...)
 CtoI = Dict([c=>i for (i,c) in enumerate(sort(collect(C)))])
