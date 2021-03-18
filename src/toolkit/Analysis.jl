@@ -29,14 +29,6 @@ CtoI = Dict([c=>i for (i,c) in enumerate(sort(collect(C)))])
 C_panels = map(w-> Dict([ Int8(CtoI[c])=>w.panel[c] for c in keys(w.panel)]), waves)
 Sym_C = Sym(length(C))
 
-C_maps = Array{<:Number,2}[]
-C_prjs = Array{<:Number,1}[]
-
-C_sgn = Array{BitArray{2},1}[]
-C_fixed = Array{BitArray{2},1}[]
-C_period =  Array{BitArray{2},1}[]
-global i = 0
-
 Concord_Indicator = map(C_panels) do panel
 	for p in Sym( Set(keys(panel)) )
 		if isordered([ panel[c] for c in p ])
@@ -47,7 +39,7 @@ Concord_Indicator = map(C_panels) do panel
 end
 
 Concordant_panels = C_panels[ Concord_Indicator ]
-
+global i = 0
 for panel in Concordant_panels
 	concordant = Array{Int8,1}[]
 	sub = collect(keys(panel))
@@ -64,6 +56,13 @@ for panel in Concordant_panels
 	global i += 1
 	if i % 100 == 0 print(i) end
 end
+
+C_sgn = Array{BitArray{2},1}[]
+C_fixed = Array{BitArray{2},1}[]
+C_period =  Array{BitArray{2},1}[]
+
+C_maps = Array{<:Number,2}[]
+C_prjs = Array{<:Number,1}[]
 
 #=
 for panel in C_panels
