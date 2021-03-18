@@ -1,6 +1,6 @@
-include("SurfingInfo.jl")
-include("FunctionalSym.jl")
-include("OrderingUtils.jl")
+include("SurfingInfo.jl"); println("Loaded SurfingInfo")
+include("FunctionalSym.jl"); println("Loaded FunctionalSym")
+include("OrderingUtils.jl");println("Loaded OrderingUtils")
 
 B = Set([:Match, :NoMatch])
 Sym_B = Sym(B)
@@ -18,9 +18,9 @@ for panel in B_panels
 	push!(B_valids, concordant)
 end
 
-count(x-> length(x) >0, B_valids)
-count(x-> length(x) >1, B_valids)
-count(x-> length(x) >0, B_valids)
+println(count(x-> length(x) >0, B_valids))
+println(count(x-> length(x) >1, B_valids))
+println(count(x-> length(x) >0, B_valids))
 
 C = union(map(w->w.panelOrigs, waves)...)
 CtoI = Dict([c=>i for (i,c) in enumerate(sort(collect(C)))])
@@ -33,6 +33,7 @@ C_prjs = Array{<:Number,1}[]
 C_sgn = Array{BitArray{2},1}[]
 C_fixed = Array{BitArray{2},1}[]
 C_period =  Array{BitArray{2},1}[]
+global i = 0
 for panel in C_panels
 	concordant = Array{Int8,1}[]
 	sub = collect(keys(panel))
@@ -46,9 +47,11 @@ for panel in C_panels
 	else push!(C_maps, zeros(Int8,7,7)) 
 	end
 	push!(C_prjs, sub)
+	global i += 1
+	print(i)
 end
 
-
+#=
 for panel in C_panels
 	concordant = Array{Symbol,1}[]
 	for p in Sym_C
@@ -59,5 +62,5 @@ for panel in C_panels
 	end
 	push!(C_valids, concordant)
 end
-
+=#
 
