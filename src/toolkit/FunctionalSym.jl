@@ -1,6 +1,8 @@
 import Base: one,inv,*,^,==
 include("SymGrpAndReps.jl")
 
+
+
 struct Perm{T}
 	A::Array{T,1}
 end
@@ -23,8 +25,8 @@ function ^(p::Perm, k::Integer)
 	else return one(p)
 	end
 end
-function ^(a::Perm{T}, b::Perm{T}) where T = b * a * b^-1
-function ^(H::Set{Perm{T}}, b::Perm{T}) where T = b * H * b^-1
+^(a::Perm{T}, b::Perm{T}) where {T} = b * a * b^-1
+^(H::Set{Perm{T}}, b::Perm{T}) where {T} = b * H * b^-1
 
 ==(p::Perm, q::Perm) = (p.A == q.A)
 sgn(p::Perm) = sgn(p.A)
@@ -60,17 +62,17 @@ struct SymGroup{T} where T <: Symbol
 end
 =#
 
-function SgnDecomp(G::Array{Perm})
-	Decomp = Dict([-1 => Perm[], 1 => Perm[] ])
+function SgnDecomp(G::Array{Perm{T},1}) where T
+	Decomp = Dict([-1 => Perm{T}[], 1 => Perm{T}[] ])
 	for p in G
 		push!(Decomp[sgn(p)], p)
 	end
 	return Decomp
 end
 
-function FixedDecomp(G::Array{Perm})
+function FixedDecomp(G::Array{Perm{T},1}) where T
 	X = one(G[1])
-	Decomp = [Perm[] for i in 1:(length(X)+1)]
+	Decomp = [Perm{T}[] for i in 1:(length(X)+1)]
 	for p in G
 		hasfixed = false
 		for i in X
@@ -84,8 +86,8 @@ function FixedDecomp(G::Array{Perm})
 	return Decomp
 end
 
-function PeriodDecomp(G::Array{Perm})
-	Decomp = Dict{Integer,Array{Perm,1}}()
+function PeriodDecomp(G::Array{Perm{T}}) where T
+	Decomp = Dict{Integer,Array{Perm{T},1}}()
 	maxPeriod = 0
 	for p in G
 		z = period(p)

@@ -26,7 +26,7 @@ println(count(x-> length(x) ==2, B_valids))
 
 C = union(map(w->w.panelOrigs, waves)...)
 CtoI = Dict([c=>i for (i,c) in enumerate(sort(collect(C)))])
-C_panels = map(w-> Dict([ Int8(CtoI[c])=>w.panel[c] for c in keys(w.panel)]), waves)
+C_panels = map(w-> Dict([ CtoI[c]=>w.panel[c] for c in keys(w.panel)]), waves)
 Sym_C = Sym(length(C))
 
 C_valids = Array{Int8,1}[]
@@ -39,7 +39,7 @@ for panel in C_panels
 	end
 end
 
-C_sgn = SgnDecomp(C_valids)
+C_sgn = SgnDecomp( Perm.(C_valids) )
 #C_fixed = []
 #C_period =  Array{BitArray{2},1}[]
 

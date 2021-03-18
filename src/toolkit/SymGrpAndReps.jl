@@ -131,6 +131,13 @@ function sgn(M::BitArray{2})
     return negs%2 == 0 ? 1 : -1
 end
 
+
+# Int8[1,2,3,4]
+# [ 1, 0, 0;
+    0, 1, 0;
+        ]
+
+
 # Symmetrization operations
 # for a permutation
 function SymOp( M::Array{ <:Number, d}) where d
