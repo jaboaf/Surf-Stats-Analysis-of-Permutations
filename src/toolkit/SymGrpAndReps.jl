@@ -113,6 +113,9 @@ function Rep(t::Array, Ind::Array)
     return M
 end
 
+#function TensorRep(t::)
+
+
 function sgn(a::Array{Int8,1})
     d = length(a)
     return prod([ sign(a[j] - a[i]) for i in 1:d for j in i+1:d ])
