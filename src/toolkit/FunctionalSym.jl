@@ -1,8 +1,6 @@
 import Base: one,inv,*,^,==
 include("SymGrpAndReps.jl")
 
-
-
 struct Perm{T}
 	A::Array{T,1}
 end

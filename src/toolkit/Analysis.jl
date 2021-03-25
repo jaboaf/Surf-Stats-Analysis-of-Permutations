@@ -1,6 +1,7 @@
 include("SurfingInfo.jl"); println("Loaded SurfingInfo")
 include("FunctionalSym.jl"); println("Loaded FunctionalSym")
 include("OrderingUtils.jl");println("Loaded OrderingUtils")
+using GRUtils
 
 B = Set([:Match, :NoMatch])
 Sym_B = Sym(B)

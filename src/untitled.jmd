@@ -1,0 +1,52 @@
+# Untitled
+By Jojo Aboaf and Marty Wells
+
+I am a visual human. Lets begin!
+```julia
+using GRUtils
+```
+
+We have some incredibly rich data on surf compeitions from the 2017, 2018, and 2019 seasons of the Mens World Championship Tour (WCT). Each year the World Surf League (WCT) holds 10 to 11 surf competitions, which are called "events". While the format of events have changed slightly between the 2017 and 2019 seasons, they are all very similar. Each event consists of 7 rounds, and within each round there are some number of heats. A heat is the level at which intra-athlete competition takes place and may consist of 2 or 3 surfers. Throughout a timed heat (usually between 22 and 35 minutes), each athlete may surf any number of waves and their "final heat score" is the sum of the scores of their two highest scoring waves. How are waves scored? 5 judges are selected from a pool of 8 judges to form a panel for a heat. During that heat, when a surfer rides a wave, each judge independently observes the ride and writes down a score (based on some broadly defined criteria), which is some number in {0.0, 0.1, 0.2, ..., 9.8, 9.9, 10.0}.
+
+
+Lets explore!
+We have lots of missing Judge Origins from panels in the 2017 World Surf League season so we will omit the 2017 season ... for now (This begs an intersting question which we should return to later).
+
+
+We have constructed a multidimensional array, aka an m-way, cross classified, contingency table. We have m classification factors:
+- WSL Season
+- Event
+- Round
+- Ahtlete Origin
+- Judge Origin
+- Rank of Judge
+
+```julia
+include("RankingTensor.jl")
+println("m = $(ndims(info))")
+println(size(info))
+```
+
+```julia
+savefig("marginals_RANK.png", barplot([sum(info[:,:,:,:,:,i]) for i in 1:size(info)[6] ], title="Marginal Distribution of Judge Rank"))
+
+savefig("marginals_JUD_orig.png", barplot(sort(collect(keys(ToInd[:JUD_orig]))), [sum(info[:,:,:,:,i,:]) for i in 1:size(info)[5] ], title="Marginal Distribution of Judge Origin")
+
+```
+
+
+
+```julia
+panels = Array{Pair{Float16,Array{Symbol,1}}}[]
+for wave in data
+	Judges = wave[2]["subScoOrig"]
+	Scores = Float16.(wave[2]["subSco"])
+	panel = Pair{Float16,Array{Symbol,1}}[]
+	for s in sort(unique(Scores))
+		I = findall(x->x==s, Scores)
+		push!(panel, s => Judges[I])
+	end
+	push!(panels, panel )
+end
+```
+

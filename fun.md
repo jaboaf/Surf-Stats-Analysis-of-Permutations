@@ -3,6 +3,15 @@ Statistics Using The Symmetric Group
 
  
 
+The Idea:
+=========
+
+H_1: P(D) =
+
+H_1
+
+ 
+
  
 
 Data
@@ -99,19 +108,29 @@ changes of conditions.
 
 Chapter 13 Article 183: General Judging Rules
 
-183.01 "Judges should be visually separated." "Judges should not discuss scores
-or interference calls"
+183.01
 
-183.02 "Judges may not change their scores or interference calls"
+-   "Judges should be visually separated."
+
+-   "Judges should not discuss scores or interference calls"
+
+183.02
+
+-   "Judges may not change their scores or interference calls"
 
  
 
 We are interested in some finite sets:
 
-Binary Example: B = {Match, Non-Match} = { M, \\neg M }
+Binary Example:
 
-Country Example: C = {AUS, BRA, ESP, FJI, FRA, IDN, ITA, JPN, NZL, PRT, USA,
-ZAF}
+$$
+B = \{ Match, Non-Match} = { M, \neg M }
+$$
+
+Country Example:
+
+C = {AUS, BRA, ESP, FJI, FRA, IDN, ITA, JPN, NZL, PRT, USA, ZAF}
 
 General Case: Dimensional = D = { 1, 2, … , d-1, d}
 
@@ -127,23 +146,177 @@ General Case: \|D\| =
 
  
 
+Information is Discrete:
+
+| Feature    | Range of Feature                                                                                                              | dim | Notes                               |
+|------------|-------------------------------------------------------------------------------------------------------------------------------|-----|-------------------------------------|
+| evtYears   | {2018, 2019}                                                                                                                  | 3   |                                     |
+| evtOrig    | {AUS, BRA, FRA, IDN, PRT, USA, ZAF}                                                                                           | 7   |                                     |
+| evtName    | {Bali Pro, Bells Beach, France, Gold Coast, J-Bay Open, Margaret River, Peniche Pro, Pipe Masters, Rio Pro, Tahiti, Trestles} | 11  |                                     |
+| rnd        | {1,2,3,4,5,6,7,8}                                                                                                             | 8   | 1 is final, everything else follows |
+| heat       | {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}                                                                                      | 16  |                                     |
+| athOrig    | {AUS, BRA, FRA, IDN, ITA, JPN, NZL, PRT,USA,ZAF}                                                                              | 10  |                                     |
+| panelOrigs | subsets of {AUS, BRA, ESP, FRA, PRT, USA, ZAF}                                                                                |     |                                     |
+| I_match    | {1,2}                                                                                                                         | 2   | 1 if athOrig in PanelOrigs, else 2  |
+|            |                                                                                                                               |     |                                     |
+|            |                                                                                                                               |     |                                     |
+
+Within Each year, there exists:
+
+-   10 Events:
+
+-   1 WSL Head Judge
+
+For each Event,
+
+-   The WSL provides 7 Judges (call it EvtJudges)
+
+-   There are 6 to 8 Rounds
+
+For each Round
+
+-   There are some Number of Heats
+
+For each Heat
+
+ 
+
+EvtJudgesOrigs = union over j in EvtPanel Origs(j)
+
+Range of \#(EvtJudgesOrigs) is {3,4,5,6}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ union([x.panelOrigs for x in filter(w-> w.evtId == evt, waves)]...) for evt in EvtIds ]
+
+
+union(A::Array{Multiset{T}}) where {T} = 
+keyset = union(map(x->keys(x.data),A)...)
+return Multiset([repeat(])
+
+
+
+
+reduce(union, Set(A) )
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+which is hosted in someplace in some country, sometimes even two countries for
+one event
+
+there are up to 8 rounds
+
+and up to 16 heats in each round
+
+usually at some point during a heat, a surfer will ride a wave
+
+there are five judges on a panel that rate the surfers ride
+
+ 
+
+For each heat, there is a set judges, each of which has a nationality (ie.
+country of origin).
+
+Panel
+
+ 
+
+We have some additional information:
+
+The nationality of a surfer
+
+that batuibakutt of each judge
+
  
 
  
 
-Our Predictors/Regressors/Features are:
+Panels = { S \\in 2\^({:AUS, :BRA, :ESP, :FRA, :PRT, :USA, :ZAF}) \|
+\#(Union(S)) =5 }
 
-Discrete:
+Panels
 
-| Feature  | Range of Feature                                                                                                              | dim | Notes                               |
-|----------|-------------------------------------------------------------------------------------------------------------------------------|-----|-------------------------------------|
-| evtYears | {2017, 2018, 2019}                                                                                                            | 3   |                                     |
-| evtOrig  | {AUS, BRA, FRA, IDN, PRT, USA, ZAF}                                                                                           | 7   |                                     |
-| evtName  | {Bali Pro, Bells Beach, France, Gold Coast, J-Bay Open, Margaret River, Peniche Pro, Pipe Masters, Rio Pro, Tahiti, Trestles} | 11  |                                     |
-| rnd      | {1,2,3,4,5,6,7,8}                                                                                                             | 8   | 1 is final, everything else follows |
-| heat     | {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}                                                                                      | 16  |                                     |
-| athOrig  | {AUS, BRA, FRA, IDN, ITA, JPN, NZL, PRT,USA,ZAF}                                                                              | 10  |                                     |
-| I_match  | {1,2}                                                                                                                         | 2   | 1 if athOrig in PanelOrigs, else 2  |
+([0:0.1:10]\^(Ctry) )\^5
+
+([0:0.1:10]\^(Ctry) ) x ([0:0.1:10]\^(Ctry)) x ([0:0.1:10]\^(Ctry)) x
+([0:0.1:10]\^(Ctry)) x ([0:0.1:10]\^(Ctry))
+
+([0:0.1:10] x [0:0.1:10] x [0:0.1:10] x [0:0.1:10] x [0:0.1:10] ) \^ (  Ctry x
+Ctry x Ctry x Ctry x Ctry )
+
+ 
+
+(0:0.1:10\^Ctry same as maps Ctry —\> 0:0.1:10 )
+
+Note that 0:0.1:10 is a totally ordered set, ie. we have (\<,0: 0.1:10)
+
+ 
+
+(\<,0: 0.1:10)\^Panels
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for k in 1:20 print("hello") end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+Some Stats:
+
+histogram(map(w-\>length(w.panelOrigs), waves))
+
+ 
+
+A variable: \|PanelOrigs\|
+
+Mean: 3.907379612257661
+
+Var: 0.5189386620233642
+
+SD: 0.7203739737270942
+
+ 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sum(map(w->(length(w.panelOrigs)-3.907379612257661)^2, waves))/(length(waves))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+videofile("ExponetiationOfError.mp4") do
+
+       for k in 0:10 
+
+       histogram(map(w-\>abs(length(w.panelOrigs)-3.907379612257661)\^k /
+factorial(k), waves) )
+
+       title("Exponentiation of Error (m≈3.9074): (\|{Nationality of Judge s.t.
+Judge on Panel}\| - m)\^ \$k / k!")
+
+       sleep(1)
+
+       for wait in 1:10 draw(gcf()) end
+
+       end
+
+       end
+
+ 
+
+for k in 0:10 
+
+       histogram(map(w-\>(length(w.panelOrigs)-3.907379612257661)\^k /
+factorial(k), waves) )
+
+       title("Exp of Error (m≈3.9074): (\|{Nationality of Judge s.t. Judge on
+Panel}\| - m)\^ \$k / \$(k)! ")
+
+       hold(true)
+
+       for wait in 1:10 draw(gcf()) end
+
+       end
+
+ 
 
 Note: Questions:
 

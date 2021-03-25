@@ -132,15 +132,9 @@ function sgn(M::BitArray{2})
 end
 
 
-# Int8[1,2,3,4]
-# [ 1, 0, 0;
-    0, 1, 0;
-        ]
-
-
 # Symmetrization operations
 # for a permutation
-function SymOp( M::Array{ <:Number, d}) where d
+function SymOp( M::Array{<:Number, d}) where d
     return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
 # for a d-dimensional array
@@ -150,7 +144,7 @@ end
 
 # Alternating operations
 # for a permutation
-function AltOp( M::Array{ <:Number, d}) where d
+function AltOp( M::Array{<:Number, d}) where d
     return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
 # for a d-dimensional array
@@ -158,8 +152,44 @@ function AltOp( M::BitArray{d}) where d
     return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
 
+#=
+setindex!(::typeof(f), ::Int64, ::Int64)
+
+f(1) = 1
+struct Group <: Union{ Set{Function}, Function }
+A::Set{Function}
+op::Function
+assert( all( g * h for a in A, h in A))
+end
+
+struct Group <: Union{ Set{Function}, Function }
+A::Set{Function}
+op::Function
+assert( all( g * h for a in A, h in A))
+end
+
+Type Group <: Union{Set,Function} end
+
+struct Group
 
 
+abstract type Group <: Union{ Set{T}, Function{T,T}{T} } end
+
+
+Sym(C::Set) = ({ All Permuations of C } , ∘ )
+Group = ( {things} , op: )
+
+struct Group{T}
+    S::Set{T}
+    op::Function
+end
+
+struct SymmetricGroup
+    C::Set{Countries}
+    op::Function{Countries,Countries}
+end
+    
+=#
 
 
 
