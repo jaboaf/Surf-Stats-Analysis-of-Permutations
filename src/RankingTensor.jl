@@ -1,6 +1,5 @@
 # use JSON for parsing, Use Base.parse for parsing purposes
 using JSON: parse
-using GRUtils
 
 isoDict = Dict([
     "Australia" => :AUS,
@@ -88,7 +87,7 @@ for wave in data
 		rank = Int(i) # to reassure julia's type inference
 		for orig in judge_origs[I]
 			jud_orig = Int(ToInd[:JUD_orig][ orig ]) # reassure type inference
-			info[ yr, evt , rnd , ath_orig , jud_orig , rank ] += 1
+			info[ yr, evt , rnd , heat, ath_orig , jud_orig , rank ] += 1
 		end
 	end
 end
