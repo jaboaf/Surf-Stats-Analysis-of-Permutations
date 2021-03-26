@@ -18,21 +18,26 @@ isoDict = Dict([
     "United States" => :USA
 ])
 
-data = parse( open("../Data/CleanAllDataCC.txt", "r"))
-# Simplify data to most "complete years"
-filter!(data) do wave
-	wave[2]["evtYear"] in ["2018","2019"]
+function varRng(s::String)
+	rng=Set()
+	for wave in data
+		push!(rng, wave[2][s])
+	end
+	return sort(collect(rng))
 end
-# subScoOrigDefect== true when no info on judge origins
+
+data = parse( open("../Data/CleanAllDataCC.txt", "r"))
+
 filter!(data) do wave
+	# Simplify data to most "complete years"
+	# ... we can always undo this
+	wave[2]["evtYear"] in ["2018","2019"]
+	# subScoOrigDefect== true when no info on judge origins
 	wave[2]["subScoOrigDefect"]==false
 end
 
 WaveIds = sort(collect(keys(data)))
-HeatIds = sort(unique(map( wid-> data[wid]["heatId"], WaveIds )))
-RndIds = sort(unique(map( wid-> data[wid]["rndId"], WaveIds )))
-EvtIds = sort(unique(map( wid-> data[wid]["evtId"], WaveIds )))
-
+EvtIds == Set(map(x->data[x]["evtId"],WaveIds))
 maxRnd = Dict()
 for id in EvtIds
     thisEvt = filter(wid->data[wid]["evtId"]==id, WaveIds )
@@ -47,13 +52,7 @@ for wave in data
 	wave[2]["heat"] = Base.parse(Int, wave[2]["heat"])
 end
 
-function varRng(s::String)
-	rng=Set()
-	for wave in data
-		push!(rng, wave[2][s])
-	end
-	return sort(collect(rng))
-end
+vars = [:YR, :EVT, :RND, :HEAT, :ATH_orig, :JUD_orig, :RANK ]
 
 ToInd = Dict()
 # YR has dim 2
@@ -71,7 +70,6 @@ ToInd[:JUD_orig] = Dict([orig=>i for (i,orig) in enumerate(sort(union(varRng("su
 # RANK has dim 5
 ToInd[:RANK] = Dict([i=>i for i in 1:5])
 
-vars = [:YR, :EVT, :RND, :HEAT, :ATH_orig, :JUD_orig, :RANK ]
 info = zeros(Int8,(2,10,7,16,10,7,5));
 for wave in data
 	yr = ToInd[:YR][ wave[2]["evtYear"] ]
