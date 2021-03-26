@@ -28,11 +28,30 @@ println(size(info))
 ```
 
 ```julia
-savefig("marginals_RANK.png", barplot([sum(info[:,:,:,:,:,i]) for i in 1:size(info)[6] ], title="Marginal Distribution of Judge Rank"))
+savefig("marginals_RANK.png", barplot([sum(info[:,:,:,:,:,:,i]) for i in 1:size(info)[7] ], title="Marginal Distribution of Judge Rank"))
 
-savefig("marginals_JUD_orig.png", barplot(sort(collect(keys(ToInd[:JUD_orig]))), [sum(info[:,:,:,:,i,:]) for i in 1:size(info)[5] ], title="Marginal Distribution of Judge Origin")
+savefig("marginals_JUD_orig.png", barplot(sort(collect(keys(ToInd[:JUD_orig]))), [sum(info[:,:,:,:,:,i,:]) for i in 1:size(info)[6] ], title="Marginal Distribution of Judge Origin"))
+
+savefig("marginals_ATH_orig.png", barplot(sort(collect(keys(ToInd[:ATH_orig]))), [sum(info[:,:,:,:,i,:,:]) for i in 1:size(info)[5] ], title="Marginal Distribution of Athlete Origin"))
+
+savefig("marginals_HEAT.png", barplot(sort(collect(keys(ToInd[:HEAT]))), [sum(info[:,:,:,i,:,:,:]) for i in 1:size(info)[4] ], title="Marginal Distribution of Heat"))
+
+savefig("marginals_RND.png", barplot(sort(collect(keys(ToInd[:RND]))), [sum(info[:,:,i,:,:,:,:]) for i in 1:size(info)[3] ], title="Marginal Distribution of Round"))
+
+savefig("marginals_EVT.png", barplot(sort(collect(keys(ToInd[:EVT]))), [sum(info[:,i,:,:,:,:,:]) for i in 1:size(info)[2] ], title="Marginal Distribution of Event"))
+
+savefig("marginals_YR.png", barplot(sort(collect(keys(ToInd[:YR]))), [sum(info[i,:,:,:,:,:,:]) for i in 1:size(info)[1] ], title="Marginal Distribution of Year"))
+
 
 ```
+
+![Judge Rank Marginal](marginals_RANK.png)
+![Judge Origin Marginal](marginals_JUD_orig.png)
+![Judge Origin Marginal](marginals_ATH_orig.png)
+![Judge Origin Marginal](marginals_HEAT.png)
+![Judge Origin Marginal](marginals_RND.png)
+![Judge Origin Marginal](marginals_EVT.png)
+![Judge Origin Marginal](marginals_YR.png)
 
 
 

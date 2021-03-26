@@ -31,13 +31,12 @@ data = parse( open("../Data/CleanAllDataCC.txt", "r"))
 filter!(data) do wave
 	# Simplify data to most "complete years"
 	# ... we can always undo this
-	wave[2]["evtYear"] in ["2018","2019"]
 	# subScoOrigDefect== true when no info on judge origins
-	wave[2]["subScoOrigDefect"]==false
+	wave[2]["evtYear"] in ["2018","2019"] && wave[2]["subScoOrigDefect"]==false
 end
 
 WaveIds = sort(collect(keys(data)))
-EvtIds == Set(map(x->data[x]["evtId"],WaveIds))
+EvtIds = Set(map(x->data[x]["evtId"],WaveIds))
 maxRnd = Dict()
 for id in EvtIds
     thisEvt = filter(wid->data[wid]["evtId"]==id, WaveIds )
