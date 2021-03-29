@@ -4,7 +4,23 @@ By Jojo Aboaf and Marty Wells
 I am a visual human. Lets begin!
 ```julia
 using GRUtils
+using StatsBase
 ```
+## Abstract
+International Surf Compeitions provide an opportunity to 
+
+## Concrete
+Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?
+
+The World Surf League (WSL) is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of "tours" which include Mens and Womens versions of Big Wave events, the "Longboard Tour", the "Qualifying Series", and the "Championship Tour" (CT). 
+
+Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 distinct surf compeitions, called "events", in 7 different countries. Each event has 7 rounds, each consisting of 1-16 heats, and each heat has 2-3 surfers. In a heat, a surfer may take any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat, and if there is a third surfer, they place 3rd in the heat. Each round has a rule that determines which surfers advance to what rounds and which surfers exit the heat.
+
+INSERT 2019 Event Format Drawing Here:
+Note to self: add number of points given at exit to fig.
+
+
+## Data
 
 We have some incredibly rich data on surf compeitions from the 2017, 2018, and 2019 seasons of the Mens World Championship Tour (WCT). Each year the World Surf League (WCT) holds 10 to 11 surf competitions, which are called "events". While the format of events have changed slightly between the 2017 and 2019 seasons, they are all very similar. Each event consists of 7 rounds, and within each round there are some number of heats. A heat is the level at which intra-athlete competition takes place and may consist of 2 or 3 surfers. Throughout a timed heat (usually between 22 and 35 minutes), each athlete may surf any number of waves and their "final heat score" is the sum of the scores of their two highest scoring waves. How are waves scored? 5 judges are selected from a pool of 8 judges to form a panel for a heat. During that heat, when a surfer rides a wave, each judge independently observes the ride and writes down a score (based on some broadly defined criteria), which is some number in {0.0, 0.1, 0.2, ..., 9.8, 9.9, 10.0}.
 
@@ -17,8 +33,10 @@ We have constructed a multidimensional array, aka an m-way, cross classified, co
 - WSL Season
 - Event
 - Round
+- Heat
 - Ahtlete Origin
 - Judge Origin
+- Size of Partition of Panel (Max Rank)
 - Rank of Judge
 
 ```julia
@@ -28,44 +46,143 @@ println(size(info))
 ```
 
 ```julia
-savefig("marginals_RANK.png", barplot([sum(info[:,:,:,:,:,:,i]) for i in 1:size(info)[7] ], title="Marginal Distribution of Judge Rank"))
+function marginalBarPlot(M::Array{T,N}, d::Integer) where {T,N}
+	dIndex_(h::Integer) = [ i==d ? h : Colon() for i in 1:N]
+	marginal_d = [sum( M[ dIndex_(h)... ] ) for h in 1:size(M)[d] ]
+	savefig(
+		"marginal_$(vars[d]).png",
+		barplot(
+			map(x-> "$(x)", sort(collect(keys(ToInd[vars[d]]))) ),
+			marginal_d
+		)
+	)
+	return marginal_d
+end
 
-savefig("marginals_JUD_orig.png", barplot(sort(collect(keys(ToInd[:JUD_orig]))), [sum(info[:,:,:,:,:,i,:]) for i in 1:size(info)[6] ], title="Marginal Distribution of Judge Origin"))
+for d in length(vars) marginalBarPlot(info, d) end
+```
+![Judge Origin Marginal](marginals_YR.png)
+![Judge Origin Marginal](marginals_EVT.png)
+![Judge Origin Marginal](marginals_RND.png)
+![Judge Origin Marginal](marginals_HEAT.png)
+![Judge Origin Marginal](marginals_ATH_orig.png)
+![Judge Origin Marginal](marginals_JUD_orig.png)
+![Judge Origin Marginal](marginals_MAX_RANK.png)
+![Judge Rank Marginal](marginals_RANK.png)
 
-savefig("marginals_ATH_orig.png", barplot(sort(collect(keys(ToInd[:ATH_orig]))), [sum(info[:,:,:,:,i,:,:]) for i in 1:size(info)[5] ], title="Marginal Distribution of Athlete Origin"))
 
-savefig("marginals_HEAT.png", barplot(sort(collect(keys(ToInd[:HEAT]))), [sum(info[:,:,:,i,:,:,:]) for i in 1:size(info)[4] ], title="Marginal Distribution of Heat"))
+One thing I could change:
+- instead giving every element of rth partition rank  give them each:
+{ Nᵣ + i for i in 1:n_i}  where Nᵣ is Σʳnᵢ
+... but then any answer we give loses meaning
 
-savefig("marginals_RND.png", barplot(sort(collect(keys(ToInd[:RND]))), [sum(info[:,:,i,:,:,:,:]) for i in 1:size(info)[3] ], title="Marginal Distribution of Round"))
+I wonder: Mᵣ := max order for that wave
+B = 1_{order(Jᵢ) = 1 }
+T = 1_{order(Jᵢ) = Mᵣ }
+B ∪ T only really meaninful for Mᵣ>2
 
-savefig("marginals_EVT.png", barplot(sort(collect(keys(ToInd[:EVT]))), [sum(info[:,i,:,:,:,:,:]) for i in 1:size(info)[2] ], title="Marginal Distribution of Event"))
+Wondering₁: if P(T | JUD_orig==ATH_orig ) =  P( T | JUD_orig != ATH_orig )
+Wondering₂: if Wondering₁ depends on [   ]_orig
+Wondering₃: if P( B ∪ T | Mᵣ ) = 2/Mᵣ
+Wondering₄: if P(T | (JUD_orig==ATH_orig,Mᵣ) ) = 1/Mᵣ
 
-savefig("marginals_YR.png", barplot(sort(collect(keys(ToInd[:YR]))), [sum(info[i,:,:,:,:,:,:]) for i in 1:size(info)[1] ], title="Marginal Distribution of Year"))
 
+``
+P()
+``
+
+```julia
+ATHandJUD_orig = intersect(keys(ToInd[:ATH_orig]),keys(ToInd[:JUD_orig]) )
+
+GivenMatchByMᵣ = [
+sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:])
+for c in ATHandJUD_orig])
+for r in 1:5
+]
+TopGivenMatchByMᵣ = [
+sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1]) 
+for c in ATHandJUD_orig])
+for r in 1:5
+]
 
 ```
 
-![Judge Rank Marginal](marginals_RANK.png)
-![Judge Origin Marginal](marginals_JUD_orig.png)
-![Judge Origin Marginal](marginals_ATH_orig.png)
-![Judge Origin Marginal](marginals_HEAT.png)
-![Judge Origin Marginal](marginals_RND.png)
-![Judge Origin Marginal](marginals_EVT.png)
-![Judge Origin Marginal](marginals_YR.png)
+```julia
+GivenMatchByMᵣandOrig = [
+sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:] )
+for r in 1:5, c in ATHandJUD_orig
+]
 
+TopGivenMatchByMᵣandOrig = [
+sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1] )
+for r in 1:5, c in ATHandJUD_orig
+]
+```
 
 
 ```julia
-panels = Array{Pair{Float16,Array{Symbol,1}}}[]
-for wave in data
-	Judges = wave[2]["subScoOrig"]
-	Scores = Float16.(wave[2]["subSco"])
-	panel = Pair{Float16,Array{Symbol,1}}[]
-	for s in sort(unique(Scores))
-		I = findall(x->x==s, Scores)
-		push!(panel, s => Judges[I])
-	end
-	push!(panels, panel )
-end
+GivenAUSMatchByRandMᵣ = [
+sum( info[:,:,:,:,1,1,M,rnk] )
+for rnk in 1:5, M in 1:5
+]
+
+GivenAUSMatchByRandMᵣ = [
+sum( info[:,:,:,:,1,1,M,rnk] )
+for rnk in 1:5, M in 1:5
+]
+
 ```
+
+
+```julia
+MᵣGivenMatch =[
+sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],3:5,:] )
+for c in ATHandJUD_orig
+]
+
+OrderIsMᵣ = [ 
+sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1])
+for r in 3:5 ] )
+for c in ATHandJUD_orig 
+]
+
+OrderIsMᵣ ./ MᵣGivenMatch
+
+```
+
+But!!!
+
+```julia
+include("PanelData.jl")
+
+N = length(panels)
+Ord_Parts = map(panel -> length.(panel) , panels)
+Ord_Parts_Counts = countmap(Ord_Parts)
+Ord_Parts_Props = Dict(
+	[x=>Ord_Parts_Counts[x]/N 
+	for x in keys(Ord_Parts_Counts)]
+)
+```
+
+``
+|\{ g ∈ S_d | cycles(g) = 1^{k_1},2^{k_2},…,d^{k_d} \}| = \frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }
+⟹ P(1^k_1, … , d^k_d) = \frac{\frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }}{d!} = \frac{1}{\prod_{j=1}^{d} k_j!j^k_j }
+``
+
+```julia
+Parts = map(panel -> [count(==(i),length.(panel)) for i in 1:5], panels)
+Parts_Counts = countmap(Parts)
+Parts_Props = Dict([x=>Parts_Counts[x]/N for x in keys(Parts_Counts)])
+Theory_Parts_Props = Dict(
+	[K=> prod( [ 1//( factorial(K[j]) *  j^K[j] ) for j in 1:5]) 
+	for K in keys(Parts_Counts) ]
+)
+χ_sq = N*sum(
+	[ (Parts_Props[x]-Theory_Parts_Props[x])^2 / Theory_Parts_Props[x]
+	for x in keys(Parts_Props)]
+)
+println(χ_sq)
+```
+... χ² is very large....
+
 

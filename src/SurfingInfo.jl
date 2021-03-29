@@ -1,5 +1,5 @@
 using JSON: parse
-using Multisets
+include("toolkit/Multisets.jl")
 include("toolkit/SymGrpAndReps.jl")
 
 isoDict = Dict([

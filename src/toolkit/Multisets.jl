@@ -1,4 +1,4 @@
-import Base: union, keys, haskey
+import Base: union, keys, haskey, ==
 
 struct Multiset{T}
 	info::Dict{T,Integer}
@@ -16,3 +16,5 @@ union(A::Multiset{T}...) where {T} = Mulitset( Dict( k=>maximum(map(a->a(k), A))
 
 intersection(A::Array{Multiset{T}}) where {T} = Mulitset( Dict( k=>minimum(map(a->a(k), A)) for k in unique(keys.(Set(A))...) ))
 intersection(A::Multiset{T}...) where {T} = Mulitset( Dict( k=>minimum(map(a->a(k), A)) for k in unique(keys.(A)...) ))
+
+==(A::Multiset{T},B::Multiset{T}) where {T} = (A.info == B.info)

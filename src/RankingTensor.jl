@@ -51,7 +51,7 @@ for wave in data
 	wave[2]["heat"] = Base.parse(Int, wave[2]["heat"])
 end
 
-vars = [:YR, :EVT, :RND, :HEAT, :ATH_orig, :JUD_orig, :RANK ]
+vars = [:YR, :EVT, :RND, :HEAT, :ATH_orig, :JUD_orig,:MAX_RANK, :RANK]
 
 ToInd = Dict()
 # YR has dim 2
@@ -66,10 +66,12 @@ ToInd[:HEAT] = Dict([h=>i for (i,h) in enumerate(varRng("heat"))] )
 ToInd[:ATH_orig] = Dict([r=>i for (i,r) in enumerate(varRng("athOrig"))] )
 # JUD_orig has dim 7
 ToInd[:JUD_orig] = Dict([orig=>i for (i,orig) in enumerate(sort(union(varRng("subScoOrig")...)))])
+# MAX_RANK has dim 5
+ToInd[:MAX_RANK] = Dict([i=>i for i in 1:5])
 # RANK has dim 5
 ToInd[:RANK] = Dict([i=>i for i in 1:5])
 
-info = zeros(Int8,(2,10,7,16,10,7,5));
+info = zeros(Int8,(2,10,7,16,10,7,5,5));
 for wave in data
 	yr = ToInd[:YR][ wave[2]["evtYear"] ]
 	evt = ToInd[:EVT][ wave[2]["evtName"] ]
@@ -77,14 +79,17 @@ for wave in data
 	heat = ToInd[:HEAT][ wave[2]["heat"] ]
 	ath_orig = ToInd[:ATH_orig][ wave[2]["athOrig"] ]
 
-	judge_origs = wave[2]["subScoOrig"]
+	
 	Scores = Float16.(wave[2]["subSco"])
+	judge_origs = wave[2]["subScoOrig"]
+	
+	max_rank = length(unique(Scores))
 	for (i,score) in enumerate(sort(unique(Scores)))
 		I = findall(x->x==score, Scores)
 		rank = Int(i) # to reassure julia's type inference
 		for orig in judge_origs[I]
 			jud_orig = Int(ToInd[:JUD_orig][ orig ]) # reassure type inference
-			info[ yr, evt , rnd , heat, ath_orig , jud_orig , rank ] += 1
+			info[ yr, evt, rnd, heat, ath_orig, jud_orig, max_rank, rank ] += 1
 		end
 	end
 end
