@@ -24,7 +24,7 @@ ISOs = sort(unique(collect(values(isoDict))))
 #Index = Dict([ var => Dict() for var in [ ] ])
 #Ind["evtYear"]
 
-data = parse( open("../Data/CleanAllDataCC.txt", "r"))
+data = parse( open("Data/CleanAllDataCC.txt", "r"))
 
 waves = []
 WaveIds = []

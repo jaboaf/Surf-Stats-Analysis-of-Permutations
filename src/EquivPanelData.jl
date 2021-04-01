@@ -1,4 +1,4 @@
-using GRUtils
+include("toolkit/OrderingUtils.jl")
 isoDict = Dict([
     "Australia" => :AUS,
     "Basque Country" => :ESP,
@@ -25,17 +25,27 @@ filter!(data) do wave
 	wave[2]["evtYear"] in ["2018","2019"] && wave[2]["subScoOrigDefect"]==false
 end
 
-panels = Array{Array{Symbol,1},1}[]
+eqPanels = Array{Pair,1}[]
 for wave in data
 	judge_origs = map(x->isoDict[x], wave[2]["subScoOrig"])
+	panelOrigs = Set(judge_origs)
 	judge_scores = Float16.(wave[2]["subSco"])
-	judging = Pair(judge_scores, judge_origs)
-	panel = []
-	for (i,s) in enumerate(sort(unique(judge_scores)))
-		I = findall(x->x[1]==s, judge_scores)
-		push!(panel, judge_origs[I])
+	eqPanel = Pair{Array{Float16,1},Array{Symbol,1}}[]
+	for c in panelOrigs
+		I = findall(==(c), judge_origs)
+		push!(eqPanel, sort(judge_scores[I])=>judge_origs[I])
 	end
-	push!(panels, panel)
-end
+	sort!(eqPanel)
 
+	if !(isordered(first.(eqPanel)))
+		cond = true
+		while cond
+			j = findfirst(i->!(isordered(first.(eqPanel)[i:(i+1)])), 1:(length(eqPanel)-1))
+			newElm = [ vcat(first.(eqPanel)[j:(j+1)]...) => vcat(last.(eqPanel)[j:(j+1)]...)]
+			eqPanel = [ eqPanel[1:(j-1)]... , newElm... , eqPanel[(j+2):end]... ]
+			cond = eval( !(isordered( collect(first.(eqPanel)) )) )
+		end
+	end
+	push!(eqPanels, eqPanel)
+end
 

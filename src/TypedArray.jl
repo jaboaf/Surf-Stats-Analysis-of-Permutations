@@ -84,17 +84,11 @@ Actual Variables:
 =#
 
 "evtYear"		
-
 "evtName"
-
 "rnd"
-
 "heat"
-
 "athOrig"
-
 "subScoOrig"
-
 "rank"
 
 varRng("evtName")
@@ -102,16 +96,16 @@ varRng("rnd")
 varRng("heat")
 athOrig
 
-
 info = BitArray()
 
 
-@enum WCT begin
-    WCT17=1
-    WCT18
-    WCT19
+
+WCT begin
+    "2017" --> WCT17=1
+    "2018" --> WCT18
+    "2019" --> WCT19
 end
-@enum EVENT begin
+EVT begin
 	"Bali Pro"			--> BaliPro=1
 	"Bells Beach" 		--> BellsBeach
 	"France"			--> FrancePro
@@ -124,7 +118,26 @@ end
 	"Tahiti" 			--> Teahupoo
 end
 
+ToInd = Dict{Symbol,Array}()
+ToInd[:YR] = varRng("evtYear")
+ToInd[:EVT] = varRng("evtName")
+ToInd[:RND] = varRng("rnd")
+ToInd[:HEAT] = varRng("heat")
+ToInd[:ATH_orig] = varRng("athOrig")
+ToInd[:JUD_orig] = sort(union(varRng("subScoOrig")...))
+
+struct ExprArray{T,N} <: AbstractArray{T,N}
+	varRngs::Dict{Symbol,Array{Q,1}} where Q
+	vars::Array{Symbol,1}
+end
+
+ExprArray(vR::Dict{Symbol,Array}, vars::Array{Symbol,1}) =  zeros(Int8, Tuple(length(vR[k]) for k in vars));
+ExprArray(vR::Dict{Symbol,Array}) = ExprArray(vR, sort(collect(keys(vR))))
+
+function getindex(A::ExprArray, e::Expr)
+	if e.head == :(=)
+		indexin()
+	sort(e, by= x->x.args)
 
 
-struct TypArray{T,N} <: Array{T,N}
 

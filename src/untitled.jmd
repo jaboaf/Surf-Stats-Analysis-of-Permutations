@@ -6,15 +6,38 @@ I am a visual human. Lets begin!
 using GRUtils
 using StatsBase
 ```
-## Abstract
-International Surf Compeitions provide an opportunity to 
+
+# Abstract
+- We Construct a general methods to analyze permutations.
+- We present an empirical method for analyzing ordered in order to test for nationality bias in International Surf Competitions.
+- We show this method can be applied in other settings, particularly for random graphs.
+
+
+To state what we are setting out to do in its full generality simply:
+  - We are interested in a (finite) set of things, $E = \{e_1, e_2, \dots, e_n \} $
+  - the number of things we are interested in is $|E| = n$
+  - We observe some data, `` D = (d_i)_i^N ``
+    - each data point provides some information about a subset `` \{ e_a \: e_b \: \dots e_c \} \subseteq E ``.
+    - The number of things we observe are `` |\{ e_a \: e_b \: \dots e_c \} | = k ``
+    - We can observe
+      - a full ordering, for example $ [e_c \:  e_a \dots e_b] $
+      - or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
+      - or no ordering at all.
+            
+  - We wish to assign $\mathbb{P}(Data | Model)$
 
 ## Concrete
 Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?
 
+**Ordered Data**: Recommendation systems attempt to leverage information regarding one’s preferences to suggest new content (e.g. music, movies) or products (e.g. books). Ranked-choice voting is used for local, provincial/state, and national level elections across the globe. Many institutions, such as Cornell University, use ranked-choice for its elections. In sports, team or athlete rankings frequently determine season schedules or tournament structures. And in games or general forms of competition, outcomes can be naturally expressed as an ordering of the set of participants.
+
+**Graphical Data**: Some Stuff about graphs blah blah blah THIS IS EVERYWHERE and everyone loves graphs.
+
+# Introduction
+
 The World Surf League (WSL) is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of "tours" which include Mens and Womens versions of Big Wave events, the "Longboard Tour", the "Qualifying Series", and the "Championship Tour" (CT). 
 
-Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 distinct surf compeitions, called "events", in 7 different countries. Each event has 7 rounds, each consisting of 1-16 heats, and each heat has 2-3 surfers. In a heat, a surfer may take any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat, and if there is a third surfer, they place 3rd in the heat. Each round has a rule that determines which surfers advance to what rounds and which surfers exit the heat.
+Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 distinct surf compeitions, called "events", in 7 different countries. Each event has 7 rounds, each consisting of 1-16 heats, and each heat has 2-3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what (round,heat) they advance to. All surfers that do not advance, "exit" the event, and are given some number of points (the closer to a final, the higher the amount of exit points).
 
 INSERT 2019 Event Format Drawing Here:
 Note to self: add number of points given at exit to fig.
@@ -50,7 +73,7 @@ function marginalBarPlot(M::Array{T,N}, d::Integer) where {T,N}
 	dIndex_(h::Integer) = [ i==d ? h : Colon() for i in 1:N]
 	marginal_d = [sum( M[ dIndex_(h)... ] ) for h in 1:size(M)[d] ]
 	savefig(
-		"marginal_$(vars[d]).png",
+		"visuals/marginal_$(vars[d]).png",
 		barplot(
 			map(x-> "$(x)", sort(collect(keys(ToInd[vars[d]]))) ),
 			marginal_d
@@ -61,15 +84,96 @@ end
 
 for d in length(vars) marginalBarPlot(info, d) end
 ```
-![Judge Origin Marginal](marginals_YR.png)
-![Judge Origin Marginal](marginals_EVT.png)
-![Judge Origin Marginal](marginals_RND.png)
-![Judge Origin Marginal](marginals_HEAT.png)
-![Judge Origin Marginal](marginals_ATH_orig.png)
-![Judge Origin Marginal](marginals_JUD_orig.png)
-![Judge Origin Marginal](marginals_MAX_RANK.png)
-![Judge Rank Marginal](marginals_RANK.png)
+![Judge Origin Marginal](visuals/marginals_YR.png)
+![Judge Origin Marginal](visuals/marginals_EVT.png)
+![Judge Origin Marginal](visuals/marginals_RND.png)
+![Judge Origin Marginal](visuals/marginals_HEAT.png)
+![Judge Origin Marginal](visuals/marginals_ATH_orig.png)
+![Judge Origin Marginal](visuals/marginals_JUD_orig.png)
+![Judge Origin Marginal](visuals/marginals_MAX_RANK.png)
+![Judge Rank Marginal](visuals/marginals_RANK.png)
 
+# Definitions
+  - **The Symmetric Group on a set, ``X``** is ``S_X := Isomorphisms(X,X)``. When ``|X|<\infty$, $S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} ``
+
+  - ``S_d := S_{\{ 1 ,\dots, d\}}. ``
+
+  - When G is a Group, and ``\mathbb{F}`` is a Field, the **Group Algebra of G over ``F``**, denoted ``\mathbb{F}[G]``, is the space of formal linear combinations of elements of G. Elements of ``\mathbb{F}[G]`` are of the form: ``c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i``, where ``c_i \in \mathbb{F}, g_i \in G``. Note that ``i\neq j \implies g_i \neq g_j`` because G is a set of elements, so no element occurs with multiplicity. For example, ``c_1 g + c_2 g \not\in \mathbb{F}[G]`` whereas ``(c_1 + c_2)g \in \mathbb{F}[G]``.
+
+  - ``\mathbb{F}[S_d]`` is comprised on formal linear combinations of elements of ``S_d``. This may be understood as two different ways:
+    - There exists a function ``a:S_n \rightarrow \mathbb{F}`` and ``A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]``.
+    - Or: `` A = [ \pi_1 \dots  \pi_{d!} ] \begin{pmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{pmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] ``,where ``\tau \in S_d, a_\tau \in \mathbb{F}``.
+
+  - **Addition in ``\mathbb{F}[S_n]``** is defined by ``A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) := \sum_\tau (a_\tau + b_\tau) \tau ``
+
+  - **Scalar Multiplication in ``\mathbb{F}[S_d]``** is ``c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau``.
+
+  - Multiplication in ``\mathbb{F}[S_d]`` is *defined* by:
+    
+    - ``A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
+    :=\sum_{\gamma \in S_d}(\sum_{\tau,\pi | \tau\pi=\gamma} a_\tau b_\pi) \gamma
+    = \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma ``.
+
+
+We should not over complicate ``*``. The *definition* of ``*`` may look odd, but it exactly the same as our basic understanding of multiplication:
+``
+(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)
+= \sum_{  \tau} (a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)
+= \sum_{  \tau} \sum_{\pi }  (a_\tau\tau) * (b_\pi \pi)
+= \sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi
+=\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma
+=(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
+``
+Even though ``(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)`` is equal to the intuitive form, ``\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi``, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, ``*`` merely extends multiplication in the Field,``\cdot: \mathbb{F} \times \mathbb{F} \rightattow \mathbb{F}``, and the operation in the group, ``\circ``, by ``a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi``, where the last equality is simply notation-reduction.
+
+A measure on ``S_d``, is an element of the group algebra ``\mathbb{C}[S_n]``.
+A measure on ``S_d``, ``F = \sum_{\tau \in S_d} f_\tau \tau``, is a probability measure on ``S_d`` if and only if ``\forall \tau \in S_d f_\tau \geq 0 `` and ``\sum_{\tau \in S_d} f_\tau = 1 ``.
+
+A linear representation of a group G, is a group homomorphism, ``\rho : (G,\circ) \rightarrow (GL(V),\cdot)``. A group homomorphism satisfies:
+  
+  - `` \forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y)`` where ``\cdot`` is multiplication in ``GL(V)``.
+
+  - `` \rho(e) = I ``, where e is the identity element in ``G`` and I is the identity element in ``GL(V)``.
+
+  - ``\forall x \in G, \rho(x^{-1}) = \rho(x)^*``, where ``^*`` denotes involution in ``GL(V)``.
+
+The representation of a measure F, is: `` \hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau) ``.
+Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. 
+
+**Convolution of two functions on ``S_d``** is a binary operation `` A * B := \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g)``.
+
+Note:
+``
+\widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma) 
+= \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma )
+= \sum_{\tau} \sum_{\gamma\tau } a(\gamma\tau \tau^{-1})b(\tau)\rho(\gamma\tau )
+= \sum_{\tau} \sum_{\gamma\tau } a(\gamma )b(\tau)\rho(\gamma)\rho(\tau )
+= \sum_{\tau} b(\tau)\rho(\tau ) \sum_{\gamma\tau } a(\gamma )\rho(\gamma) 
+= \sum_{\tau} b(\tau)\rho(\tau ) \hat{A}
+= \hat{A} \sum_{\tau} b(\tau)\rho(\tau )
+= \hat{A} \cdot \hat{B}
+``
+
+We take ``\rho_d`` the permutation representation acting on the vector space ``V := \mathbb{R}^d`` with basis indexed by ``\{1, \dots d\}``. So a typical element of V is of the form: 
+``
+\begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} 
+= \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
++ \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix}
++ \dots
++ \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} 
+= a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} 
++ a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} 
++ \dots 
++ a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} 
+= a^1 e_1 + a^2 e_2 + \dots a^n e_n `` 
+This could be rewritten as ``\sum_{i \in \{1,\dots,n\} } a^i e_i``. But remember, we are interested in functions that act on the basis.
+
+
+
+
+
+# Analysis
+Many authors call ``*`` "convolution", however this terminology is superfluous.
 
 One thing I could change:
 - instead giving every element of rth partition rank  give them each:
@@ -184,5 +288,35 @@ Theory_Parts_Props = Dict(
 println(χ_sq)
 ```
 ... χ² is very large....
+
+
+```julia
+include("EquivPanelData.jl")
+eqParts = map(eqPanel -> [count(==(i),length.(last.(eqPanel))) for i in 1:5], eqPanels )
+eqParts_Counts = countmap(eqParts)
+eqParts_Props = Dict([x=>eqParts_Counts[x]/N for x in keys(eqParts_Counts)])
+Theory_Parts_Props = Dict(
+	[K=> prod( [ 1//( factorial(K[j]) *  j^K[j] ) for j in 1:5]) 
+	for K in keys(eqParts_Counts) ]
+)
+eqχ_sq = N*sum(
+	[ (eqParts_Props[x]-Theory_Parts_Props[x])^2 / Theory_Parts_Props[x]
+	for x in keys(eqParts_Props)]
+)
+
+eqPanelsNoM = map(panel -> [unique(x[2]) for x in panel], eqPanels)
+eqPartsNoM = map(panel -> [count(==(i),length.(panel)) for i in 1:5], eqPanelsNoM)
+nOrigsCounts = countmap( map(x->sum([i*x[i] for i in 1:5]),eqPartsNoM))
+eqPartsNoM_Counts = countmap(eqPartsNoM)
+eqPartsNoM_Props = Dict([x=>eqPartsNoM_Counts[x]/N for x in keys(eqPartsNoM_Counts)])
+Cond_Theory_Parts_Props = Dict(
+	[ K => nOrigsCounts[sum([i*K[i] for i in 1:5])]/N * prod( [ 1//( factorial(K[j]) *  j^K[j] ) for j in 1:5]) 
+	for K in keys(eqPartsNoM_Props) ]
+)
+eqNoM_cond_χ_sq = N*sum(
+	[ (eqPartsNoM_Props[x]-Cond_Theory_Parts_Props[x])^2 / Cond_Theory_Parts_Props[x]
+	for x in keys(eqPartsNoM_Props)]
+)
+```
 
 

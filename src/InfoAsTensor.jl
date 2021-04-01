@@ -20,7 +20,7 @@ isoDict = Dict([
     "United States" => :USA
 ])
 
-data = parse( open("../../Data/CleanAllDataCC.txt", "r"))
+data = parse( open("Data/CleanAllDataCC.txt", "r"))
 
 WaveIds = sort(collect( filter( wid-> data[wid]["nJudOrigs"] == 5 & data[wid]["nSubScos"], keys(data)) ))
 HeatIds = sort( unique( map( wid-> data[wid]["heatId"], WaveIds )))

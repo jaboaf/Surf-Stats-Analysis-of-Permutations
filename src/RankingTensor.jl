@@ -26,7 +26,7 @@ function varRng(s::String)
 	return sort(collect(rng))
 end
 
-data = parse( open("../Data/CleanAllDataCC.txt", "r"))
+data = parse( open("Data/CleanAllDataCC.txt", "r"))
 
 filter!(data) do wave
 	# Simplify data to most "complete years"
