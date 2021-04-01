@@ -93,8 +93,8 @@ In order to carry out these analyses with rigor, we must construct some methods 
 \begin{definition}When G is a Group, and $\mathbb{F}$ is a Field, the \textbf{Group Algebra of G over \mathbb{F}}, denoted $\mathbb{F}[G]$, is the space of formal linear combinations of elements of G. Elements of $\mathbb{F}[G]$ are of the form: $c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i$, where $c_i \in \mathbb{F}, g_i \in G$. Note that $i\neq j \implies g_i \neq g_j$ because G is a set of elements, so no element occurs with multiplicity. For example, $c_1 g + c_2 g \not\in \mathbb{F}[G]$ whereas $(c_1 + c_2)g \in \mathbb{F}[G]. $\end{definition}
 
 \begin{remark} $\mathbb{F}[S_d]$ is comprised on formal linear combinations of elements of $S_d$. This may be understood as two different ways:
-\item There exists a function $ a:S_n \rightarrow \mathbb{F}$ and $A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]$.
-\item $ A = \begin{bmatrix} \pi_1 \dots \pi_{d!} \end{bmatrix}\begin{bmatrix}  a_{\pi_1} \\ \vdots \\ a_{\pi_{d!} }\end{bmatrix} = \sum_{\tau \in S_d} a_\tau \tau \in \mathbb{F}[S_d]$,where $\tau \in S_d, a_\tau \in \mathbb{F}$.
+There exists a function $ a:S_n \rightarrow \mathbb{F}$ and $A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]$.
+So: \[ A = [ \pi_1 \dots  \pi_{d!} ]  \] \[ \begin{pmatrix}a_{\pi_1}  \\  \vdots  \\  a_{\pi_{d!} }\end{pmatrix}\] = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] \],where $\tau \in S_d, a_\tau \in \mathbb{F}$.
 \end{remark}
 
 \begin{definition}[Addition in $\mathbb{F}[S_n]$] is defined by $A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) = \sum_\tau (a_\tau + b_\tau) \tau $ \end{definition}
