@@ -1,0 +1,246 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem*{notation}{Notation}
+\newtheorem{construction}{Construction}
+
+\author{Jojo Aboaf}
+\date{February 2021}
+
+\begin{document}
+
+\section{Existing Models for Ordered Data}
+The present methods for analyzing permutations are probability models. A \textit{probability} model is not necessary to analyze permutation data.
+Q: What about test hypotheses or perform inference?...
+
+% Using the following sources:
+% Marden, John. Notes on Statistical Models for Ranking Data. 2017. http://www.istics.net/pdfs/notes.pdf
+
+Have n objects, which we consider $ \{1,\dots,n\}$
+Parameter vector, denoted as $\theta$, which is typically understood and representing a quantity. 
+In sports this parameter vector is usually "skill"
+In graphs this parameter vector is usually "friendliness"
+
+\subsection{Thurstone Order Statistic Model}
+$ Z_i = N(\theta_i, \sigma_i) $
+\( P(\pi) := P(Z_{\pi(1)} < Z_{\pi(2)} < \dots < Z_{\pi(n)} ) \)
+
+\subsection{Bradley-Terry-Mallows}
+Parameter: \(\theta = [\theta_1, \dots, \theta_n]^T\)
+The Comparison: \( p_{a,b} := \frac{\theta_a}{\theta_a + \theta_b} \)
+\( 
+\prod_{i<j} p_{\pi(i),\pi(j)} = \frac{ \prod_{i=1}^n \theta_{\pi(i)}^{n-i} }{ \prod_{i<j}(\theta_i + \theta_j) }
+\)
+
+\(
+P_\theta(\pi) = \frac{1}{ c(\theta) } \prod_{i<j}p_{\pi(i),\pi(j)} 
+= \frac{1}{c(\theta)} \prod_{i=1}^n \prod_{j=i+1}^n p_{\pi(i),\pi(j)}
+\)
+\(c(\theta) := \sum_{\pi \in \mathcal{S}_n} \prod_{i<j} p_{\pi(i),\pi(j)}
+\)
+
+\subsection{Mallows Model}
+\(
+P_\theta(\pi) = \frac{1}{ c(\theta) }e^{\gamma d_K(\pi)}
+d_K(\pi):= \sum_{i<j} I_{\pi(i)>\pi(j)}
+\)
+
+\subsection{Plackett-Luce}
+See some stuff about using different distance functions. Metric spaces.....
+Metric Methods by Flinger and Verducci
+
+\section{Some Math Things}
+\begin{definition}
+Let $V=\mathbb{R}^n$ be real vector space with the standard (orthonormal) basis, $\{e_i\}_{i=1}^n$, with an inner product $\langle \cdot,\cdot \rangle$ defined by $\langle x,y\rangle := x^T Iy = x^Ty$. This satisfies:
+$\forall x \in V \: \langle x,x \rangle \geq 0 $ and $\langle x,x\rangle=0 \iff x=\vec{0} $.
+$\forall x,y,z \in V \: \langle x,y+z \rangle= \langle x,y \rangle +  \langle x,z \rangle$.
+$\forall c \in \mathbb{R} \: \forall x,y \in V \: c\langle x,y \rangle=\langle x,cy \rangle$
+\end{definition}
+NOTE: I don't want/need this anymore. Inner products are nice, but multi linear forms are nicer.
+
+We will represent $S_n$ in $GL(V)$ by $\rho : \mathcal{S}_n \rightarrow M_n(V)$, defined by: \( \rho(\tau) := [ e_{\tau(1)} \dots e_{\tau(n)} ]= \rho_{\tau} \)
+This representation is a faithful representation (see Serre P.5).
+NOTE: In the given basis, this representation is irreducible. 
+
+The Exponential Map for $  P_\tau $ for some $\tau \in \mathcal{S}_n $:
+$ \exp(P_\tau ) := \sum_{n=0}^\infty \frac{ (P_\tau)^n}{n!} $
+
+Notes abt power series:
+baby rudin
+3.4 
+Let: $ x_n \in \mathbb{R}^k $
+Let: $x^{(n)} := (\alpha_{1,n}, \dots, \alpha_{k,n})$
+$ \lim_{n\rightarrow \infty}x^{(n)} = x \iff \forall i \in \{1,\dots,k\} \lim_{n\rightarrow \infty} x_i^{(n)} = x_i $
+
+3.38, 3.40b,
+Power Series: Given $(c_k \in \mathbb{C})_{k\in\mathbb{N}}$, then $ \sum_{k=1}^\infty c_k x^k := \lim_{n \rightarrow \infty} \sum_{k=1}^n c_k x^k $ is a power series.
+Radius of Convergence, $R:= \frac{1}{\alpha}$, where $\alpha := \lim_{n \rightarrow \infty} \sup |c_n|^{1/n} $
+For $(\frac{1}{k!})_{k\in\mathbb{N}} $, $R=+\infty$
+
+3.43
+Suppose [$ |c_1|\geq |c_2| \dots $ AND $\forall m \in \mathbb{N} \: c_{2m-1} \geq 0, c_{2m} \leq 0 $ AND $\lim_{n\rightarrow \infty} c_n = 0$] THEN $\sum c_n$ converges
+
+3.48
+Cauchy Product of $\sum a_n$ and $\sum b_n$ is $ \sum c_n $ where $ c_n :=\sum_{k=0}^n a_k b_{n-k}$
+
+3.50
+IF [ $\sum_{n=0}^\infty a_n $ converges absolutely AND $\sum a_n = A$ AND $\sum b_n = B$ ] THEN [ $\sum a_n \sum b_k = \sum c_m = AB$ where the product of the series is the cauchy product]
+
+3.51
+IF [ $\sum_{n=0}^\infty a_n $ converges to A  AND $\sum b_n $ converges to B AND $\sum c_n = C$ where $ c_n :=\sum_{k=0}^n a_k b_{n-k}$ ] THEN [ $(\sum a_n)( \sum b_k) = AB = C$ ]
+
+4.3 defn and 4.4 rmk
+Suppose $E \subseteq (\mathrm{X}, d)$ and $p \in \bar{E} $ and f,g are complex fns on E and $\lim_{x\rightarrow p} f(x) = A$ and $\lim_{x\rightarrow p} g(x) = B$
+then 
+a) $\lim_{x\rightarrow p} (f+g)(x) = A+B$ 
+b)  $\lim_{x\rightarrow p} (fg)(x) = AB$
+c)  $\lim_{x\rightarrow p} (\frac{f}{g})(x) = \frac{A}{B}$
+NOTE: if f,g map E into $\mathbb{R}^k$ then (a) holds, and $\lim_{x\rightarrow p} (f\cdot g)(x) = A \cdot B $
+
+ 10.26 on of ch 10
+
+
+About convolutions
+$D_t(f*g) = D_t f * g = f * D_t g $ 
+$\partial_{x_i}(f*g) = \partial_{x_i}f * g = f* \partial_{x_i}g $
+
+NOTE: Choice of field is very important her...
+Question: R prob makes most sense, but C lets us solve all polynomials
+
+First, we proceed with the group algebra $\mathbb{F}[S_n]$
+
+NOTE/ Question to self: This * is intended as multiplication,... maybe we should just work with it as convolution or see Simon's construction of unitary representations in Representations of Finite Groups.
+Definition of + in $\mathbb{F}[S_n]$: $A + B =\sum_{g\in S_n} a_g g + \sum_{h \in S_n} b_h h :=\sum_{g \in S_n} (a_g + b_g) g $
+Definition of $*$ in $\mathbb{F}[S_n]$: $A * B = (\sum_{g\in S_n} a_g g) * (\sum_{h \in S_n} b_h h) :=\sum_{g,h \in S_n} (a_g b_h) gh $
+Definition of scalar mult. in $\mathbb{F}[S_n]$. For $ c \in \mathbb{F}$: $cA = c\sum_{g\in G} a_g g := \sum_{g\in G} (c a_g) g $  
+
+\begin{construction}
+Now, it is important to note that there is no zero element in $S_n$, but we need a zero element for $\mathbb{F}[S_n]$ to show it is a ring.
+
+Since $0 \in \mathbb{F}$, let $0_n := \sum_{g\in S_n}0g$.
+Given $ T := \sum_{g \in S_n} a_g g $, define $ -T := \sum_{g \in S_n} -a_g g $ where $-a_g$ is the additive inverse of $a_g$ in $\mathbb{F}$
+
+First we show that $\mathbb{F}[S_n]$ is a Ring:
+Additive Identity: $ A + 0_n = 0_n + A = A$
+PF: $A + 0_n = \sum_{g \in G} a_g g + \sum_{g\in S_n} 0g = \sum_{g \in S_n} (a_g + 0)g = \sum_{g \in S_n} a_g g = A  $
+Additive Inverses: $ A - A = 0_n $ 
+PF: $A + -A = \sum_{g\in S_n} a_g g + \sum_{h \in S_n} -a_h h = \sum_{g \in S_n} (a_g + -a_g) g = \sum_{g \in S_n} 0g = 0_n $
+Addition is Commutative: $A+ B = A + B$
+
+Right Distributive: $ A * (B +C) = (A*B) + (A*C)$
+PF: $\sum_{g\in S_n} a_g g * ( \sum_{h \in S_n} b_h h + \sum_{k \in S_n} c_k k) =\sum_{g\in S_n} a_g g * (\sum_{h \in S_n} (b_h + c_h) h ) = \sum_{g,h \in S_n} a_g(b_h + c_h) gh$ $= \sum_{g,h \in S_n} (a_g b_h + a_g c_h) gh = \sum_{g,h \in S_n} a_g b_h gh + \sum_{g,h \in S_n} a_g c_h gh
+= A*B + A*C$
+
+Left Distributive: $ (G+H)*F = (G*F) + (H*F)$
+PF: 
+
+Multiplicative Associativity (By Group Hom): $(A*B) *C = A* (B*C)$
+$ (\sum_{g\in S_n} a_g g * \sum_{h\in S_n} b_h h) * \sum_{k\in S_n} c_k k   = \sum_{g,h\in S_n} a_g b_h gh * \sum_{k\in S_n} c_k k = \sum_{g,h,k\in S_n} a_g b_h c_k ghk $
+$= \sum_{g,h\in S_n} a_g g * (\sum_{h,k\in S_n} b_h c_k hk) = \sum_{g\in S_n} a_g g * (\sum_{h\in S_n} b_h h * \sum_{k\in S_n} c_k k) =  A *(B*C)     $
+
+It also has a Multiplicative Identity: $ \exists I | \forall A \quad  I*A = A*I = A $
+Let $I := \sum_{g\in S_n} 1_{g=e} g $. So, $I * A = (\sum_{g\in S_n} 1_{g=e} g) * (\sum_{h\in S_n} a_h h) = \sum_{g,h\in S_n} 1_{g=e} a_h gh = \sum_{g\in S_n} 1_{e=e}a_h eh = \sum_{h\in S_n} a_h h = A$
+\end{construction}
+
+Note: We first worked with the group below because using a representation $(\rho, V(\mathbb{F}))$ would describe a particular ring $ \mathbb{R}[\rho(\mathcal{S}_n)] $. However, a representation affords us more flexibility. Namely, it satisfies all of the conditions of a ring, but it also provides us with multiplicative inverses (THIS ONLY HOLDS IF COEFFs ARE NON-NEG, ... ). Thus, in a representation we have Division Algebra.
+$A = \sum_{g\in S_n} a_g \rho_g $. 
+
+
+
+Claim: If $ H \leq S_n $ Then  $ \mathbb{F}[H] \leq  \mathbb{F}[S_n]  $
+PF:
+
+All of the below analogues for $g\in S_n$ and  $P_\infty[g]$ are easy.
+
+Note: $\forall n \in \mathbb{N} \quad  P_\infty[S_n] \leq \mathbb{F}[S_n]  $. This is a matter of definitions. For $ A \in P_\infty[S_n]$,  (WE ASSUME: $\sum |a_k|$ converges  so $\lim_m \sum_{k=0}^m |a_k| $ converges by defn of convergence). General Element in $P_\infty[S_n] $ is $A := \sum_{k=0}^\infty a_k \prod_{g \in S_n}  g^{b_{k,g}} $. But we know that $\prod_{g \in S_n}  g^{b_{k,g} }\in S_n $, so let us define $g_k := \prod_{g \in S_n}  g^{b_{k,g} } $. Which gives: $A = \sum_{k =0}^\infty a_k g_k = \sum_{g \in S_n} (\sum_{j \in J_h} a_j) h$, where $ J_h \subset \mathbb{N} | \forall j \in J_h \quad g_j = h $. And the convergence of $\sum_{j \in J_h} a_j $ follows from the assumption that $\sum_{k \in \mathbb{N}} a_k$ converges. Since, $\sum a_k $ converges absolutely, we know $\forall \sigma \in S_\mathbb{N} \: \sum_{k \in \mathbb{N} } a_{\sigma(k) } = \sum_{k} a_{k} $, hence $ 
+A = \sum_{h \in S_n} (\sum_{j \in J_h} a_j)h \in \mathbb{F}[S_n]  $ (Q: really ????).
+
+Claim: (true or not true?) Assuming $\sum a_k = a \neq 0$. $P_\infty[S_n]$ is a group
+PF:
+(ID) is I. because
+$ I *A  =  e*(\sum_{k} a_k h_k) = (\sum_{g \in S_n} 1_{g=e}e)*(\sum_{h \in S_n} a_h h) = \sum_{g,h \in S_n} (1_{g=e}a_h)gh = \sum_{h \in S_n} (1_{e=e}a_h)eh = \sum_{h \in S_n }a_h h = A$
+(Comp) is valid
+$A * B = (\sum_{m\in \mathbb{N}} a_k g_k) * (\sum_{k \in \mathbb{N}} b_k h_k) = (\sum_{g\in S_n} a_g g ) * (\sum_{h \in S_n } b_h h) = \sum_{g,h \in S_n} a_g b_h gh $
+(Inv) is well defined (assuming $a_k \neq 0$
+$ A^{-1} := (\sum_{k \in \mathbb{N}} a_k g_k)^{-1} = (\sum_{g\in S_n} a_g g)^{-1} = \sum_{g\in S_n} a_g^{-1} g^{-1}$
+So  $ A^{-1} * A = (\sum_{g \in S_n} a_g^{-1} g^{-1}) * (\sum_{h \in S_n} a_h h) = \sum_{g,h \in S_n} a_g a_h g^{-1} h = \sum_{\tau \in S_n} c_\tau \tau$ 
+..... I think we have to use an invariance property of sorts. 
+
+Note: can we/ should we let sums converge to anything? If so, don't we need closure, in which case working with F = C would solve our problems thanks to algebraic closure, or do we really only need to add limit pt at infty in R.
+
+Q: Do we get anything by defining multiplication of series point wise, where I is $\sum_{k\in \mathbb{N}} 1 e$ ? ... This is possible, point wise is in a sequence space is generally fine, but if we let the sum converge to anything, then we have very very small sums,This is like hyperbolic distance...
+
+Also: \(
+L^p(S_n) = \{ f:S_n \rightarrow V \mid \|f\|_p^p = \frac{1}{o(S_n)}\sum_{\tau \in S_n} |f(\tau)|^p \}
+\)
+
+\section{Random Graph Models}
+\begin{definition}[ A graph, $G$, is a pair $G=(V,E)$ ], where $V$ is a set of vertices (sometimes called nodes) and $E$ is set of edges satisfying:
+\item $E \subseteq V \times V $
+\item At least one outgoing edge: $ \{ u \mid (v,u) \in E\} \neq \emptyset $
+\item At least one incoming edge: $ \{ u \mid (u,v) \in E\} \neq \emptyset $
+\end{definition}
+
+(Note: this is equivalent to $ \neg \exists W \subsetneq V s.t. E \subseteq W\times V  or E \subseteq V\times W $.)
+
+\begin{remark} The above definition is quite succinct. But please note that E is a set, and $E \subseteq V \times V$ means that an edge does not occur with multiplicity. The second condition requires that the adjacency matrix of a graph has a 1 in every row. The third condition requires that the adjacency matrix of a graph has a 1 in every column. These are no preposterous assumptions, and they certainly permit for self loops.
+\end{remark}
+
+\begin{definition}[A bi-directed graph is a graph (V,E)] where $(a,b) \in E \iff (b,a) \in E$ \end{definition}
+
+\subsection{General Problems}
+
+\paragraph{General Problem 1:} Fix a random graph model $\mathcal{M}$ with sufficient statistics $T$. Develop an efficient algorithm that samples from the space of graphs with arbitrary fixed value of $T(g) = t_{obs}$.
+
+\paragraph{General Problem 2:} Determine a set of moves sufficient to connect the space of graphs, consisting of both directed and bi-directed (reciprocated) edges, with a given directed degree sequence and number of reciprocated edges.
+
+\paragraph{General Problem 3:} Determine a set of moves sufficient to connect the space of hypergraphs, uniform, layered or general, with a given degree sequence.
+
+\subsection{Exponential Random Graph Models}
+\( \mathcal{M} := \{ p_\theta \mid \theta \in \Theta \} \)
+\( p_\theta(g) = \exp(\langle T(g),\theta \rangle - \psi(\theta))\) where \(\psi(\theta) := \sum_{g}\exp(\langle T(g),\theta \rangle)\)
+\( \mathcal{F}_{t_{obs}} := \{ g \mid T(g) = t_{obs} \} \)
+
+\subsection{Beta-Model MLE}
+We consider the set of graphs on n vertices, $ G  := \{ g=(\{1,\dots,n\},E) \mid \text{g is a graph} \}$.
+$A_g $ will denote the adjacency matrix of the graph g ( $A_g := (a_{i,j}) $ where $a_{i,j} = 1$ if $(i,j) \in E$ else 0).
+
+An exponential random graph model is defined by a collection of probability measures, $ \mathcal{M} := \{P_\beta \mid \beta \in \Theta \} $, where:
+\begin{itemize}
+\item $\Theta := \{\beta \in \mathbb{R}^n \mid \|\beta \|_2  = 1 \}$
+\item $ P_\beta(g) := \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) $
+\item $ \psi(\beta) := \sum_{g \in G} \exp( \langle \beta, T(g) \rangle )$
+\item $T(g) = \begin{bmatrix}\deg(1) \\ \vdots \\ \deg(n) \end{bmatrix}$
+\end{itemize}
+
+$\bf{1}$ is the all ones vector. K is the $n\times n$ matrix of ones, ie. the adjacency for the complete graph on V.
+
+(Note: I think this is wrong)
+First, $\psi(\beta)$ is solely determined by one's definition of the set of all graphs.
+\( 
+\psi(\beta) := \sum_{g \in G} \exp( \langle \beta, T(g) \rangle) 
+= \sum_{g \in G} \exp( \beta^t A_g 1 ) 
+= \sum_{g \in G} \exp(  (\beta^t I) A_g (I 1) )
+= \sum_{g \in G} (\beta^t I)\exp(A_g) (I 1)
+= (\beta^t I) \sum_{g \in G} \exp(A_g)  (I 1)
+\)
+ Letting $Q := \sum_{g \in G} \exp(A_g) $, we have $(\beta^t I) Q (I 1) $ . Note that Q is finite by $|G|$ finite and $K - A_g \geq 0 $, so $Q\leq |G|\exp(K)$. Moreover, Q is a constant matrix because we may symmetrize any $A_g$. In which case, $Q = qK$ for some $q \in \mathbb{R}$. So $ \beta^t I Q I 1 =  \beta^t Q 1  = \beta^t (q K) 1 = q \beta^t K 1 = q \beta^t K 1 = q \beta^t n1 = qn \|\beta\|_1 = qn$
+
+\( P_\beta(g) := \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle) \exp( - \psi(\beta) ) 
+= \exp( \langle \beta, T(g) \rangle) \exp( - qn ) 
+\)
+Let $\hat{P}_\beta(g) := \frac{P_\beta(g)}{exp(-qn)} = \exp( \langle \beta, T(g) \rangle) = \exp(\beta^t A_g 1) = \exp(\beta^t I A_g I 1) = \beta^t I \exp(A_g ) I 1  $
+
+Data is $(g_i)_i^N$.
+MLE is: $L_\beta = \prod_{i=1}^N \hat{P}_\beta(g_i) = \prod_{i=1}^N\exp(A_g ) I 1 = $
+
+
+\end{document}
