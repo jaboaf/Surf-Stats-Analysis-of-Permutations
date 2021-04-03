@@ -28,7 +28,7 @@ function isordered(X::Array{<:Number},Y::Array{<:Number})
 end
 
 # Given an array of arrays
-function isordered(X::Array{Array{<:Number,1},1})
+function isordered(X::Array{Array{T,1},1}) where T<:Number
     return all( isordered.(Base.product(X...) ))
 end
 

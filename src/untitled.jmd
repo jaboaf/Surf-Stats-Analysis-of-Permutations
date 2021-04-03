@@ -14,30 +14,29 @@ using StatsBase
 
 
 To state what we are setting out to do in its full generality simply:
-  - We are interested in a (finite) set of things, $E = \{e_1, e_2, \dots, e_n \} $
-  - the number of things we are interested in is $|E| = n$
-  - We observe some data, `` D = (d_i)_i^N ``
-    - each data point provides some information about a subset `` \{ e_a \: e_b \: \dots e_c \} \subseteq E ``.
-    - The number of things we observe are `` |\{ e_a \: e_b \: \dots e_c \} | = k ``
+  - We are interested in a (finite) set of things, ``E = \{e_1, e_2, \dots, e_d \} ``
+  - The number of things we are interested in is ``|E|=d``
+  - We observe some data, `` Y = (y_i)_i^N ``
+    - Each data point provides some information about a subset `` \{e_a, e_b,…, e_c \} ⊆ E ``.
+    - The number of things we observe is ``|\{e_a, e_b,…, e_c \} | = k ``
     - We can observe
-      - a full ordering, for example $ [e_c \:  e_a \dots e_b] $
-      - or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
+      - a full ordering, for example `` [e_c \:  e_a \dots e_b] ``
+      - or a partial ordering, for example ``[e_c \: \{e_a, \dots, e_b\}]``, equivalently ``[e_c \: \{e_b, \dots, e_a\}]``
       - or no ordering at all.
-            
-  - We wish to assign $\mathbb{P}(Data | Model)$
 
 ## Concrete
 Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?
 
 **Ordered Data**: Recommendation systems attempt to leverage information regarding one’s preferences to suggest new content (e.g. music, movies) or products (e.g. books). Ranked-choice voting is used for local, provincial/state, and national level elections across the globe. Many institutions, such as Cornell University, use ranked-choice for its elections. In sports, team or athlete rankings frequently determine season schedules or tournament structures. And in games or general forms of competition, outcomes can be naturally expressed as an ordering of the set of participants.
 
-**Graphical Data**: Some Stuff about graphs blah blah blah THIS IS EVERYWHERE and everyone loves graphs.
+**Graphical Data**: Graphs are everywhere and everyone loves graphs and so on...
 
 # Introduction
 
 The World Surf League (WSL) is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of "tours" which include Mens and Womens versions of Big Wave events, the "Longboard Tour", the "Qualifying Series", and the "Championship Tour" (CT). 
 
-Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 distinct surf compeitions, called "events", in 7 different countries. Each event has 7 rounds, each consisting of 1-16 heats, and each heat has 2-3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what (round,heat) they advance to. All surfers that do not advance, "exit" the event, and are given some number of points (the closer to a final, the higher the amount of exit points).
+Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 surf compeitions in 7 different countries. Each competition has 7 rounds, each consisting of 1 to 16 heats, and each heat has 2 to 3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what (round,heat) they advance to. Surfers that do not advance "exit" the event, and are given some number of points (the closer the exit is to the compeitions final round, the higher the amount of points).
+
 
 INSERT 2019 Event Format Drawing Here:
 Note to self: add number of points given at exit to fig.
@@ -94,7 +93,7 @@ for d in length(vars) marginalBarPlot(info, d) end
 ![Judge Rank Marginal](visuals/marginals_RANK.png)
 
 # Definitions
-  - **The Symmetric Group on a set, ``X``** is ``S_X := Isomorphisms(X,X)``. When ``|X|<\infty$, $S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} ``
+  - **The Symmetric Group on a set, ``X``** is ``S_X := Isomorphisms(X,X)``. When ``|X|<\infty``,``S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} ``
 
   - ``S_d := S_{\{ 1 ,\dots, d\}}. ``
 
@@ -102,15 +101,14 @@ for d in length(vars) marginalBarPlot(info, d) end
 
   - ``\mathbb{F}[S_d]`` is comprised on formal linear combinations of elements of ``S_d``. This may be understood as two different ways:
     - There exists a function ``a:S_n \rightarrow \mathbb{F}`` and ``A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]``.
-    - Or: `` A = [ \pi_1 \dots  \pi_{d!} ] \begin{pmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{pmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] ``,where ``\tau \in S_d, a_\tau \in \mathbb{F}``.
+    - Or: `` A = [ \pi_1 \dots  \pi_{d!} ] \begin{bmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{bmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] ``,where ``\tau \in S_d, a_\tau \in \mathbb{F}``.
 
   - **Addition in ``\mathbb{F}[S_n]``** is defined by ``A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) := \sum_\tau (a_\tau + b_\tau) \tau ``
 
   - **Scalar Multiplication in ``\mathbb{F}[S_d]``** is ``c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau``.
 
   - Multiplication in ``\mathbb{F}[S_d]`` is *defined* by:
-    
-    - ``A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
+    ``A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
     :=\sum_{\gamma \in S_d}(\sum_{\tau,\pi | \tau\pi=\gamma} a_\tau b_\pi) \gamma
     = \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma ``.
 
@@ -124,7 +122,7 @@ We should not over complicate ``*``. The *definition* of ``*`` may look odd, but
 =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma
 =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
 ``
-Even though ``(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)`` is equal to the intuitive form, ``\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi``, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, ``*`` merely extends multiplication in the Field,``\cdot: \mathbb{F} \times \mathbb{F} \rightattow \mathbb{F}``, and the operation in the group, ``\circ``, by ``a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi``, where the last equality is simply notation-reduction.
+Even though ``(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)`` is equal to the intuitive form, ``\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi``, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, ``*`` merely extends multiplication in the Field,``\cdot: \mathbb{F} \times \mathbb{F} \rightarrow \mathbb{F}``, and the operation in the group, ``\circ``, by ``a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi``, where the last equality is simply notation-reduction.
 
 A measure on ``S_d``, is an element of the group algebra ``\mathbb{C}[S_n]``.
 A measure on ``S_d``, ``F = \sum_{\tau \in S_d} f_\tau \tau``, is a probability measure on ``S_d`` if and only if ``\forall \tau \in S_d f_\tau \geq 0 `` and ``\sum_{\tau \in S_d} f_\tau = 1 ``.
@@ -155,26 +153,20 @@ Note:
 ``
 
 We take ``\rho_d`` the permutation representation acting on the vector space ``V := \mathbb{R}^d`` with basis indexed by ``\{1, \dots d\}``. So a typical element of V is of the form: 
+
 ``
-\begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} 
-= \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
-+ \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix}
-+ \dots
-+ \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} 
-= a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} 
-+ a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} 
-+ \dots 
-+ a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} 
-= a^1 e_1 + a^2 e_2 + \dots a^n e_n `` 
+\begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} 
+= a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} 
+= a^1 e_1 + a^2 e_2 + \dots a^n e_n
+``
+
 This could be rewritten as ``\sum_{i \in \{1,\dots,n\} } a^i e_i``. But remember, we are interested in functions that act on the basis.
 
 
 
-
-
-# Analysis
 Many authors call ``*`` "convolution", however this terminology is superfluous.
 
+# Analysis
 One thing I could change:
 - instead giving every element of rth partition rank  give them each:
 { Nᵣ + i for i in 1:n_i}  where Nᵣ is Σʳnᵢ
@@ -186,14 +178,12 @@ T = 1_{order(Jᵢ) = Mᵣ }
 B ∪ T only really meaninful for Mᵣ>2
 
 Wondering₁: if P(T | JUD_orig==ATH_orig ) =  P( T | JUD_orig != ATH_orig )
+
 Wondering₂: if Wondering₁ depends on [   ]_orig
+
 Wondering₃: if P( B ∪ T | Mᵣ ) = 2/Mᵣ
+
 Wondering₄: if P(T | (JUD_orig==ATH_orig,Mᵣ) ) = 1/Mᵣ
-
-
-``
-P()
-``
 
 ```julia
 ATHandJUD_orig = intersect(keys(ToInd[:ATH_orig]),keys(ToInd[:JUD_orig]) )
@@ -203,12 +193,29 @@ sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:])
 for c in ATHandJUD_orig])
 for r in 1:5
 ]
+println("Match conditional on Max Rank is:")
+GivenMatchByMᵣ
+```
+```julia
 TopGivenMatchByMᵣ = [
 sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1]) 
 for c in ATHandJUD_orig])
 for r in 1:5
 ]
+println("Judge has Max Rank given Match (by Max Rank)")
+TopGivenMatchByMᵣ
+```
 
+```julia
+D₁ = TopGivenMatchByMᵣ ./ GivenMatchByMᵣ
+```
+We would expect:
+```julia
+E₁ = [1/r for r in 1:5]
+```
+So we have:
+```julia
+χsq₁ = sum(GivenMatchByMᵣ)*sum( (D₁ .- E₁).^2 ./ E₁ )
 ```
 
 ```julia
@@ -216,42 +223,48 @@ GivenMatchByMᵣandOrig = [
 sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:] )
 for r in 1:5, c in ATHandJUD_orig
 ]
+println("Match conditional on Max Rank (rows) and Nationality (cols)")
+GivenMatchByMᵣandOrig
+```
 
+```julia
 TopGivenMatchByMᵣandOrig = [
 sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1] )
 for r in 1:5, c in ATHandJUD_orig
 ]
+println("Judge has Max Rank given Match (by Max Rank (rows) by Nationality (cols))")
+TopGivenMatchByMᵣandOrig
 ```
-
 
 ```julia
-GivenAUSMatchByRandMᵣ = [
-sum( info[:,:,:,:,1,1,M,rnk] )
-for rnk in 1:5, M in 1:5
-]
-
-GivenAUSMatchByRandMᵣ = [
-sum( info[:,:,:,:,1,1,M,rnk] )
-for rnk in 1:5, M in 1:5
-]
-
+println(ATHandJUD_orig)
+D₂ = TopGivenMatchByMᵣandOrig ./ GivenMatchByMᵣandOrig
+```
+We would expect:
+```julia
+E₂ = [ 1/r for r in 1:5, c in ATHandJUD_orig ]
+```
+So we have a total χ^2 of:
+```julia
+χsq₂ = sum(GivenMatchByMᵣandOrig)*sum( (D₂ .- E₂).^2 ./ E₂)
 ```
 
+```julia
+W = (D₂ .- E₂).^2 ./ E₂
+χsqbyctry = [ sum(GivenMatchByMᵣandOrig[:,c])*sum(W[:,c]) for c in 1:6]
+```
 
 ```julia
 MᵣGivenMatch =[
 sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],3:5,:] )
 for c in ATHandJUD_orig
 ]
-
 OrderIsMᵣ = [ 
 sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1])
 for r in 3:5 ] )
 for c in ATHandJUD_orig 
 ]
-
-OrderIsMᵣ ./ MᵣGivenMatch
-
+println(OrderIsMᵣ ./ MᵣGivenMatch)
 ```
 
 But!!!
@@ -274,16 +287,16 @@ Ord_Parts_Props = Dict(
 ``
 
 ```julia
-Parts = map(panel -> [count(==(i),length.(panel)) for i in 1:5], panels)
-Parts_Counts = countmap(Parts)
-Parts_Props = Dict([x=>Parts_Counts[x]/N for x in keys(Parts_Counts)])
-Theory_Parts_Props = Dict(
-	[K=> prod( [ 1//( factorial(K[j]) *  j^K[j] ) for j in 1:5]) 
-	for K in keys(Parts_Counts) ]
+λs = map(panel -> [count(==(i),length.(panel)) for i in 1:5], panels)
+λs_Counts = countmap(Parts)
+λs_Props = Dict([x=>λs_Counts[x]/N for x in keys(λs_Counts)])
+λs_Theory_Props = Dict(
+	[K=> prod( [ 1//( factorial(K[j]) * j^K[j] ) for j in 1:5]) 
+	for K in keys(λs_Counts) ]
 )
 χ_sq = N*sum(
-	[ (Parts_Props[x]-Theory_Parts_Props[x])^2 / Theory_Parts_Props[x]
-	for x in keys(Parts_Props)]
+	[ (λs_Props[x]-λs_Theory_Props[x])^2 / λs_Theory_Props[x]
+	for x in keys(λs_Props)]
 )
 println(χ_sq)
 ```
@@ -303,7 +316,9 @@ eqχ_sq = N*sum(
 	[ (eqParts_Props[x]-Theory_Parts_Props[x])^2 / Theory_Parts_Props[x]
 	for x in keys(eqParts_Props)]
 )
+```
 
+```julia
 eqPanelsNoM = map(panel -> [unique(x[2]) for x in panel], eqPanels)
 eqPartsNoM = map(panel -> [count(==(i),length.(panel)) for i in 1:5], eqPanelsNoM)
 nOrigsCounts = countmap( map(x->sum([i*x[i] for i in 1:5]),eqPartsNoM))
@@ -318,5 +333,23 @@ eqNoM_cond_χ_sq = N*sum(
 	for x in keys(eqPartsNoM_Props)]
 )
 ```
+
+```julia
+
+[
+exp(im*tα)
+for α in A
+]
+
+```
+
+
+```
+julia
+```
+
+
+
+
 
 

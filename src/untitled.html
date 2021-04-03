@@ -681,21 +681,21 @@ div.title {text-align: center;}
 </ul>
 <p>To state what we are setting out to do in its full generality simply:</p>
 <ul>
-<li><p>We are interested in a &#40;finite&#41; set of things, E &#61; &#123;e<em>1, e</em>2, \dots, e_n &#125; &#36;</p>
+<li><p>We are interested in a &#40;finite&#41; set of things, <span class="math">$E = \{e_1, e_2, \dots, e_d \}$</span></p>
 </li>
-<li><p>the number of things we are interested in is <span class="math">$|E| = n$</span></p>
+<li><p>The number of things we are interested in is <span class="math">$|E|=d$</span></p>
 </li>
-<li><p>We observe some data, <span class="math">$D = (d_i)_i^N$</span></p>
+<li><p>We observe some data, <span class="math">$Y = (y_i)_i^N$</span></p>
 <ul>
-<li><p>each data point provides some information about a subset <span class="math">$\{ e_a \: e_b \: \dots e_c \} \subseteq E$</span>.</p>
+<li><p>Each data point provides some information about a subset <span class="math">$\{e_a, e_b,…, e_c \} ⊆ E$</span>.</p>
 </li>
-<li><p>The number of things we observe are <span class="math">$|\{ e_a \: e_b \: \dots e_c \} | = k$</span></p>
+<li><p>The number of things we observe is <span class="math">$|\{e_a, e_b,…, e_c \} | = k$</span></p>
 </li>
 <li><p>We can observe</p>
 <ul>
-<li><p>a full ordering, for example &#36; &#91;e<em>c \:  e</em>a \dots e_b&#93; &#36;</p>
+<li><p>a full ordering, for example <span class="math">$[e_c \:  e_a \dots e_b]$</span></p>
 </li>
-<li><p>or a partial ordering, for example &#36; &#91;e<em>c \: &#123;e</em>a, \dots, e<em>b&#125;&#93;, equivalently &#36;  &#91;e</em>c \: &#123;e<em>b, \dots, e</em>a&#125;&#93; &#36;</p>
+<li><p>or a partial ordering, for example <span class="math">$[e_c \: \{e_a, \dots, e_b\}]$</span>, equivalently <span class="math">$[e_c \: \{e_b, \dots, e_a\}]$</span></p>
 </li>
 <li><p>or no ordering at all.</p>
 </li>
@@ -703,13 +703,11 @@ div.title {text-align: center;}
 </li>
 </ul>
 </li>
-<li><p>We wish to assign <span class="math">$\mathbb{P}(Data | Model)$</span></p>
-</li>
 </ul>
 <h2>Concrete</h2>
 <p>Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?</p>
 <p><strong>Ordered Data</strong>: Recommendation systems attempt to leverage information regarding one’s preferences to suggest new content &#40;e.g. music, movies&#41; or products &#40;e.g. books&#41;. Ranked-choice voting is used for local, provincial/state, and national level elections across the globe. Many institutions, such as Cornell University, use ranked-choice for its elections. In sports, team or athlete rankings frequently determine season schedules or tournament structures. And in games or general forms of competition, outcomes can be naturally expressed as an ordering of the set of participants.</p>
-<p><strong>Graphical Data</strong>: Some Stuff about graphs blah blah blah THIS IS EVERYWHERE and everyone loves graphs.</p>
+<p><strong>Graphical Data</strong>: Graphs are everywhere and everyone loves graphs and so on...</p>
 <h1>Introduction</h1>
 <p>The World Surf League &#40;WSL&#41; is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of &quot;tours&quot; which include Mens and Womens versions of Big Wave events, the &quot;Longboard Tour&quot;, the &quot;Qualifying Series&quot;, and the &quot;Championship Tour&quot; &#40;CT&#41;. </p>
 <p>Each year, the 32 highest ranked &#40;shortboard&#41; surfers are invited to participate in the &quot;Championship Tour&quot; &#40;CT&#41;, which constists of 11 distinct surf compeitions, called &quot;events&quot;, in 7 different countries. Each event has 7 rounds, each consisting of 1-16 heats, and each heat has 2-3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what &#40;round,heat&#41; they advance to. All surfers that do not advance, &quot;exit&quot; the event, and are given some number of points &#40;the closer to a final, the higher the amount of exit points&#41;.</p>
@@ -739,15 +737,15 @@ div.title {text-align: center;}
 
 
 <pre class='hljl'>
-<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;src/RankingTensor.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;RankingTensor.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;m = </span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>))</span><span class='hljl-s'>&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-nf'>size</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>))</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: LoadError: SystemError: opening file &quot;../Data/CleanAllDataCC.txt&quot;: No such file or directory
-in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/RankingTensor.jl:29
+<pre class="output">
+m &#61; 8
+&#40;2, 10, 7, 16, 10, 7, 5, 5&#41;
 </pre>
 
 
@@ -770,15 +768,11 @@ in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analy
 </pre>
 
 
-<pre class="julia-error">
-ERROR: UndefVarError: vars not defined
-</pre>
-
 
 <p><img src="visuals/marginals_YR.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_EVT.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_RND.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_HEAT.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_ATH_orig.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_JUD_orig.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_MAX_RANK.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_RANK.png" alt="Judge Rank Marginal" /></p>
 <h1>Definitions</h1>
 <ul>
-<li><p><strong>The Symmetric Group on a set, <span class="math">$X$</span></strong> is <span class="math">$S_X := Isomorphisms(X,X)$</span>. When <span class="math">$|X|<\infty$, $S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \}$</span></p>
+<li><p><strong>The Symmetric Group on a set, <span class="math">$X$</span></strong> is <span class="math">$S_X := Isomorphisms(X,X)$</span>. When <span class="math">$|X|<\infty$</span>,<span class="math">$S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \}$</span></p>
 </li>
 <li><p><span class="math">$S_d := S_{\{ 1 ,\dots, d\}}.$</span></p>
 </li>
@@ -788,7 +782,7 @@ ERROR: UndefVarError: vars not defined
 <ul>
 <li><p>There exists a function <span class="math">$a:S_n \rightarrow \mathbb{F}$</span> and <span class="math">$A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]$</span>.</p>
 </li>
-<li><p>Or: <span class="math">$A = [ \pi_1 \dots  \pi_{d!} ] \begin{pmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{pmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d]$</span>,where <span class="math">$\tau \in S_d, a_\tau \in \mathbb{F}$</span>.</p>
+<li><p>Or: <span class="math">$A = [ \pi_1 \dots  \pi_{d!} ] \begin{bmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{bmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d]$</span>,where <span class="math">$\tau \in S_d, a_\tau \in \mathbb{F}$</span>.</p>
 </li>
 </ul>
 </li>
@@ -796,15 +790,10 @@ ERROR: UndefVarError: vars not defined
 </li>
 <li><p><strong>Scalar Multiplication in <span class="math">$\mathbb{F}[S_d]$</span></strong> is <span class="math">$c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau$</span>.</p>
 </li>
-<li><p>Multiplication in <span class="math">$\mathbb{F}[S_d]$</span> is <em>defined</em> by:</p>
-<ul>
-<li><p>&#96;&#96;A<em>B &#61;&#40;\sum<em>&#123;\tau&#125; a</em>\tau \tau&#41;</em> &#40;\sum<em>\pi b</em>\pi \pi&#41;</p>
+<li><p>Multiplication in <span class="math">$\mathbb{F}[S_d]$</span> is <em>defined</em> by: <span class="math">$A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi) :=\sum_{\gamma \in S_d}(\sum_{\tau,\pi | \tau\pi=\gamma} a_\tau b_\pi) \gamma = \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma$</span>.</p>
 </li>
 </ul>
-<p>:&#61;\sum<em>&#123;\gamma \in S</em>d&#125;&#40;\sum<em>&#123;\tau,\pi | \tau\pi&#61;\gamma&#125; a</em>\tau b<em>\pi&#41; \gamma &#61; \sum</em>&#123;\gamma \in S<em>d&#125;&#40;\sum</em>&#123;  \tau \in S<em>d&#125; a</em>\tau b_&#123;\tau^&#123;-1&#125;\gamma&#125; &#41; \gamma &#96;&#96;.</p>
-</li>
-</ul>
-<p>We should not over complicate <span class="math">$*$</span>. The <em>definition</em> of <span class="math">$*$</span> may look odd, but it exactly the same as our basic understanding of multiplication: <span class="math">$(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} (a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} \sum_{\pi }  (a_\tau\tau) * (b_\pi \pi) = \sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)$</span> Even though <span class="math">$(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)$</span> is equal to the intuitive form, <span class="math">$\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi$</span>, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, <span class="math">$*$</span> merely extends multiplication in the Field,<span class="math">$\cdot: \mathbb{F} \times \mathbb{F} \rightattow \mathbb{F}$</span>, and the operation in the group, <span class="math">$\circ$</span>, by <span class="math">$a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi$</span>, where the last equality is simply notation-reduction.</p>
+<p>We should not over complicate <span class="math">$*$</span>. The <em>definition</em> of <span class="math">$*$</span> may look odd, but it exactly the same as our basic understanding of multiplication: <span class="math">$(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} (a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} \sum_{\pi }  (a_\tau\tau) * (b_\pi \pi) = \sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)$</span> Even though <span class="math">$(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)$</span> is equal to the intuitive form, <span class="math">$\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi$</span>, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, <span class="math">$*$</span> merely extends multiplication in the Field,<span class="math">$\cdot: \mathbb{F} \times \mathbb{F} \rightarrow \mathbb{F}$</span>, and the operation in the group, <span class="math">$\circ$</span>, by <span class="math">$a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi$</span>, where the last equality is simply notation-reduction.</p>
 <p>A measure on <span class="math">$S_d$</span>, is an element of the group algebra <span class="math">$\mathbb{C}[S_n]$</span>. A measure on <span class="math">$S_d$</span>, <span class="math">$F = \sum_{\tau \in S_d} f_\tau \tau$</span>, is a probability measure on <span class="math">$S_d$</span> if and only if <span class="math">$\forall \tau \in S_d f_\tau \geq 0$</span> and <span class="math">$\sum_{\tau \in S_d} f_\tau = 1$</span>.</p>
 <p>A linear representation of a group G, is a group homomorphism, <span class="math">$\rho : (G,\circ) \rightarrow (GL(V),\cdot)$</span>. A group homomorphism satisfies:</p>
 <ul>
@@ -818,27 +807,11 @@ ERROR: UndefVarError: vars not defined
 <p>The representation of a measure F, is: <span class="math">$\hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau)$</span>. Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. </p>
 <p><strong>Convolution of two functions on <span class="math">$S_d$</span></strong> is a binary operation <span class="math">$A * B := \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g)$</span>.</p>
 <p>Note: <span class="math">$\widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma)  = \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma ) = \sum_{\tau} \sum_{\gamma\tau } a(\gamma\tau \tau^{-1})b(\tau)\rho(\gamma\tau ) = \sum_{\tau} \sum_{\gamma\tau } a(\gamma )b(\tau)\rho(\gamma)\rho(\tau ) = \sum_{\tau} b(\tau)\rho(\tau ) \sum_{\gamma\tau } a(\gamma )\rho(\gamma)  = \sum_{\tau} b(\tau)\rho(\tau ) \hat{A} = \hat{A} \sum_{\tau} b(\tau)\rho(\tau ) = \hat{A} \cdot \hat{B}$</span></p>
-<p>We take <span class="math">$\rho_d$</span> the permutation representation acting on the vector space <span class="math">$V := \mathbb{R}^d$</span> with basis indexed by <span class="math">$\{1, \dots d\}$</span>. So a typical element of V is of the form:  &#96;&#96; \begin&#123;pmatrix&#125; a^1 \ a^2 \ \vdots \ a^n \end&#123;pmatrix&#125;  &#61; \begin&#123;pmatrix&#125; a^1 \ 0 \ \vdots \ 0 \end&#123;pmatrix&#125;</p>
-<ul>
-<li><p>\begin&#123;pmatrix&#125; 0 \ a^2 \ \vdots \ 0 \end&#123;pmatrix&#125;</p>
-</li>
-<li><p>\dots</p>
-</li>
-<li><p>\begin&#123;pmatrix&#125; 0 \  \vdots \ 0\ a^n \end&#123;pmatrix&#125; </p>
-</li>
-</ul>
-<p>&#61; a^1\begin&#123;pmatrix&#125; 1 \ 0 \ \vdots \ 0 \end&#123;pmatrix&#125; </p>
-<ul>
-<li><p>a^2\begin&#123;pmatrix&#125; 0 \ 1 \ \vdots \ 0 \end&#123;pmatrix&#125; </p>
-</li>
-<li><p>\dots </p>
-</li>
-<li><p>a^n\begin&#123;pmatrix&#125; 0 \  \vdots \ 0\ 1\end&#123;pmatrix&#125; </p>
-</li>
-</ul>
-<p>&#61; a^1 e<em>1 &#43; a^2 e</em>2 &#43; \dots a^n e<em>n <span class="math">$This could be rewritten as$</span>\sum</em>&#123;i \in &#123;1,\dots,n&#125; &#125; a^i e_i&#96;&#96;. But remember, we are interested in functions that act on the basis.</p>
-<h1>Analysis</h1>
+<p>We take <span class="math">$\rho_d$</span> the permutation representation acting on the vector space <span class="math">$V := \mathbb{R}^d$</span> with basis indexed by <span class="math">$\{1, \dots d\}$</span>. So a typical element of V is of the form: </p>
+<p><span class="math">$\begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix}  = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix}  = a^1 e_1 + a^2 e_2 + \dots a^n e_n$</span></p>
+<p>This could be rewritten as <span class="math">$\sum_{i \in \{1,\dots,n\} } a^i e_i$</span>. But remember, we are interested in functions that act on the basis.</p>
 <p>Many authors call <span class="math">$*$</span> &quot;convolution&quot;, however this terminology is superfluous.</p>
+<h1>Analysis</h1>
 <p>One thing I could change:</p>
 <ul>
 <li><p>instead giving every element of rth partition rank  give them each:</p>
@@ -846,8 +819,10 @@ ERROR: UndefVarError: vars not defined
 </ul>
 <p>&#123; Nᵣ &#43; i for i in 1:n_i&#125;  where Nᵣ is Σʳnᵢ ... but then any answer we give loses meaning</p>
 <p>I wonder: Mᵣ :&#61; max order for that wave B &#61; 1<em>&#123;order&#40;Jᵢ&#41; &#61; 1 &#125; T &#61; 1</em>&#123;order&#40;Jᵢ&#41; &#61; Mᵣ &#125; B ∪ T only really meaninful for Mᵣ&gt;2</p>
-<p>Wondering₁: if P&#40;T | JUD<em>orig&#61;&#61;ATH</em>orig &#41; &#61;  P&#40; T | JUD<em>orig &#33;&#61; ATH</em>orig &#41; Wondering₂: if Wondering₁ depends on &#91;   &#93;<em>orig Wondering₃: if P&#40; B ∪ T | Mᵣ &#41; &#61; 2/Mᵣ Wondering₄: if P&#40;T | &#40;JUD</em>orig&#61;&#61;ATH_orig,Mᵣ&#41; &#41; &#61; 1/Mᵣ</p>
-<p><span class="math">$P()$</span></p>
+<p>Wondering₁: if P&#40;T | JUD<em>orig&#61;&#61;ATH</em>orig &#41; &#61;  P&#40; T | JUD<em>orig &#33;&#61; ATH</em>orig &#41;</p>
+<p>Wondering₂: if Wondering₁ depends on &#91;   &#93;_orig</p>
+<p>Wondering₃: if P&#40; B ∪ T | Mᵣ &#41; &#61; 2/Mᵣ</p>
+<p>Wondering₄: if P&#40;T | &#40;JUD<em>orig&#61;&#61;ATH</em>orig,Mᵣ&#41; &#41; &#61; 1/Mᵣ</p>
 
 
 <pre class='hljl'>
@@ -858,16 +833,89 @@ ERROR: UndefVarError: vars not defined
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-p'>])</span><span class='hljl-t'>
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
 </span><span class='hljl-p'>]</span><span class='hljl-t'>
-</span><span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
-</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'> 
-</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-p'>])</span><span class='hljl-t'>
-</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
-</span><span class='hljl-p'>]</span>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Match conditional on Max Rank is:&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>GivenMatchByMᵣ</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: UndefVarError: ToInd not defined
+<pre class="output">
+Match conditional on Max Rank is:
+5-element Array&#123;Int64,1&#125;:
+  412
+ 3419
+ 5942
+ 4071
+ 1209
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
+</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Judge has Max Rank given Match (by Max Rank)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>TopGivenMatchByMᵣ</span>
+</pre>
+
+
+<pre class="output">
+Judge has Max Rank given Match &#40;by Max Rank&#41;
+5-element Array&#123;Int64,1&#125;:
+  412
+ 1699
+ 1819
+  864
+  223
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>D₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>GivenMatchByMᵣ</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Float64,1&#125;:
+ 1.0
+ 0.4969289265867213
+ 0.3061258835408953
+ 0.21223286661753868
+ 0.18444995864350702
+</pre>
+
+
+<p>We would expect:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>E₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-oB'>/</span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Float64,1&#125;:
+ 1.0
+ 0.5
+ 0.3333333333333333
+ 0.25
+ 0.2
+</pre>
+
+
+<p>So we have:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>χsq₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣ</span><span class='hljl-p'>)</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₁</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₁</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₁</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+137.795814443704
 </pre>
 
 
@@ -877,35 +925,108 @@ ERROR: UndefVarError: ToInd not defined
 </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'>
 </span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-</span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
-</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'>
-</span><span class='hljl-p'>]</span>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Match conditional on Max Rank (rows) and Nationality (cols)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: UndefVarError: ATHandJUD_orig not defined
+<pre class="output">
+Match conditional on Max Rank &#40;rows&#41; and Nationality &#40;cols&#41;
+5×6 Array&#123;Int64,2&#125;:
+  5    89    8   253   14   43
+ 30   917   73  1811  160  428
+ 72  1666  110  3061  282  751
+ 40  1133   50  2066  187  595
+ 16   360   16   581   57  179
 </pre>
 
 
 
 <pre class='hljl'>
-<span class='hljl-n'>GivenAUSMatchByRandMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
-</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-n'>M</span><span class='hljl-p'>,</span><span class='hljl-n'>rnk</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>rnk</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>M</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
+<span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'>
 </span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-</span><span class='hljl-n'>GivenAUSMatchByRandMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
-</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-n'>M</span><span class='hljl-p'>,</span><span class='hljl-n'>rnk</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>rnk</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>M</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
-</span><span class='hljl-p'>]</span>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Judge has Max Rank given Match (by Max Rank (rows) by Nationality (cols))&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: UndefVarError: info not defined
+<pre class="output">
+Judge has Max Rank given Match &#40;by Max Rank &#40;rows&#41; by Nationality &#40;cols&#41;&#41;
+5×6 Array&#123;Int64,2&#125;:
+  5   89   8  253  14   43
+ 10  418  40  943  80  208
+ 25  474  28  984  88  220
+  5  237  16  442  39  125
+  6   76   2  109   4   26
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>GivenMatchByMᵣandOrig</span>
+</pre>
+
+
+<pre class="output">
+Set&#40;&#91;:PRT, :AUS, :ZAF, :BRA, :FRA, :USA&#93;&#41;
+5×6 Array&#123;Float64,2&#125;:
+ 1.0       1.0       1.0       1.0       1.0        1.0
+ 0.333333  0.455834  0.547945  0.520707  0.5        0.485981
+ 0.347222  0.284514  0.254545  0.321464  0.312057   0.292943
+ 0.125     0.209179  0.32      0.21394   0.208556   0.210084
+ 0.375     0.211111  0.125     0.187608  0.0701754  0.145251
+</pre>
+
+
+<p>We would expect:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>E₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>/</span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'> </span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5×6 Array&#123;Float64,2&#125;:
+ 1.0       1.0       1.0       1.0       1.0       1.0
+ 0.5       0.5       0.5       0.5       0.5       0.5
+ 0.333333  0.333333  0.333333  0.333333  0.333333  0.333333
+ 0.25      0.25      0.25      0.25      0.25      0.25
+ 0.2       0.2       0.2       0.2       0.2       0.2
+</pre>
+
+
+<p>So we have a total χ^2 of:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>χsq₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-p'>)</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+7337.36794381875
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>W</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-t'>
+</span><span class='hljl-n'>χsqbyctry</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>])</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>W</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>6</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+6-element Array&#123;Float64,1&#125;:
+ 44.29675925925926
+ 76.36074229600241
+ 18.232884272073854
+ 56.34215973281351
+ 64.75037463821833
+ 53.1882745177644
 </pre>
 
 
@@ -915,19 +1036,18 @@ ERROR: UndefVarError: info not defined
 </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-ni'>3</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'>
 </span><span class='hljl-p'>]</span><span class='hljl-t'>
-
 </span><span class='hljl-n'>OrderIsMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> 
 </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>info</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:ATH_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>ToInd</span><span class='hljl-p'>[</span><span class='hljl-sc'>:JUD_orig</span><span class='hljl-p'>][</span><span class='hljl-n'>c</span><span class='hljl-p'>],</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'>
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ATHandJUD_orig</span><span class='hljl-t'> 
 </span><span class='hljl-p'>]</span><span class='hljl-t'>
-
-</span><span class='hljl-n'>OrderIsMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>MᵣGivenMatch</span>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>OrderIsMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>MᵣGivenMatch</span><span class='hljl-p'>)</span>
 </pre>
 
 
-<pre class="julia-error">
-ERROR: UndefVarError: ATHandJUD_orig not defined
+<pre class="output">
+&#91;0.28125, 0.24912947135169358, 0.26136363636363635, 0.2689208128941836, 0.2
+4904942965779467, 0.24327868852459017&#93;
 </pre>
 
 
@@ -935,7 +1055,7 @@ ERROR: UndefVarError: ATHandJUD_orig not defined
 
 
 <pre class='hljl'>
-<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;src/PanelData.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;PanelData.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
 
 </span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>panels</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>Ord_Parts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>panels</span><span class='hljl-p'>)</span><span class='hljl-t'>
@@ -947,9 +1067,24 @@ ERROR: UndefVarError: ATHandJUD_orig not defined
 </pre>
 
 
-<pre class="julia-error">
-ERROR: LoadError: SystemError: opening file &quot;../Data/CleanAllDataCC.txt&quot;: No such file or directory
-in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/PanelData.jl:19
+<pre class="output">
+Dict&#123;Array&#123;Int64,1&#125;,Float64&#125; with 16 entries:
+  &#91;2, 2, 1&#93;       &#61;&gt; 0.0679787
+  &#91;1, 1, 1, 1, 1&#93; &#61;&gt; 0.0821078
+  &#91;2, 1, 2&#93;       &#61;&gt; 0.0538495
+  &#91;4, 1&#93;          &#61;&gt; 0.0557238
+  &#91;1, 2, 2&#93;       &#61;&gt; 0.0766292
+  &#91;3, 2&#93;          &#61;&gt; 0.0592561
+  &#91;3, 1, 1&#93;       &#61;&gt; 0.0537053
+  &#91;5&#93;             &#61;&gt; 0.0284025
+  &#91;1, 3, 1&#93;       &#61;&gt; 0.0864331
+  &#91;1, 1, 3&#93;       &#61;&gt; 0.0502451
+  &#91;1, 1, 2, 1&#93;    &#61;&gt; 0.0810265
+  &#91;1, 2, 1, 1&#93;    &#61;&gt; 0.0810986
+  &#91;2, 1, 1, 1&#93;    &#61;&gt; 0.0546424
+  &#91;1, 1, 1, 2&#93;    &#61;&gt; 0.0551471
+  &#91;2, 3&#93;          &#61;&gt; 0.0589677
+  &#91;1, 4&#93;          &#61;&gt; 0.0547866
 </pre>
 
 
@@ -957,23 +1092,23 @@ in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analy
 
 
 <pre class='hljl'>
-<span class='hljl-n'>Parts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>panels</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-n'>Parts_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>Parts</span><span class='hljl-p'>)</span><span class='hljl-t'>
-</span><span class='hljl-n'>Parts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>Parts_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>Parts_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
-</span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
-	</span><span class='hljl-p'>[</span><span class='hljl-n'>K</span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'>  </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
-	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>Parts_Counts</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+<span class='hljl-n'>λs</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>panels</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>λs_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>Parts</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>λs_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λs_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λs_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-n'>λs_Theory_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-n'>K</span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λs_Counts</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
 </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>χ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>N</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
-	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
-	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>Parts_Props</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>λs_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>λs_Theory_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>λs_Theory_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λs_Props</span><span class='hljl-p'>)]</span><span class='hljl-t'>
 </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq</span><span class='hljl-p'>)</span>
 </pre>
 
 
 <pre class="julia-error">
-ERROR: UndefVarError: panels not defined
+ERROR: UndefVarError: Parts not defined
 </pre>
 
 
@@ -981,7 +1116,7 @@ ERROR: UndefVarError: panels not defined
 
 
 <pre class='hljl'>
-<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;src/EquivPanelData.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+<span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;EquivPanelData.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>eqParts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanel</span><span class='hljl-p'>)))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>eqPanels</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>eqParts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
@@ -992,9 +1127,18 @@ ERROR: UndefVarError: panels not defined
 </span><span class='hljl-n'>eqχ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>N</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
 	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
 	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-p'>)]</span><span class='hljl-t'>
-</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span>
+</pre>
 
-</span><span class='hljl-n'>eqPanelsNoM</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>unique</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>panel</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+<pre class="output">
+1125.3169694348321
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>eqPanelsNoM</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>unique</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>panel</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>eqPartsNoM</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>eqPanelsNoM</span><span class='hljl-p'>)</span><span class='hljl-t'>
 </span><span class='hljl-n'>nOrigsCounts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>sum</span><span class='hljl-p'>([</span><span class='hljl-n'>i</span><span class='hljl-oB'>*</span><span class='hljl-n'>x</span><span class='hljl-p'>[</span><span class='hljl-n'>i</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]),</span><span class='hljl-n'>eqPartsNoM</span><span class='hljl-p'>))</span><span class='hljl-t'>
 </span><span class='hljl-n'>eqPartsNoM_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPartsNoM</span><span class='hljl-p'>)</span><span class='hljl-t'>
@@ -1010,9 +1154,8 @@ ERROR: UndefVarError: panels not defined
 </pre>
 
 
-<pre class="julia-error">
-ERROR: LoadError: SystemError: opening file &quot;../Data/CleanAllDataCC.txt&quot;: No such file or directory
-in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/EquivPanelData.jl:19
+<pre class="output">
+5211.285263290736
 </pre>
 
 
@@ -1020,8 +1163,8 @@ in expression starting at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analy
         <HR/>
         <div class="footer">
           <p>
-            Published from <a href="Untitled.jmd">Untitled.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2021-04-01.
+            Published from <a href="untitled.jmd">untitled.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2021-04-02.
           </p>
         </div>
       </div>

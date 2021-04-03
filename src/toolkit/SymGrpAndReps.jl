@@ -1,5 +1,4 @@
 function Sym(A::Array)
-    unique!(A)
     if length(A) >= 14
         error("Slow down... be careful, n >= 14, and |S_n| = $(factorial(big(length(A)))) ")
     end

@@ -43,6 +43,7 @@ for wave in data
 			j = findfirst(i->!(isordered(first.(eqPanel)[i:(i+1)])), 1:(length(eqPanel)-1))
 			newElm = [ vcat(first.(eqPanel)[j:(j+1)]...) => vcat(last.(eqPanel)[j:(j+1)]...)]
 			eqPanel = [ eqPanel[1:(j-1)]... , newElm... , eqPanel[(j+2):end]... ]
+			#println(eqPanel)
 			cond = eval( !(isordered( collect(first.(eqPanel)) )) )
 		end
 	end

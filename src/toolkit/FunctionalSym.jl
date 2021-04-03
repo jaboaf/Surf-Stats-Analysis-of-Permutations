@@ -5,6 +5,10 @@ struct Perm{T}
 	A::Array{T,1}
 end
 
+struct Sym{T}
+	S::Set{T,1}
+end
+
 # Making perms into functors
 function (p::Perm{T})(x::T) where T return p.A[x] end
 
@@ -15,6 +19,9 @@ Base.inv(p::Perm) = Perm(invperm(p.A))
 Base.:*(a::Perm, b::Perm) = Perm(a.A[b.A])
 Base.:*(A::Set{Perm}, B::Set{Perm}...) = Set( *(z...) for z in Base.product(A,B...) )
 Base.:*(A::Array{Perm}, B::Array{Perm}...) = [ *(z...) for z in Base.product(A,B...) ]
+
+⊗(a::Perm, b::Perm) = Perm([a.A...,b.A...])
+
 
 function ^(p::Perm, k::Integer)
 	if k > 1 return p * ^(p, k-1)
@@ -41,7 +48,6 @@ SymGroup(S::Set) = [ (Perm(t)) for t in Sym(S::Set) ]
 # Conceptually I dont like these. SymGroup() is not 
 # Note: Sym calls unique!() on Arrays
 SymGroup(S::Array) = [ (Perm(t)) for t in Sym(S) ]
-SymGroup(d::Integer) = [ (Perm(t)) for t in Sym(d) ]
 
 function NormalSubgroup(H::Set{Perm})
 	return all(a-> (H^a == H), Sym(first(H).A))
