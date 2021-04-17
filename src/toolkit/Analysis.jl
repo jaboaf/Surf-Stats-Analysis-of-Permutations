@@ -1,3 +1,8 @@
+# Notes about data
+# 	WaveIds may or may not give wave order
+#	
+
+
 include("SurfingInfo.jl"); println("Loaded SurfingInfo")
 include("FunctionalSym.jl"); println("Loaded FunctionalSym")
 include("OrderingUtils.jl");println("Loaded OrderingUtils")
@@ -19,9 +24,9 @@ for panel in B_panels
 	push!(B_valids, concordant)
 end
 
-println(count(x-> length(x) ==0, B_valids))
-println(count(x-> length(x) ==1, B_valids))
-println(count(x-> length(x) ==2, B_valids))
+println(count(x-> length(x)==0, B_valids))
+println(count(x-> length(x)==1, B_valids))
+println(count(x-> length(x)==2, B_valids))
 
 
 

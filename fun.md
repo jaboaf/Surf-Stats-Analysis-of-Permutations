@@ -3,17 +3,6 @@ Statistics Using The Symmetric Group
 
  
 
-The Idea:
-=========
-
-H_1: P(D) =
-
-H_1
-
- 
-
- 
-
 Data
 ----
 
@@ -89,37 +78,6 @@ to 3"
 
  
 
-Chapter 13 Article 182 Judges analyze major elements:
-
--   Commitment and degree of difficulty
-
--   Innovative and progressive maneuvers
-
--   Combination of major maneuvers
-
--   Variety of maneuvers
-
--   Speed, power, and flow
-
-Note that elements may be emphasized depending on the location, conditions, and
-changes of conditions.
-
- 
-
-Chapter 13 Article 183: General Judging Rules
-
-183.01
-
--   "Judges should be visually separated."
-
--   "Judges should not discuss scores or interference calls"
-
-183.02
-
--   "Judges may not change their scores or interference calls"
-
- 
-
 We are interested in some finite sets:
 
 Binary Example:
@@ -185,7 +143,7 @@ EvtJudgesOrigs = union over j in EvtPanel Origs(j)
 
 Range of \#(EvtJudgesOrigs) is {3,4,5,6}
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 [ union([x.panelOrigs for x in filter(w-> w.evtId == evt, waves)]...) for evt in EvtIds ]
 
 
@@ -197,7 +155,7 @@ return Multiset([repeat(])
 
 
 reduce(union, Set(A) )
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
  
 
@@ -254,9 +212,9 @@ Note that 0:0.1:10 is a totally ordered set, ie. we have (\<,0: 0.1:10)
 
 (\<,0: 0.1:10)\^Panels
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 for k in 1:20 print("hello") end
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
  
 
@@ -276,9 +234,9 @@ SD: 0.7203739737270942
 
  
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 sum(map(w->(length(w.panelOrigs)-3.907379612257661)^2, waves))/(length(waves))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
  
 

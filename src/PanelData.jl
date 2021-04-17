@@ -1,4 +1,5 @@
 using GRUtils
+import JSON.parse
 isoDict = Dict([
     "Australia" => :AUS,
     "Basque Country" => :ESP,
@@ -16,7 +17,7 @@ isoDict = Dict([
     "United States" => :USA
 ])
 
-data = parse( open("Data/CleanAllDataCC.txt", "r"))
+data = JSON.parse( open("Data/CleanAllDataCC.txt", "r"))
 
 filter!(data) do wave
 	# Simplify data to most "complete years"

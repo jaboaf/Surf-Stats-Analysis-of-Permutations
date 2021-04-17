@@ -1,4 +1,5 @@
 include("toolkit/OrderingUtils.jl")
+using JSON
 isoDict = Dict([
     "Australia" => :AUS,
     "Basque Country" => :ESP,
@@ -16,7 +17,7 @@ isoDict = Dict([
     "United States" => :USA
 ])
 
-data = parse( open("Data/CleanAllDataCC.txt", "r"))
+data = JSON.parse( open("Data/CleanAllDataCC.txt", "r"))
 
 filter!(data) do wave
 	# Simplify data to most "complete years"
@@ -25,9 +26,11 @@ filter!(data) do wave
 	wave[2]["evtYear"] in ["2018","2019"] && wave[2]["subScoOrigDefect"]==false
 end
 
+eqInfo = Pair[]
 eqPanels = Array{Pair,1}[]
+
 for wave in data
-	judge_origs = map(x->isoDict[x], wave[2]["subScoOrig"])
+	judge_origs = map(x -> isoDict[x] , wave[2]["subScoOrig"])
 	panelOrigs = Set(judge_origs)
 	judge_scores = Float16.(wave[2]["subSco"])
 	eqPanel = Pair{Array{Float16,1},Array{Symbol,1}}[]
@@ -48,5 +51,6 @@ for wave in data
 		end
 	end
 	push!(eqPanels, eqPanel)
+	push!(eqInfo, wave[1] => eqPanel)
 end
 

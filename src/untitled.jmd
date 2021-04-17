@@ -344,8 +344,9 @@ for α in A
 ```
 
 
-```
-julia
+```julia
+map(x-> map(y->Set(y[2]),x),eqPanels)
+
 ```
 
 

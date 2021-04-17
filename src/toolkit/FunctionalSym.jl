@@ -2,12 +2,12 @@ import Base: one,inv,*,^,==
 include("SymGrpAndReps.jl")
 
 struct Perm{T}
-	A::Array{T,1}
+	A::Vector{T}
 end
 
-struct Sym{T}
-	S::Set{T,1}
-end
+#struct Sym{T}
+#	S::Set{T,1}
+#end
 
 # Making perms into functors
 function (p::Perm{T})(x::T) where T return p.A[x] end
@@ -17,10 +17,10 @@ Base.inv(p::Perm) = Perm(invperm(p.A))
 
 # Definitions of product
 Base.:*(a::Perm, b::Perm) = Perm(a.A[b.A])
-Base.:*(A::Set{Perm}, B::Set{Perm}...) = Set( *(z...) for z in Base.product(A,B...) )
-Base.:*(A::Array{Perm}, B::Array{Perm}...) = [ *(z...) for z in Base.product(A,B...) ]
+Base.:*(A::Set{Perm{T}}, B::Set{Perm{T}}) where T = Set( a*b for a in A for b in B )
+Base.:*(A::Array{Perm{T}}, B::Array{Perm{T}}) where T = [ a*b for (a,b) in Base.product(A,B) ]
 
-⊗(a::Perm, b::Perm) = Perm([a.A...,b.A...])
+⊗(A::Perm, B::Perm) = Perm([a.A...,b.A...])
 
 
 function ^(p::Perm, k::Integer)
@@ -67,7 +67,7 @@ end
 =#
 
 function SgnDecomp(G::Array{Perm{T},1}) where T
-	Decomp = Dict([-1 => Perm{T}[], 1 => Perm{T}[] ])
+	Decomp = Decomp([-1 => Perm{T}[], 1 => Perm{T}[] ])
 	for p in G
 		push!(Decomp[sgn(p)], p)
 	end
@@ -76,10 +76,10 @@ end
 
 function FixedDecomp(G::Array{Perm{T},1}) where T
 	X = one(G[1])
-	Decomp = [Perm{T}[] for i in 1:(length(X)+1)]
+	Decomp = [Perm{T}[] for i in 1:(length(X.A)+1)]
 	for p in G
 		hasfixed = false
-		for i in X
+		for i in X.A
 			if p(i) == i
 				push!(Decomp[i], p)
 				hasfixed = true

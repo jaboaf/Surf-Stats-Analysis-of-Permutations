@@ -1,5 +1,5 @@
 # use JSON for parsing, Use Base.parse for parsing purposes
-using JSON: parse
+using JSON
 
 isoDict = Dict([
     "Australia" => :AUS,
@@ -26,7 +26,22 @@ function varRng(s::String)
 	return sort(collect(rng))
 end
 
-data = parse( open("Data/CleanAllDataCC.txt", "r"))
+function partitionBy(s::String)
+	By = varRng(s)
+	partition = Dict()
+	for wave in data
+		label = wave[2][s]
+		if label in keys(partition)
+			push!(partition[label], wave[1])
+		else
+			partition[label] = [ wave[1] ]
+		end
+	end
+	return [ k => partition[k] for k in sort(collect(keys(partition))) ]
+end
+
+
+data = JSON.parse( open("Data/CleanAllDataCC.txt", "r"))
 
 filter!(data) do wave
 	# Simplify data to most "complete years"
