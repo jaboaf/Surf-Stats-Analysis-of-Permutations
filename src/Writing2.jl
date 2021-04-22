@@ -3,13 +3,9 @@ using GRUtils
 using Statistics
 
 #' # Table of Contents
-
 #' ## Abstract
-
 #' ## Introduction
-
 #' ## Data
-
 #' ## The Simple Approach
 #' ### Formulation
 #' ### Results
@@ -65,16 +61,15 @@ savefig("visuals/DistOfDiffInMeans.jl",
 )
 #' !(visuals/DistOfDiffInMeans.png)
 #' We may carry out this process for each country:
+#' Note C = :AUS, :BRA, :FRA, :PRT, :USA, :ZAF
 B = [:Match, :NoMatch]
 C = sort(unique(map(x->x.athOrig, HasMatch)))
-figs = []
-for (i,c) in enumerate(C)
 function diffInMeansDist(c::Symbol)
 	I = findall(x->x.athOrig==c, HasMatch)
 	t = ttest( DiffInMeans[I] )
-	println("$c : n=$(length(I)) and t=$t")
-	push!(figs,histogram(DiffInMeans[I],title="Difference in Means | C=$c"))
+	return histogram(DiffInMeans[I],title="Difference in Means where C=$c (n=$(length(I)) and t=$t)")
 end
+
 #' And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is signifigant for AUS, BRA, FRA, USA, ZAF.
 #' Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is both the Athlete origin and Judge origin which determine if a judge is a "matching judge" or a "non-matching judge".
 
