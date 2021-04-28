@@ -5,9 +5,9 @@ function Sym(A::Array)
     Perms = Array{eltype(A),1}[]
     function continuePerm(head,tail)
         if length(tail) > 0
-            for t in tail
-                newHead = union(head, [t])
-                newTail = setdiff(tail, [t])
+            for (i,t) in enumerate(tail)
+                newHead = vcat(head, t)
+                newTail = vcat(tail[1:(i-1)], tail[(i+1):end])
                 continuePerm(newHead, newTail)
             end
         else
@@ -134,7 +134,7 @@ end
 # Symmetrization operations
 # for a permutation
 function SymOp( M::Array{<:Number, d}) where d
-    return 1/factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
+    return 1//factorial(d) * mapreduce( p -> permutedims(M, p), +, Sym(d) )
 end
 # for a d-dimensional array
 function SymOp( M::BitArray{d}) where d
@@ -144,11 +144,11 @@ end
 # Alternating operations
 # for a permutation
 function AltOp( M::Array{<:Number, d}) where d
-    return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
+    return 1//factorial(d)* mapreduce( p -> sgn(p)*permutedims(M, p), +, Sym(d) )
 end
 # for a d-dimensional array
 function AltOp( M::BitArray{d}) where d
-    return 1/factorial(d)* mapreduce( p -> permutedims(M, p), +, Sym(d) )
+    return 1/factorial(d)* mapreduce( p -> sgn(p)*permutedims(M, p), +, Sym(d) )
 end
 
 #=

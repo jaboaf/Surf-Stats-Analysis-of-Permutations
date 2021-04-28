@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<HTML lang = "en">
+<HEAD>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  
+  
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  
+<style>
+pre.hljl {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    overflow-x: auto;
+    color: rgb(68,68,68); background-color: rgb(251,251,251); }
+pre.hljl > span.hljl-t { }
+pre.hljl > span.hljl-w { }
+pre.hljl > span.hljl-e { }
+pre.hljl > span.hljl-eB { }
+pre.hljl > span.hljl-o { }
+pre.hljl > span.hljl-k { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kc { color: rgb(59,151,46); font-style: italic; }
+pre.hljl > span.hljl-kd { color: rgb(214,102,97); font-style: italic; }
+pre.hljl > span.hljl-kn { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kp { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kr { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kt { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-n { }
+pre.hljl > span.hljl-na { }
+pre.hljl > span.hljl-nb { }
+pre.hljl > span.hljl-nbp { }
+pre.hljl > span.hljl-nc { }
+pre.hljl > span.hljl-ncB { }
+pre.hljl > span.hljl-nd { color: rgb(214,102,97); }
+pre.hljl > span.hljl-ne { }
+pre.hljl > span.hljl-neB { }
+pre.hljl > span.hljl-nf { color: rgb(66,102,213); }
+pre.hljl > span.hljl-nfm { color: rgb(66,102,213); }
+pre.hljl > span.hljl-np { }
+pre.hljl > span.hljl-nl { }
+pre.hljl > span.hljl-nn { }
+pre.hljl > span.hljl-no { }
+pre.hljl > span.hljl-nt { }
+pre.hljl > span.hljl-nv { }
+pre.hljl > span.hljl-nvc { }
+pre.hljl > span.hljl-nvg { }
+pre.hljl > span.hljl-nvi { }
+pre.hljl > span.hljl-nvm { }
+pre.hljl > span.hljl-l { }
+pre.hljl > span.hljl-ld { color: rgb(148,91,176); font-style: italic; }
+pre.hljl > span.hljl-s { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sa { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sb { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sc { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sd { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdC { color: rgb(201,61,57); }
+pre.hljl > span.hljl-se { color: rgb(59,151,46); }
+pre.hljl > span.hljl-sh { color: rgb(201,61,57); }
+pre.hljl > span.hljl-si { }
+pre.hljl > span.hljl-so { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sr { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ss { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ssB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-nB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nbB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nfB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nh { color: rgb(59,151,46); }
+pre.hljl > span.hljl-ni { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nil { color: rgb(59,151,46); }
+pre.hljl > span.hljl-noB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-oB { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-ow { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-p { }
+pre.hljl > span.hljl-c { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-ch { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cm { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cp { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cpB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cs { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-csB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-g { }
+pre.hljl > span.hljl-gd { }
+pre.hljl > span.hljl-ge { }
+pre.hljl > span.hljl-geB { }
+pre.hljl > span.hljl-gh { }
+pre.hljl > span.hljl-gi { }
+pre.hljl > span.hljl-go { }
+pre.hljl > span.hljl-gp { }
+pre.hljl > span.hljl-gs { }
+pre.hljl > span.hljl-gsB { }
+pre.hljl > span.hljl-gt { }
+</style>
+
+
+
+  <style type="text/css">
+  @font-face {
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 600;
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  font-family: monospace, monospace;
+  font-size : 0.8em;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+thead th {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+tr:nth-child(odd){
+  background-color: rgb(248,248,248);
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle; }
+ol {
+  list-style: decimal; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li > p {margin : 0;}
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 1.0rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+pre.hljl {
+  margin: 0 0 10px;
+  display: block;
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding : 5px;
+}
+
+pre.output {
+  background: #ffffff;
+}
+
+pre.code {
+  background: #ffffff;
+}
+
+pre.julia-error {
+  color : red
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+div.title {text-align: center;}
+
+  </style>
+</HEAD>
+
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          
+          
+          
+        </div>
+
+        <p>Some Preliminaries:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>GRUtils</span><span class='hljl-t'> </span><span class='hljl-cs'># for visualization</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Statistics</span><span class='hljl-t'> </span><span class='hljl-cs'># for general purpose stats things</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>StatsBase</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Currently whats being used?</span><span class='hljl-t'>
+</span><span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;SimplifyComp.jl&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>include</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;toolkit/SymGrpAndReps.jl&quot;</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+AltOp &#40;generic function with 2 methods&#41;
+</pre>
+
+
+<p>Here we read in the raw data. I have elected to restrict our attention to 2018 and 2019 because those are the most complete years. See Table: Year | Waves | Waves w/ 0 Judge Origins Listed | Waves w/ 5 Judge Origins Listed | Total Number of Judge Origins | Waves w/ 3 Sub Scores Listed | Waves w/ 5 Sub Scores Listed | Total number of Judge Scores ––-|––-|––-|––-|––-|––-|––-|––- 2017 | 7328 | 5210 | 2118 | 10590 | 299 | 7029 | 36042 2018 | 6639 | 336 | 6303 | 31515 | 0 | 6639 | 33195 2019 | 7648 | 79 | 7569 | 37845 | 0 | 7648 | 38240 All | 21615 | 5625 | 15990 | 79950 | 299 | 21316 | 107477</p>
+
+<h1>Table of Contents</h1>
+<h2>Abstract</h2>
+<h2>Introduction</h2>
+<h2>Data</h2>
+<h2>The Simple Approach</h2>
+<h3>Formulation</h3>
+<h3>Results</h3>
+<h3>Lingering Questions</h3>
+
+<h2>Motivation for A Different Approach</h2>
+
+<h2>Concrete</h2>
+<p>Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?</p>
+
+<h1>Introduction</h1>
+<p>The World Surf League &#40;WSL&#41; is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of &quot;tours&quot; which include Mens and Womens versions of Big Wave events, the &quot;Longboard Tour&quot;, the &quot;Qualifying Series&quot;, and the &quot;Championship Tour&quot; &#40;CT&#41;. </p>
+
+<h2>Format</h2>
+<p>Each year, the 32 highest ranked &#40;shortboard&#41; surfers are invited to participate in the &quot;Championship Tour&quot; &#40;CT&#41;, which constists of 11 surf compeitions in 7 different countries. Each competition has 7 rounds, each consisting of 1 to 16 heats, and each heat has 2 to 3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what &#40;round,heat&#41; they advance to. Surfers that do not advance &quot;exit&quot; the event, and are given some number of points &#40;the closer the exit is to the compeitions final round, the higher the amount of points&#41;.</p>
+
+<h2>How are waves scored?</h2>
+<p>In any given heat, there is judging panel comprised of 5 judges. Anytime a surfer attempts to ride a wave, each judge analyzes the surfer&#39;s ride with respect to the following criteria and write down a score:</p>
+<ul>
+<li><p>Commitment and degree of difficulty</p>
+</li>
+<li><p>Innovative and progressive maneuvers</p>
+</li>
+<li><p>Combination of major maneuvers</p>
+</li>
+<li><p>Variety of maneuvers</p>
+</li>
+<li><p>Speed, power, and flow</p>
+</li>
+</ul>
+<p>Note: that Different elements of this list may be emphasized more or less depending on the location, conditions, and changes of conditions. &#40;Chapter 13 Article 182&#41; Additionally, the General Judging Rules &#40;Chapter 13; Article 183; Section 1,2&#41; state that judges should be visually separated, should not discuss scores, and may not change their scores.</p>
+
+<p>Though there are 5 judges and 5 scores, the score a surfer receives, called the &quot;wave score&quot;, is the trimmed mean of the scores given by the 5 judges. This is very important information and particularly interesting because it distinguishes the <em>existence</em> of biased judges from the effect of biased judging &#40;if it exists&#41;.</p>
+
+<h2>The Judging Process</h2>
+<p>The role of judges is not limited to the five judges on a panel. For each Men&#39;s CT event, there is 1 international Head Judge, 7 international judges, and 1 international priority Judge &#40;Chapter 13, Article 179.01&#41;. And Chapter 13, article 179.17 states that &quot;At CT Events, the number of judges from any one regional area is limited to 3&quot;. For each heat, the WSL Head Judge must assure there are at least 5 judges on the panel for each heat and that they are a subset of the 7 International Judges and 1 International Head Judge &#40;Chapter 13, Article 179.13&#41;.</p>
+
+<p>5 judges are selected from a pool of 8 judges to form a panel for a heat. During that heat, when a surfer rides a wave, each judge independently observes the ride and writes down a score &#40;based on some broadly defined criteria&#41;, which is some number in &#123;0.0, 0.1, 0.2, ..., 9.8, 9.9, 10.0&#125;.</p>
+
+<h2>Data</h2>
+<p>We collected some incredibly rich data on surf compeitions from the 2017, 2018, and 2019 seasons of the Mens World Championship Tour &#40;WCT&#41;. Each year the World Surf League &#40;WCT&#41; holds 10 to 11 surf competitions, which are called &quot;events&quot;. While the format of events have changed slightly between the 2017 and 2019 seasons, they are all very similar. Each event consists of 7 rounds, and within each round there are some number of heats. A heat is the level at which intra-athlete competition takes place and may consist of 2 or 3 surfers. Throughout a timed heat &#40;usually between 22 and 35 minutes&#41;, each athlete may surf any number of waves and their &quot;heat score&quot; is the sum of the scores of their two highest scoring waves. </p>
+
+<h1>The Simple Approach</h1>
+<p>Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.</p>
+
+<p>The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality. I.e. Test H₀: Mean&#40;Match Scores&#41; - Mean&#40;No Match Scores&#41; &#61; 0 H₁: Mean&#40;Match Scores&#41; - Mean&#40;No Match Scores&#41; &#33;&#61; 0</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>HasMatch</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>filter</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>I_match</span><span class='hljl-oB'>==</span><span class='hljl-kc'>true</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>DiffInMeans</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>mean</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>labeledPanelBinary</span><span class='hljl-p'>[</span><span class='hljl-sc'>:Match</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-nf'>mean</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>labeledPanelBinary</span><span class='hljl-p'>[</span><span class='hljl-sc'>:NoMatch</span><span class='hljl-p'>]),</span><span class='hljl-t'> </span><span class='hljl-n'>HasMatch</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>ttest</span><span class='hljl-p'>(</span><span class='hljl-n'>X</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>mean</span><span class='hljl-p'>(</span><span class='hljl-n'>X</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-nf'>std</span><span class='hljl-p'>(</span><span class='hljl-n'>X</span><span class='hljl-p'>)</span><span class='hljl-oB'>/</span><span class='hljl-nf'>sqrt</span><span class='hljl-p'>(</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>X</span><span class='hljl-p'>)))</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>ttest</span><span class='hljl-p'>(</span><span class='hljl-n'>DiffInMeans</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+6.71160420326186
+</pre>
+
+
+<p>The difference of mean&#40;DiffInMeans&#41; is significant. However, the distribution of the differences in means is less compelling. </p>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>savefig</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;visuals/DistOfDiffInMeans.jl&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>histogram</span><span class='hljl-p'>(</span><span class='hljl-n'>DiffInMeans</span><span class='hljl-p'>,</span><span class='hljl-n'>title</span><span class='hljl-oB'>=</span><span class='hljl-s'>&quot;Distribution of Differences in Means&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+
+<p>&#33;&#40;visuals/DistOfDiffInMeans.png&#41;</p>
+
+<p>We may carry out this process for each country: Note C &#61; :AUS, :BRA, :FRA, :PRT, :USA, :ZAF</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>B</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-sc'>:Match</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-sc'>:NoMatch</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-n'>C</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sort</span><span class='hljl-p'>(</span><span class='hljl-nf'>unique</span><span class='hljl-p'>(</span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>athOrig</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>HasMatch</span><span class='hljl-p'>)))</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>diffInMeansDist</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-oB'>::</span><span class='hljl-n'>ORIG</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>I</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>findall</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>athOrig</span><span class='hljl-oB'>==</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>HasMatch</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>t</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>ttest</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>DiffInMeans</span><span class='hljl-p'>[</span><span class='hljl-n'>I</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>savefig</span><span class='hljl-p'>(</span><span class='hljl-t'>
+		</span><span class='hljl-s'>&quot;visuals/DistOfDiffInMeansFor</span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-s'>.jl&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'>
+		</span><span class='hljl-nf'>histogram</span><span class='hljl-p'>(</span><span class='hljl-n'>DiffInMeans</span><span class='hljl-p'>[</span><span class='hljl-n'>I</span><span class='hljl-p'>],</span><span class='hljl-n'>title</span><span class='hljl-oB'>=</span><span class='hljl-s'>&quot;Difference in Means where C=</span><span class='hljl-si'>$c</span><span class='hljl-s'> (n=</span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>I</span><span class='hljl-p'>))</span><span class='hljl-s'> and t=</span><span class='hljl-si'>$t</span><span class='hljl-s'>)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>C</span><span class='hljl-t'> </span><span class='hljl-nf'>diffInMeansDist</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>end</span>
+</pre>
+
+
+
+<p>And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is signifigant for AUS, BRA, FRA, USA, ZAF. Though we will use the term &quot;matching judge&#40;s&#41;&quot; throughout the paper, it is important to keep in mind that it is the Athlete&#39;s origin which determines whether a judge is a &quot;matching judge&quot; or a &quot;non-matching judge&quot;.</p>
+
+<h2>Judging Panel Data</h2>
+<p>Question: What is the definition of a panel? What type of data is it? For any given heat, there are 5 judges on the judging panel. Anytime a surfer rides a wave, each of them observes the way  What does a panel look like? A lot of very different things that may seem very similar BUT ARE NOT. For example:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Panels</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel</span><span class='hljl-p'>,</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>))</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>display</span><span class='hljl-p'>(</span><span class='hljl-n'>Panels</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-nf'>display</span><span class='hljl-p'>(</span><span class='hljl-n'>Panels</span><span class='hljl-p'>[</span><span class='hljl-ni'>3</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-nf'>display</span><span class='hljl-p'>(</span><span class='hljl-n'>Panels</span><span class='hljl-p'>[</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;,1&#125;:
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.BRA
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.ZAF
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.ESP
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.USA
+5-element Array&#123;Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;,1&#125;:
+ 1.0 &#61;&gt; Main.##WeaveSandBox#253.BRA
+ 1.0 &#61;&gt; Main.##WeaveSandBox#253.USA
+ 1.0 &#61;&gt; Main.##WeaveSandBox#253.ZAF
+ 1.5 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 1.5 &#61;&gt; Main.##WeaveSandBox#253.ESP
+5-element Array&#123;Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;,1&#125;:
+ 5.5 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 5.5 &#61;&gt; Main.##WeaveSandBox#253.BRA
+ 6.0 &#61;&gt; Main.##WeaveSandBox#253.ESP
+ 6.0 &#61;&gt; Main.##WeaveSandBox#253.USA
+ 6.0 &#61;&gt; Main.##WeaveSandBox#253.ZAF
+</pre>
+
+
+<h1>Methods</h1>
+<h2>Lets explore the Data&#33;</h2>
+<p>We have lots of missing Judge Origins from panels in the 2017 World Surf League season so we will omit the 2017 season ... for now &#40;This begs an intersting question which we should return to later&#41;.</p>
+
+<p>We have constructed a multidimensional array, aka an m-way, cross classified, contingency table. We have m classification factors:</p>
+<ul>
+<li><p>WSL Season</p>
+</li>
+<li><p>Event</p>
+</li>
+<li><p>Round</p>
+</li>
+<li><p>Heat</p>
+</li>
+<li><p>Ahtlete Origin</p>
+</li>
+<li><p>Judge Origin</p>
+</li>
+<li><p>Size of Partition of Panel &#40;Max Rank&#41;</p>
+</li>
+<li><p>Rank of Judge</p>
+</li>
+</ul>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;m = </span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>))</span><span class='hljl-s'>&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-nf'>size</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>))</span><span class='hljl-t'>
+
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>marginalBarPlot</span><span class='hljl-p'>(</span><span class='hljl-n'>M</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-n'>N</span><span class='hljl-p'>},</span><span class='hljl-t'> </span><span class='hljl-n'>d</span><span class='hljl-oB'>::</span><span class='hljl-n'>Integer</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-n'>where</span><span class='hljl-t'> </span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-n'>N</span><span class='hljl-p'>}</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>dIndex_</span><span class='hljl-p'>(</span><span class='hljl-n'>h</span><span class='hljl-oB'>::</span><span class='hljl-n'>Integer</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-oB'>==</span><span class='hljl-n'>d</span><span class='hljl-t'> </span><span class='hljl-oB'>?</span><span class='hljl-t'> </span><span class='hljl-n'>h</span><span class='hljl-t'> </span><span class='hljl-oB'>:</span><span class='hljl-t'> </span><span class='hljl-nf'>Colon</span><span class='hljl-p'>()</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-n'>N</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-n'>marginal_d</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>M</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>dIndex_</span><span class='hljl-p'>(</span><span class='hljl-n'>h</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>h</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-nf'>size</span><span class='hljl-p'>(</span><span class='hljl-n'>M</span><span class='hljl-p'>)[</span><span class='hljl-n'>d</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>savefig</span><span class='hljl-p'>(</span><span class='hljl-t'>
+		</span><span class='hljl-s'>&quot;visuals/marginal_</span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkDataVarNames</span><span class='hljl-p'>[</span><span class='hljl-n'>d</span><span class='hljl-p'>])</span><span class='hljl-s'>.png&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'>
+		</span><span class='hljl-nf'>barplot</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>String</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Symbol</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-n'>d</span><span class='hljl-p'>]))</span><span class='hljl-t'> </span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>marginal_d</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>marginal_d</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>d</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkDataVarNames</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-nf'>marginalBarPlot</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>d</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>end</span>
+</pre>
+
+
+<pre class="output">
+m &#61; 8
+&#40;2, 10, 7, 16, 11, 7, 5, 5&#41;
+</pre>
+
+<pre class="julia-error">
+ERROR: syntax: missing comma or &#41; in argument list
+</pre>
+
+
+<p><img src="visuals/marginals_YR.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_EVT.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_RND.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_HEAT.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_ATH_orig.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_JUD_orig.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_MAX_RANK.png" alt="Judge Origin Marginal" /> <img src="visuals/marginals_RANK.png" alt="Judge Rank Marginal" /></p>
+
+<h1>Definitions</h1>
+<ul>
+<li><p><strong>The Symmetric Group on a set, <span class="math">$X$</span></strong> is <span class="math">$S_X := Isomorphisms(X,X)$</span>. When <span class="math">$|X|<\infty$</span>,<span class="math">$S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \}$</span></p>
+</li>
+<li><p><span class="math">$S_d := S_{\{ 1 ,\dots, d\}}.$</span></p>
+</li>
+<li><p>When G is a Group, and <span class="math">$\mathbb{F}$</span> is a Field, the <strong>Group Algebra of G over <span class="math">$F$</span></strong>, denoted <span class="math">$\mathbb{F}[G]$</span>, is the space of formal linear combinations of elements of G. Elements of <span class="math">$\mathbb{F}[G]$</span> are of the form: <span class="math">$c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i$</span>, where <span class="math">$c_i \in \mathbb{F}, g_i \in G$</span>. Note that <span class="math">$i\neq j \implies g_i \neq g_j$</span> because G is a set of elements, so no element occurs with multiplicity. For example, <span class="math">$c_1 g + c_2 g \not\in \mathbb{F}[G]$</span> whereas <span class="math">$(c_1 + c_2)g \in \mathbb{F}[G]$</span>.</p>
+</li>
+<li><p><span class="math">$\mathbb{F}[S_d]$</span> is comprised on formal linear combinations of elements of <span class="math">$S_d$</span>. This may be understood as two different ways:</p>
+<ul>
+<li><p>There exists a function <span class="math">$a:S_n \rightarrow \mathbb{F}$</span> and <span class="math">$A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]$</span>.</p>
+</li>
+<li><p>Or: <span class="math">$A = [ \pi_1 \dots  \pi_{d!} ] \begin{bmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{bmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d]$</span>,where <span class="math">$\tau \in S_d, a_\tau \in \mathbb{F}$</span>.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Addition in <span class="math">$\mathbb{F}[S_n]$</span></strong> is defined by <span class="math">$A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) := \sum_\tau (a_\tau + b_\tau) \tau$</span></p>
+</li>
+<li><p><strong>Scalar Multiplication in <span class="math">$\mathbb{F}[S_d]$</span></strong> is <span class="math">$c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau$</span>.</p>
+</li>
+<li><p>Multiplication in <span class="math">$\mathbb{F}[S_d]$</span> is <em>defined</em> by: <span class="math">$A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi) :=\sum_{\gamma \in S_d}(\sum_{\tau,\pi | \tau\pi=\gamma} a_\tau b_\pi) \gamma = \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma$</span>.</p>
+</li>
+</ul>
+
+<p>We should not over complicate <span class="math">$*$</span>. The <em>definition</em> of <span class="math">$*$</span> may look odd, but it exactly the same as our basic understanding of multiplication: <span class="math">$(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} (a_\tau\tau) *(\sum_{\pi }   b_\pi \pi) = \sum_{  \tau} \sum_{\pi }  (a_\tau\tau) * (b_\pi \pi) = \sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)$</span> Even though <span class="math">$(∑_{τ} a_τ τ) *(∑_{π} b_π π)$</span> is equal to the intuitive form, <span class="math">$∑_{τ}\sum_{π} a_τ b_π τπ$</span>, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, <span class="math">$*$</span> merely extends multiplication in the Field,<span class="math">$\cdot: \mathbb{F} \times \mathbb{F} \rightarrow \mathbb{F}$</span>, and the operation in the group, <span class="math">$∘$</span>, by <span class="math">$a_τ τ * b_π π = a_τ⋅b_π τ∘π = a_τ b_π τπ$</span>, where the last equality is simply notation-reduction.</p>
+<p>A measure on <span class="math">$S_d$</span>, is an element of the group algebra <span class="math">$\mathbb{C}[S_n]$</span>. A measure on <span class="math">$S_d$</span>, <span class="math">$F = ∑_{τ ∈ S_d} f_τ τ$</span>, is a probability measure on <span class="math">$S_d$</span> if and only if <span class="math">$∀ τ ∈ S_d f_τ \geq 0$</span> and <span class="math">$∑_{τ ∈ S_d} f_τ = 1$</span>.</p>
+<p>A linear representation of a group G, is a group homomorphism, <span class="math">$\rho : (G,\circ) \rightarrow (GL(V),\cdot)$</span>. A group homomorphism satisfies:</p>
+<ul>
+<li><p><span class="math">$∀ x,y ∈ G \quad ρ(x∘y) = ρ(x) \cdot ρ(y)$</span> where <span class="math">$\cdot$</span> is multiplication in <span class="math">$GL(V)$</span>.</p>
+</li>
+<li><p><span class="math">$ρ(e) = I$</span>, where e is the identity element in <span class="math">$G$</span> and I is the identity element in <span class="math">$GL(V)$</span>.</p>
+</li>
+<li><p><span class="math">$∀ x ∈ G, ρ(x^{-1}) = ρ(x)^*$</span>, where <span class="math">$^*$</span> denotes involution in <span class="math">$GL(V)$</span>.</p>
+</li>
+</ul>
+<p>The representation of a measure F, is: <span class="math">$\hat{F} := ∑_{τ ∈ S_n} P(τ) ρ(τ)$</span>. Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. </p>
+<p><strong>Convolution of two functions on <span class="math">$S_d$</span></strong> is a binary operation <span class="math">$A * B := ∑_{τ ∈ S_n} a(τ) b(τ^{-1}g)$</span>.</p>
+<p>Note: <span class="math">$\widehat{A*B} = ∑_{γ} (A*B)(γ)ρ(γ)  = ∑_{γ} ∑_{τ} a(γ τ^{-1})b(τ)\rho(γ ) = ∑_{τ} ∑_{γτ} a(γ τ τ^{-1})b(τ)ρ(γτ) = ∑_{τ} ∑_{γτ} a(γ)b(τ)ρ(γ)ρ(τ) = ∑_{τ} b(τ)ρ(τ) ∑_{γτ} a(γ)ρ(γ)  = ∑_{τ} b(τ)ρ(τ) \hat{A} = \hat{A} ∑_{τ} b(τ)\rho(τ) = \hat{A} \cdot \hat{B}$</span></p>
+<p>We take <span class="math">$ρ_d$</span> the permutation representation acting on the vector space <span class="math">$V := \mathbb{R}^d$</span> with basis indexed by <span class="math">$\{1,…,d\}$</span>. So a typical element of V is of the form: </p>
+<p><span class="math">$\begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix}  = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix}  = a^1 e_1 + a^2 e_2 + \dots a^n e_n$</span></p>
+<p>This could be rewritten as <span class="math">$∑_{i ∈ \{1,…,n\} } a^i e_i$</span>. But remember, we are interested in functions that act on the basis.</p>
+<p>Many authors call <span class="math">$*$</span> &quot;convolution&quot;, however this terminology is superfluous.</p>
+<h1>Analysis</h1>
+<p>One thing I could change:</p>
+<ul>
+<li><p>instead giving every element of rth partition rank  give them each:</p>
+</li>
+</ul>
+<p>&#123; Nᵣ &#43; i for i in 1:n_i&#125;  where Nᵣ is Σʳnᵢ ... but then any answer we give loses meaning</p>
+<p>I wonder: Mᵣ :&#61; max order for that wave B &#61; 1<em>&#123;order&#40;Jᵢ&#41; &#61; 1 &#125; T &#61; 1</em>&#123;order&#40;Jᵢ&#41; &#61; Mᵣ &#125; B ∪ T only really meaninful for Mᵣ&gt;2</p>
+<p>Wondering₁: if P&#40;T | JUD<em>orig&#61;&#61;ATH</em>orig &#41; &#61;  P&#40; T | JUD<em>orig &#33;&#61; ATH</em>orig &#41; Wondering₂: if Wondering₁ depends on &#91;   &#93;<em>orig Wondering₃: if P&#40; B ∪ T | Mᵣ &#41; &#61; 2/Mᵣ Wondering₄: if P&#40;T | &#40;JUD</em>orig&#61;&#61;ATH_orig,Mᵣ&#41; &#41; &#61; 1/Mᵣ</p>
+
+<h2>Method 1</h2>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sort</span><span class='hljl-p'>(</span><span class='hljl-nf'>unique</span><span class='hljl-p'>(</span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>athOrig</span><span class='hljl-p'>,</span><span class='hljl-n'>HasMatch</span><span class='hljl-p'>)))</span><span class='hljl-t'>
+</span><span class='hljl-n'>GivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
+</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Match conditional on Max Rank is:&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>GivenMatchByMᵣ</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-t'>
+</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Judge has Max Rank given Match (by Max Rank)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>D₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>TopGivenMatchByMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>GivenMatchByMᵣ</span>
+</pre>
+
+
+<pre class="output">
+Match conditional on Max Rank is:
+Judge has Max Rank given Match &#40;by Max Rank&#41;
+5-element Array&#123;Rational&#123;Int64&#125;,1&#125;:
+    1//1
+ 1699//3419
+ 1819//5942
+  288//1357
+  223//1209
+</pre>
+
+
+<p>We would expect:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>E₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-oB'>/</span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Float64,1&#125;:
+ 1.0
+ 0.5
+ 0.3333333333333333
+ 0.25
+ 0.2
+</pre>
+
+
+<p>So we have:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>χsq₁</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣ</span><span class='hljl-p'>)</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₁</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₁</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₁</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+137.795814443704
+</pre>
+
+
+<p>Now...</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> 
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Match conditional on Max Rank (rows) and Nationality (cols)&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>display</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Judge has Max Rank given Match (by Max Rank (rows) by Nationality (cols))&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>TopGivenMatchByMᵣandOrig</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>GivenMatchByMᵣandOrig</span>
+</pre>
+
+
+<pre class="output">
+Match conditional on Max Rank &#40;rows&#41; and Nationality &#40;cols&#41;
+5×6 Array&#123;Rational&#123;Int64&#125;,2&#125;:
+   89//1   253//1   14//1   5//1   43//1    8//1
+  917//1  1811//1  160//1  30//1  428//1   73//1
+ 1666//1  3061//1  282//1  72//1  751//1  110//1
+ 1133//1  2066//1  187//1  40//1  595//1   50//1
+  360//1   581//1   57//1  16//1  179//1   16//1
+Judge has Max Rank given Match &#40;by Max Rank &#40;rows&#41; by Nationality &#40;cols&#41;&#41;
+Rational&#123;Int64&#125;&#91;89//1 253//1 14//1 5//1 43//1 8//1; 418//1 943//1 80//1 10/
+/1 208//1 40//1; 474//1 984//1 88//1 25//1 220//1 28//1; 237//1 442//1 39//
+1 5//1 125//1 16//1; 76//1 109//1 4//1 6//1 26//1 2//1&#93;
+Main.##WeaveSandBox#253.ORIG&#91;Main.##WeaveSandBox#253.AUS, Main.##WeaveSandB
+ox#253.BRA, Main.##WeaveSandBox#253.FRA, Main.##WeaveSandBox#253.PRT, Main.
+##WeaveSandBox#253.USA, Main.##WeaveSandBox#253.ZAF&#93;
+5×6 Array&#123;Rational&#123;Int64&#125;,2&#125;:
+   1//1       1//1      1//1     1//1     1//1     1//1
+ 418//917   943//1811   1//2     1//3    52//107  40//73
+ 237//833   984//3061  44//141  25//72  220//751  14//55
+ 237//1133  221//1033  39//187   1//8    25//119   8//25
+  19//90    109//581    4//57    3//8    26//179   1//8
+</pre>
+
+
+<p>We would expect:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>E₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>/</span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5×6 Array&#123;Float64,2&#125;:
+ 1.0       1.0       1.0       1.0       1.0       1.0
+ 0.5       0.5       0.5       0.5       0.5       0.5
+ 0.333333  0.333333  0.333333  0.333333  0.333333  0.333333
+ 0.25      0.25      0.25      0.25      0.25      0.25
+ 0.2       0.2       0.2       0.2       0.2       0.2
+</pre>
+
+
+<p>So we have a total χ^2 of:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>χsq₂</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-p'>)</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>W</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>D₂</span><span class='hljl-t'> </span><span class='hljl-oB'>.-</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-p'>)</span><span class='hljl-oB'>.^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>E₂</span><span class='hljl-t'>
+</span><span class='hljl-n'>χsqbyctry</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>GivenMatchByMᵣandOrig</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>])</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>W</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>6</span><span class='hljl-p'>]</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>MᵣGivenMatch</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-ni'>3</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-n'>OrderIsMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>rnkData</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-n'>c</span><span class='hljl-p'>,</span><span class='hljl-ni'>3</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>MATCH_ORIGS</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>OrderIsMᵣ</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-n'>MᵣGivenMatch</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Rational&#123;Int64&#125;&#91;787//3159, 1535//5708, 131//526, 9//32, 371//1525, 23//88&#93;
+</pre>
+
+
+<p>But&#33;&#33;&#33;</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Panel_λs</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>λ_origs</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>Panel_λs</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>Ord_Parts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>λ</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>λ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>Panel_λs</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>Ord_Parts_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>Ord_Parts</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>Ord_Parts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>Ord_Parts_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'>  </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>Ord_Parts_Counts</span><span class='hljl-p'>)]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Dict&#123;Array&#123;Int64,1&#125;,Float64&#125; with 16 entries:
+  &#91;2, 2, 1&#93;       &#61;&gt; 0.0679787
+  &#91;1, 1, 1, 1, 1&#93; &#61;&gt; 0.0821078
+  &#91;2, 1, 2&#93;       &#61;&gt; 0.0538495
+  &#91;4, 1&#93;          &#61;&gt; 0.0557238
+  &#91;1, 2, 2&#93;       &#61;&gt; 0.0766292
+  &#91;3, 2&#93;          &#61;&gt; 0.0592561
+  &#91;3, 1, 1&#93;       &#61;&gt; 0.0537053
+  &#91;5&#93;             &#61;&gt; 0.0284025
+  &#91;1, 3, 1&#93;       &#61;&gt; 0.0864331
+  &#91;1, 1, 3&#93;       &#61;&gt; 0.0502451
+  &#91;1, 1, 2, 1&#93;    &#61;&gt; 0.0810265
+  &#91;1, 2, 1, 1&#93;    &#61;&gt; 0.0810986
+  &#91;2, 1, 1, 1&#93;    &#61;&gt; 0.0546424
+  &#91;1, 1, 1, 2&#93;    &#61;&gt; 0.0551471
+  &#91;2, 3&#93;          &#61;&gt; 0.0589677
+  &#91;1, 4&#93;          &#61;&gt; 0.0547866
+</pre>
+
+
+<p><span class="math">$|\{ g ∈ S_d | cycles(g) = 1^{k₁},2^{k₂},…,d^{k_d} \}| = \frac{d!}{\prod_{j=1}^{d} k_j!j^k_j } ⟹ P(1^k_1, … , d^k_d) = \frac{\frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }}{d!} = \frac{1}{\prod_{j=1}^{d} k_j!j^k_j }$</span> Panels is the Array of the observed Panels, each of which is ordered by score. We do not have a total order for every panel So a observed panel is an ordered partition. Y is an array of cycle counts. Below, λ, is the cycle counts.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>Panel_λs</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>Y</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Obs</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λ_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Thry</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-n'>K</span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Counts</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>χ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Thry</span><span class='hljl-p'>))</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Obs</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>λ_Thry</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>λ_Thry</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Thry</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>println</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+9.558900782521095
+</pre>
+
+
+<p>... χ² is very large....</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>eqPanels</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>eqPanel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>eqParts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanel</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanel</span><span class='hljl-p'>)))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>eqPanels</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-n'>K</span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'>  </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Counts</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>eqχ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-p'>))</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>Theory_Parts_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>eqParts_Props</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+0.567850258509503
+</pre>
+
+
+<p>Now eqPanels with No mulitplicity</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>do</span><span class='hljl-t'> </span><span class='hljl-n'>panel</span><span class='hljl-t'>
+	</span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>unique</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>panel</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-n'>nOrigs_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>sum</span><span class='hljl-p'>([</span><span class='hljl-n'>i</span><span class='hljl-oB'>*</span><span class='hljl-n'>x</span><span class='hljl-p'>[</span><span class='hljl-n'>i</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]),</span><span class='hljl-t'> </span><span class='hljl-n'>Y</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>nOrigs_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>nOrigs_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>nOrigs_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>Y</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λ_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+</span><span class='hljl-n'>λ_Thry_Cond_Origs</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-n'>nOrigs_Props</span><span class='hljl-p'>[</span><span class='hljl-nf'>sum</span><span class='hljl-p'>([</span><span class='hljl-n'>i</span><span class='hljl-oB'>*</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>i</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])]</span><span class='hljl-oB'>/</span><span class='hljl-n'>N</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'>  </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Props</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>eqNoM_cond_χ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Thry_Cond_Origs</span><span class='hljl-p'>))</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>λ_Thry_Cond_Origs</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>λ_Thry_Cond_Origs</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_Thry_Cond_Origs</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+324381.85070143273
+</pre>
+
+
+<p>what marty thought of</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>D</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>wave</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-n'>wave</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>eqPanel</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>wave</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>WAVES</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-n'>χ_sq_byHT</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[]</span><span class='hljl-t'>
+</span><span class='hljl-n'>χ_sq_byHT_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[]</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>heat</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>Panels</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>λ_origs</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>heat</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-n'>Panels_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>unique</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>λ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>λ</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Panels</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-n'>n</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>Panels</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Origs_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>)),</span><span class='hljl-t'> </span><span class='hljl-n'>Panels_nom</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_nOrigs_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λ_HT_Origs_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>n</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Origs_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>Panels</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>count</span><span class='hljl-p'>(</span><span class='hljl-oB'>==</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-p'>),</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>Panels_nom</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Counts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Counts_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>countmap</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_nom</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Props</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λ_HT_Counts</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>n</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Counts</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Props_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>([</span><span class='hljl-n'>x</span><span class='hljl-oB'>=&gt;</span><span class='hljl-n'>λ_HT_Counts_nom</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>/</span><span class='hljl-n'>n</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Counts_nom</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Thry</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+		</span><span class='hljl-p'>[</span><span class='hljl-n'>K</span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'>  </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+		</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Counts</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>λ_HT_Thry_Cond_Origs</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-t'>
+		</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-n'>λ_HT_nOrigs_Props</span><span class='hljl-p'>[</span><span class='hljl-nf'>sum</span><span class='hljl-p'>([</span><span class='hljl-n'>i</span><span class='hljl-oB'>*</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>i</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])]</span><span class='hljl-oB'>/</span><span class='hljl-n'>n</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>])</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'>  </span><span class='hljl-n'>j</span><span class='hljl-oB'>^</span><span class='hljl-n'>K</span><span class='hljl-p'>[</span><span class='hljl-n'>j</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>])</span><span class='hljl-t'> 
+		</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>K</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Props_nom</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>eqχ_sq</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Thry</span><span class='hljl-p'>))</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
+		</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Props</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>λ_HT_Thry</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>λ_HT_Thry</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+		</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Thry</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>eqχ_sq_cond_nom</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Thry_Cond_Origs</span><span class='hljl-p'>))</span><span class='hljl-oB'>*</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-t'>
+	</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Props_nom</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-oB'>-</span><span class='hljl-n'>λ_HT_Thry_Cond_Origs</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>])</span><span class='hljl-oB'>^</span><span class='hljl-ni'>2</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-n'>λ_HT_Thry_Cond_Origs</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>keys</span><span class='hljl-p'>(</span><span class='hljl-n'>λ_HT_Thry_Cond_Origs</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+	</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq_byHT</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>eqχ_sq</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq_byHT_nom</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>eqχ_sq_cond_nom</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>savefig</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;visuals/Partition_χ_sq_byHT_Hist.png&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>histogram</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq_byHT</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-nf'>savefig</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;visuals/Partition_nom_χ_sq_byHT_Hist.png&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>histogram</span><span class='hljl-p'>(</span><span class='hljl-n'>χ_sq_byHT_nom</span><span class='hljl-p'>))</span>
+</pre>
+
+
+
+<p><img src="visuals/Partition_χ_sq_byHT_Hist.png" alt="Judge Origin Marginal" /> <img src="visuals/Partition_nom_χ_sq_byHT_Hist.png" alt="Judge Origin Marginal" /></p>
+
+<p>Question: Are lengths of partions asymptotically normal?</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>lParts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>histogram</span><span class='hljl-p'>(</span><span class='hljl-n'>lParts</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+GRUtils.Figure&#40;&#40;0.12095237913585845, 0.09071428435189384&#41;, GRUtils.PlotObje
+ct&#91;GRUtils.PlotObject&#40;GRUtils.Viewport&#40;&#91;0.0, 1.0, 0.0, 0.75&#93;, &#91;0.125, 0.925
+, 0.09375, 0.69375&#93;&#41;, GRUtils.Axes&#40;:axes2d, Dict&#40;:y &#61;&gt; &#40;0.0, 5000.0&#41;,:c &#61;&gt; 
+&#40;Inf, -Inf&#41;,:z &#61;&gt; &#40;Inf, -Inf&#41;,:x &#61;&gt; &#40;1.0, 5.0&#41;&#41;, Dict&#40;:y &#61;&gt; &#40;200.0, &#40;0.0, 5
+000.0&#41;, 5&#41;,:x &#61;&gt; &#40;0.2, &#40;1.0, 5.0&#41;, 5&#41;&#41;, Dict&#123;Symbol,Function&#125;&#40;&#41;, &#91;0, 0&#93;, &#91;0
+.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0&#93;, Dict&#40;:grid &#61;&gt; 1,:scale &#61;&gt; 0&#41;&#41;,
+ GRUtils.Geometry&#91;GRUtils.Geometry&#40;:bar, &#91;1.0, 1.2666666666666666, 1.266666
+6666666666, 1.5333333333333334, 1.5333333333333334, 1.8, 1.8, 2.06666666666
+6667, 2.066666666666667, 2.3333333333333335  …  3.6666666666666665, 3.93333
+3333333333, 3.933333333333333, 4.2, 4.2, 4.466666666666667, 4.4666666666666
+67, 4.733333333333333, 4.733333333333333, 5.0&#93;, &#91;0.0, 4087.0, 0.0, 0.0, 0.0
+, 0.0, 0.0, 4913.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 1259.0, 0.0, 0.0, 0.0, 0.0,
+ 0.0, 248.0&#93;, Float64&#91;&#93;, Float64&#91;&#93;, &quot;&quot;, &quot;&quot;, Dict&#123;Symbol,Float64&#125;&#40;&#41;&#41;&#93;, GRUti
+ls.Legend&#40;&#40;0.0, 0.0&#41;, Tuple&#123;Float64,Float64&#125;&#91;&#93;&#41;, GRUtils.Colorbar&#40;&#40;0.0, 0.0
+&#41;, 0.0, 0, 0.0, 0&#41;, Dict&#123;Symbol,Any&#125;&#40;:kind &#61;&gt; :hist,:subplot &#61;&gt; &#91;0.0, 1.0, 
+0.0, 1.0&#93;&#41;&#41;&#93;&#41;
+</pre>
+
+
+<p>Comprende?</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>D</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>do</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'>
+	</span><span class='hljl-n'>y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>Set</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-n'>P</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>Iterators</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-n'>Sym</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>Perms</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Int8</span><span class='hljl-p'>}[]</span><span class='hljl-t'>
+	</span><span class='hljl-n'>onPan</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sort</span><span class='hljl-p'>([</span><span class='hljl-t'> </span><span class='hljl-nf'>Int</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>union</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-oB'>...</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+	</span><span class='hljl-n'>notPan</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>setdiff</span><span class='hljl-p'>(</span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-n'>onPan</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>z</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>P</span><span class='hljl-t'>
+		</span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>union</span><span class='hljl-p'>(</span><span class='hljl-n'>z</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>Int8</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>7</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>notPan</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>.=</span><span class='hljl-t'> </span><span class='hljl-n'>notPan</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>onPan</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>.=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>Int</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+		</span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>Perms</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>perm</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>Perms</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>Reps</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>eqPanels</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>do</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'>
+	</span><span class='hljl-n'>y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>Set</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-n'>P</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>Iterators</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-n'>Sym</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>Perms</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Int8</span><span class='hljl-p'>}[]</span><span class='hljl-t'>
+	</span><span class='hljl-n'>onPan</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sort</span><span class='hljl-p'>([</span><span class='hljl-t'> </span><span class='hljl-nf'>Int</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>union</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-oB'>...</span><span class='hljl-p'>)])</span><span class='hljl-t'>
+	</span><span class='hljl-n'>notPan</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>setdiff</span><span class='hljl-p'>(</span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-n'>onPan</span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-n'>repNotPan</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-p'>((</span><span class='hljl-n'>i</span><span class='hljl-oB'>==</span><span class='hljl-n'>j</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>&amp;</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>notPan</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-oB'>?</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-t'> </span><span class='hljl-oB'>:</span><span class='hljl-t'> </span><span class='hljl-ni'>0</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>j</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>7</span><span class='hljl-p'>]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>z</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>P</span><span class='hljl-t'>
+		</span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>union</span><span class='hljl-p'>(</span><span class='hljl-n'>z</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>Int8</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>7</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>notPan</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>.=</span><span class='hljl-t'> </span><span class='hljl-n'>notPan</span><span class='hljl-t'>
+		</span><span class='hljl-n'>perm</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>onPan</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>.=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-nf'>Int</span><span class='hljl-p'>(</span><span class='hljl-n'>c</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'>
+		</span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>Perms</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>Rep</span><span class='hljl-p'>(</span><span class='hljl-n'>perm</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>Perms</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>Perms</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-n'>repNotPan</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>expApp</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>Float64</span><span class='hljl-p'>,</span><span class='hljl-ni'>2</span><span class='hljl-p'>})</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>([</span><span class='hljl-t'> </span><span class='hljl-n'>A</span><span class='hljl-oB'>^</span><span class='hljl-n'>k</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-nf'>factorial</span><span class='hljl-p'>(</span><span class='hljl-n'>k</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>k</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>0</span><span class='hljl-oB'>:</span><span class='hljl-ni'>10</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>Reps</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-oB'>-&gt;</span><span class='hljl-nf'>Rep</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-p'>),</span><span class='hljl-n'>x</span><span class='hljl-p'>))</span><span class='hljl-oB'>/</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>D</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>Reps</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>expApp</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Reps</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-nf'>exp</span><span class='hljl-p'>(</span><span class='hljl-ni'>1</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cm'>#=
+videofile(&quot;MomentsForMixtureElement.mp4&quot;) do
+	for n in 1:length(Reps)
+		draw(gcf(wireframe(prod(Reps[1:n]))))
+	end
+end
+=#</span><span class='hljl-t'>
+</span><span class='hljl-cm'>#=
+[
+exp(im*tα)
+for α in A
+]
+
+map(x-&gt; map(y-&gt;Set(y[2]),x),eqPanels)
+=#</span>
+</pre>
+
+
+<pre class="output">
+13872-element Array&#123;Array&#123;Float64,2&#125;,1&#125;:
+ &#91;0.4142410301248375 0.046361588953395205 … 0.1797991236246669 0.1797991236
+246669; 0.24651789096030285 0.6143973321317452 … 0.046361588953395205 0.046
+361588953395205; … ; 0.046361588953395205 0.046361588953395205 … 0.54767856
+47961092 0.1797991236246669; 0.24651789096030285 0.24651789096030285 … 0.04
+6361588953395205 0.4142410301248375&#93;
+ &#91;0.6143973321317452 0.24651789096030285 … 0.046361588953395205 0.046361588
+953395205; 0.046361588953395205 0.4142410301248375 … 0.1797991236246669 0.1
+797991236246669; … ; 0.046361588953395205 0.046361588953395205 … 0.54767856
+47961092 0.1797991236246669; 0.046361588953395205 0.046361588953395205 … 0.
+1797991236246669 0.5476785647961092&#93;
+ &#91;0.44060239945771207 0.07272295828626966 … 0.20697583696099117 0.206975836
+96099117; 0.1622248774027506 0.5301043185741929 … 0.07272295828626966 0.072
+72295828626966; … ; 0.1622248774027506 0.1622248774027506 … 0.4406023994577
+1207 0.07272295828626966; 0.1622248774027506 0.1622248774027506 … 0.0727229
+5828626966 0.44060239945771207&#93;
+ &#91;0.567667640846056 0.4323323491061778 … 0.0 0.0; 0.4323323491061778 0.5676
+67640846056 … 0.0 0.0; … ; 0.0 0.0 … 0.4820867700859109 0.4037058909518544;
+ 0.0 0.0 … 0.25895660993316144 0.4820867700859109&#93;
+ &#91;0.683939715561838 0.3160602743903957 … 0.0 0.0; 0.3160602743903957 0.6839
+39715561838 … 0.0 0.0; … ; 0.0 0.0 … 0.5785862907650394 0.21070684959359712
+; 0.0 0.0 … 0.21070684959359712 0.5785862907650394&#93;
+ &#91;0.6167902483033689 0.24891080713192656 … 0.0580947077239585 0.01810951906
+9021196; 0.0580947077239585 0.42597414889540075 … 0.20892561847698926 0.098
+07989637889582; … ; 0.018109519069021196 0.018109519069021196 … 0.465959337
+550338 0.3997417178849574; 0.0580947077239585 0.0580947077239585 … 0.208925
+61847698926 0.465959337550338&#93;
+ &#91;0.9999999899522337 0.0 … 0.0 0.0; 0.0 0.9999999899522337 … 0.0 0.0; … ; 0
+.0 0.0 … 0.4820867700859109 0.11420732891446847; 0.0 0.0 … 0.25895660993316
+144 0.6268360511046037&#93;
+ &#91;0.465959337550338 0.20892561847698926 … 0.0580947077239585 0.058094707723
+9585; 0.3997417178849574 0.465959337550338 … 0.018109519069021196 0.0181095
+19069021196; … ; 0.09807989637889582 0.20892561847698926 … 0.42597414889540
+075 0.0580947077239585; 0.018109519069021196 0.0580947077239585 … 0.2489108
+0713192656 0.6167902483033689&#93;
+ &#91;0.5301043185741929 0.1622248774027506 … 0.07272295828626966 0.07272295828
+626966; 0.07272295828626966 0.44060239945771207 … 0.02303611637526998 0.390
+91555754671237; … ; 0.1622248774027506 0.1622248774027506 … 0.4406023994577
+1207 0.07272295828626966; 0.1622248774027506 0.1622248774027506 … 0.0727229
+5828626966 0.44060239945771207&#93;
+ &#91;0.4820867700859109 0.0 … 0.25895660993316144 0.25895660993316144; 0.0 0.9
+999999899522337 … 0.0 0.0; … ; 0.11420732891446847 0.0 … 0.6268360511046037
+ 0.25895660993316144; 0.4037058909518544 0.0 … 0.11420732891446847 0.482086
+7700859109&#93;
+ ⋮
+ &#91;0.5259095783666402 0.15803013719519785 … 0.15803013719519785 0.0; 0.15803
+013719519785 0.5259095783666402 … 0.15803013719519785 0.0; … ; 0.1580301371
+9519785 0.15803013719519785 … 0.5259095783666402 0.0; 0.0 0.0 … 0.0 0.99999
+99899522337&#93;
+ &#91;0.9999999899522337 0.0 … 0.0 0.0; 0.0 0.5785862907650394 … 0.210706849593
+59712 0.0; … ; 0.0 0.21070684959359712 … 0.5785862907650394 0.0; 0.0 0.0 … 
+0.0 0.9999999899522337&#93;
+ &#91;0.5785862907650394 0.21070684959359712 … 0.0 0.0; 0.21070684959359712 0.5
+785862907650394 … 0.0 0.0; … ; 0.0 0.0 … 0.9999999899522337 0.0; 0.0 0.0 … 
+0.0 0.9999999899522337&#93;
+ &#91;0.5259095783666402 0.15803013719519785 … 0.15803013719519785 0.0; 0.15803
+013719519785 0.5259095783666402 … 0.15803013719519785 0.0; … ; 0.1580301371
+9519785 0.15803013719519785 … 0.5259095783666402 0.0; 0.0 0.0 … 0.0 0.99999
+99899522337&#93;
+ &#91;0.5259095783666402 0.15803013719519785 … 0.15803013719519785 0.0; 0.15803
+013719519785 0.5259095783666402 … 0.15803013719519785 0.0; … ; 0.1580301371
+9519785 0.15803013719519785 … 0.5259095783666402 0.0; 0.0 0.0 … 0.0 0.99999
+99899522337&#93;
+ &#91;0.6178794386595008 0.24999999748805843 … 0.06606027690233725 0.0; 0.06606
+027690233725 0.4339397180737796 … 0.24999999748805843 0.0; … ; 0.0660602769
+0233725 0.06606027690233725 … 0.6178794386595008 0.0; 0.0 0.0 … 0.0 0.99999
+99899522337&#93;
+ &#91;0.5259095783666402 0.15803013719519785 … 0.15803013719519785 0.0; 0.15803
+013719519785 0.5259095783666402 … 0.15803013719519785 0.0; … ; 0.1580301371
+9519785 0.15803013719519785 … 0.5259095783666402 0.0; 0.0 0.0 … 0.0 0.99999
+99899522337&#93;
+ &#91;0.44769785107489146 0.07981840990344911 … 0.39266531907044394 0.0; 0.1841
+0071295911407 0.5519801541305563 … 0.07981840990344911 0.0; … ; 0.184100712
+95911407 0.18410071295911407 … 0.44769785107489146 0.0; 0.0 0.0 … 0.0 0.999
+9999899522337&#93;
+ &#91;0.4677735410087492 0.09989409983730678 … 0.2161661745530889 0.0; 0.099894
+09983730678 0.4677735410087492 … 0.2161661745530889 0.0; … ; 0.216166174553
+0889 0.2161661745530889 … 0.4677735410087492 0.0; 0.0 0.0 … 0.0 0.999999989
+9522337&#93;
+</pre>
+
+
+<p>The most granular object of study is the panel. It would not be justified to analyze our data a sequence of 13,872 panels because during each heat the set of judges is fixed &#40;or at least it appears to be this way&#41;.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>all</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-nf'>all</span><span class='hljl-p'>(</span><span class='hljl-n'>ht</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-n'>i</span><span class='hljl-oB'>-</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span><span class='hljl-t'> </span><span class='hljl-oB'>==</span><span class='hljl-t'> </span><span class='hljl-n'>ht</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-n'>i</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-oB'>:</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>ht</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>]))</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>ht</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+true
+</pre>
+
+
+<p>For this reason we will be mostly interested in heat-level dynamics of the panel. This is similar to the game-level approach Price takes in analyzing NBA refereeing &#40;as opposed to simply many foul calls&#41;. A panel is comprised of a set of distinct humans &#40;Judges&#41;, J &#61; &#123;j₁, j₂, ..., j₅&#125;, and their origns by the multiset J_c:C→𝑵. Multisets are interesting. Roman defines a multiset on a set A, as an element of A×N. Blizzard gives in broad overview of different approaches to multisets in &#91;The Development of Multiset Theory&#93;, and takes a more normative approach in &#91;Dedekind Multisets and Function Shells&#93;. We will not delve into this, but they are important to understand in the construction below: DEFN: A multiset on a set S, is a function f:S→𝑵. Rmk: Some authors use the pair &#40;S,f&#41; to define a multiset. While it may bring us comfort to know the underlying set which the function is defined on, this is merely a luxury of defining a multiset. In an observational setting one does not nessisary know the underlying set, only the support of f, ie. the set of all elements mapped to a non-zero number. For example, the judges in a heat are selected from a pool of judges provided by the WSL for that event. Specifically, suppose it is march ___ 2018, Caio Ibelli rides the first wave of the WSL 2018 Mens Championship Tour, when all 5 judges provide their scores, Caio Ibelli is awarded a score of:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>round</span><span class='hljl-p'>(</span><span class='hljl-nf'>mean</span><span class='hljl-p'>(</span><span class='hljl-nf'>sort</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>judge_scores</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-oB'>:</span><span class='hljl-ni'>4</span><span class='hljl-p'>]),</span><span class='hljl-n'>digits</span><span class='hljl-oB'>=</span><span class='hljl-ni'>2</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Float16&#40;0.43&#41;
+</pre>
+
+
+<p>Not a dramatic first wave eh? But maybe you want to know a bit more about the sub scores that resulted in a wave score of 0.43 . The panel is as follows:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>WAVES</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;,1&#125;:
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.BRA
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.ZAF
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.ESP
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.USA
+</pre>
+
+
+<p>We can certainly deduce the nationalities of 5 of the 8 Judges in the event pool.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>WAVES</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span>
+</pre>
+
+
+<pre class="output">
+Main.##WeaveSandBox#253.Multiset&#123;Main.##WeaveSandBox#253.ORIG&#125;&#40;Dict&#123;Main.##
+WeaveSandBox#253.ORIG,Integer&#125;&#40;Main.##WeaveSandBox#253.BRA &#61;&gt; 1,Main.##Weav
+eSandBox#253.USA &#61;&gt; 1,Main.##WeaveSandBox#253.AUS &#61;&gt; 1,Main.##WeaveSandBox#
+253.ESP &#61;&gt; 1,Main.##WeaveSandBox#253.ZAF &#61;&gt; 1&#41;&#41;
+</pre>
+
+
+<p>Where are the remaining 3 judges from? Well, we have to wait for the next heat because these judges are the panel for this heat. In the next heat, Michael Rodrigues is the first to ride a wave, receiving a 0.3.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>round</span><span class='hljl-p'>(</span><span class='hljl-nf'>mean</span><span class='hljl-p'>(</span><span class='hljl-nf'>sort</span><span class='hljl-p'>(</span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>judge_scores</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-oB'>:</span><span class='hljl-ni'>4</span><span class='hljl-p'>]),</span><span class='hljl-n'>digits</span><span class='hljl-oB'>=</span><span class='hljl-ni'>2</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Float16&#40;0.3&#41;
+</pre>
+
+
+<p>This feels similar to the first wave of last heat, are the judges the same?</p>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;,1&#125;:
+ 0.2 &#61;&gt; Main.##WeaveSandBox#253.BRA
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.AUS
+ 0.3 &#61;&gt; Main.##WeaveSandBox#253.USA
+ 0.5 &#61;&gt; Main.##WeaveSandBox#253.BRA
+</pre>
+
+
+<p>Looks like No. Okay, well are some of them the judges the same? Certainly. We could have answered that even before the Caio Ibelli took the first wave of 2018 because if there were two panels, each with five judges, and no judges were the same, then there would be at least 10 total judges for the event, a breach of WSL rulebook. So, which of the judges from heat 1 are on the panel from round 2? we know there are at least:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-p'>[</span><span class='hljl-n'>AUS</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>BRA</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>ESP</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>USA</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>ZAF</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Pair&#123;Main.##WeaveSandBox#253.ORIG,Int64&#125;,1&#125;:
+ Main.##WeaveSandBox#253.AUS &#61;&gt; 2
+ Main.##WeaveSandBox#253.BRA &#61;&gt; 2
+ Main.##WeaveSandBox#253.ESP &#61;&gt; 1
+ Main.##WeaveSandBox#253.USA &#61;&gt; 1
+ Main.##WeaveSandBox#253.ZAF &#61;&gt; 1
+</pre>
+
+
+<p>If we assumed the panels were disjoint, we could deduce that the pool of judges for the event, at least, consisted of:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-p'>[</span><span class='hljl-n'>AUS</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>BRA</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>ESP</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>USA</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>ZAF</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-cs'># However, our information from the rulebook tells us that this certainly cannot be the case.</span>
+</pre>
+
+
+<pre class="output">
+5-element Array&#123;Pair&#123;Main.##WeaveSandBox#253.ORIG,Int64&#125;,1&#125;:
+ Main.##WeaveSandBox#253.AUS &#61;&gt; 3
+ Main.##WeaveSandBox#253.BRA &#61;&gt; 3
+ Main.##WeaveSandBox#253.ESP &#61;&gt; 1
+ Main.##WeaveSandBox#253.USA &#61;&gt; 2
+ Main.##WeaveSandBox#253.ZAF &#61;&gt; 1
+</pre>
+
+
+<p>Though the definition of a multiset on A as a function f:C→N is plesant to work with, it omits some of the structure intrinsic to a multiset. Namely, consider how a multiset arrises in an applied setting. We have some knowledge or infomation about the judges, ie. some function k: J<em>pool → C, which maps a judge in the judging pool to their nationality c ∈ C. How do we arrive at <em>the</em> f:C→N ? By: &#96;&#96;f&#40;c&#41; &#61; ∑</em>&#123;j ∈ J&#125; 1_&#123;k&#40;j&#41; &#61; c&#125;&#96;&#96;. Evidently f is the sum of simple functions of our information. So f really isn&#39;t representative of much and truly depends on some reference set or information. Additionally, if we had additional structure on J, for example a total order where j₁ &lt; j₂ &lt; … &lt; j₅, its not entriely clear how we can extend the structure to the multiset.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Hence, we define: a multiset on a set A is an equivalence class of ``𝓁(A):= ⋃_{n∈𝑵ˣ}A^{×n} `` where ×n denotes the nth cartesian power. And let ``M(A) := 𝓁(A)_{/~}`` where x~y iff. ``y ∈ S_{|x|}x`` , and |x| is the number of entries of x. (NOTE: S_n acts on an n-tuple by permuting the positions of the entries).</span>
+</pre>
+
+
+
+<p>M&#40;A&#41; has some nice properties:</p>
+<ul>
+<li><p>Let <span class="math">$V_A := span{e_a|a∈A}$</span> over 𝑪. Given any function <span class="math">$α:M(A)_{/~} →𝑪$</span>, we may define <span class="math">$v ∈ T(V_A) by v = ∑_{w ∈ M(A)_{/~}} α(w)∑_{x∈w}v_x = ∑_{w ∈ M(A)_{/~}} α(W)∑_{x∈W}v_x$</span>.</p>
+</li>
+</ul>
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># are in you observe</span><span class='hljl-t'>
+</span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>1</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel</span><span class='hljl-t'>
+
+
+</span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)[</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>2</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>panel_origs</span>
+</pre>
+
+
+<pre class="output">
+Main.##WeaveSandBox#253.Multiset&#123;Main.##WeaveSandBox#253.ORIG&#125;&#40;Dict&#123;Main.##
+WeaveSandBox#253.ORIG,Integer&#125;&#40;Main.##WeaveSandBox#253.BRA &#61;&gt; 2,Main.##Weav
+eSandBox#253.USA &#61;&gt; 1,Main.##WeaveSandBox#253.AUS &#61;&gt; 2&#41;&#41;
+</pre>
+
+
+<p>&#40;j&#41; and J_c &#61; &#40;c₁, c₂, … , c₅&#41; ∈ C⁵&#61;C×…×C, where × is the cartesian product</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># this is succinct Julia for create a multidimensional array with </span><span class='hljl-t'>
+</span><span class='hljl-cs'># 		Prob(arrangement of judges) = D[arrangement of judges]/sum(D)</span><span class='hljl-t'>
+</span><span class='hljl-n'>D</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>Rational</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>);</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>P</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Panels</span><span class='hljl-t'>
+	</span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>factorial</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>P</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Base</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>Sym</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>P</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-n'>D</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-nf'>vcat</span><span class='hljl-p'>(</span><span class='hljl-n'>a</span><span class='hljl-oB'>...</span><span class='hljl-p'>))</span><span class='hljl-oB'>...</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>+=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-n'>c</span><span class='hljl-t'>
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'>#CHK</span><span class='hljl-t'>
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>D</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>Panels</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="julia-error">
+ERROR: MethodError: no method matching Sym&#40;::Pair&#123;Float16,Main.##WeaveSandBox#253.ORIG&#125;&#41;
+Closest candidates are:
+  Sym&#40;&#33;Matched::Array&#41; at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/toolkit/SymGrpAndReps.jl:1
+  Sym&#40;&#33;Matched::Set&#41; at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/toolkit/SymGrpAndReps.jl:21
+  Sym&#40;&#33;Matched::Integer&#41; at /Users/EricAboaf/Desktop/Jojo/GitHub/Statistical-Analysis-of-Permutations/src/toolkit/SymGrpAndReps.jl:41
+</pre>
+
+
+<p>D is currently the entire data set, This isn&#39;t partitularly accurate of a view of the data. Instead lets chop shit up.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Y</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Number</span><span class='hljl-p'>,</span><span class='hljl-ni'>5</span><span class='hljl-p'>}[]</span><span class='hljl-t'>
+</span><span class='hljl-n'>H</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>partitionBy</span><span class='hljl-p'>(</span><span class='hljl-sc'>:heatId</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>heat</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>H</span><span class='hljl-t'>
+	</span><span class='hljl-n'>Yᵢ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>Float32</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-ni'>7</span><span class='hljl-p'>))</span><span class='hljl-t'> 
+	</span><span class='hljl-n'>htArrangements</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>λ_origs</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>heat</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>]]</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>htArrangements</span><span class='hljl-t'>
+		</span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>factorial</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>p</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Base</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>Sym</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>p</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>)</span><span class='hljl-t'>
+			</span><span class='hljl-n'>Yᵢ</span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-nf'>vcat</span><span class='hljl-p'>(</span><span class='hljl-n'>a</span><span class='hljl-oB'>...</span><span class='hljl-p'>))</span><span class='hljl-oB'>...</span><span class='hljl-t'> </span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>+=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-n'>c</span><span class='hljl-t'>
+		</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-nf'>push!</span><span class='hljl-p'>()</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>μ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>Y</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>/</span><span class='hljl-t'> </span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>Y</span><span class='hljl-p'>);</span><span class='hljl-t'>
+</span><span class='hljl-cs'># I don&#39;t know how to compute the st. dev of a tensor?</span><span class='hljl-t'>
+</span><span class='hljl-n'>SqErr</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>map</span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-oB'>-&gt;</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>y</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-n'>μ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>.^</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>Y</span><span class='hljl-p'>);</span>
+</pre>
+
+
+<pre class="julia-error">
+ERROR: MethodError: no method matching push&#33;&#40;&#41;
+Closest candidates are:
+  push&#33;&#40;&#33;Matched::Base.Nowhere, &#33;Matched::Any&#41; at array.jl:1347
+  push&#33;&#40;&#33;Matched::Array&#123;Any,1&#125;, &#33;Matched::Any&#41; at array.jl:940
+  push&#33;&#40;&#33;Matched::Pkg.Resolve.ResolveLogEntry, &#33;Matched::Tuple&#123;Union&#123;Nothing, Pkg.Resolve.ResolveLogEntry&#125;,String&#125;&#41; at /Users/julia/buildbot/worker/package_macos64/build/usr/share/julia/stdlib/v1.5/Pkg/src/Resolve/graphtype.jl:28
+  ...
+</pre>
+
+
+<p>Asymptotically cycle lengths are asymptotically normal? So Asymptotically, partition blocks of size k will have normally distributed sub reps with params based on k? in which case by ind. normal &#43; ind. normal &#61; ind. normal, we have asymptotic normality of partition sizes?</p>
+
+<p>Now just some decompositions</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>Decomp</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>Float64</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>ntuple</span><span class='hljl-p'>(</span><span class='hljl-n'>i</span><span class='hljl-oB'>-&gt;</span><span class='hljl-ni'>7</span><span class='hljl-p'>,</span><span class='hljl-n'>k</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>k</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]</span><span class='hljl-t'>
+</span><span class='hljl-n'>Arrangements</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-oB'>.</span><span class='hljl-n'>λ_origs</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>last</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>WAVES</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>λ</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Arrangements</span><span class='hljl-t'>
+	</span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>prod</span><span class='hljl-p'>(</span><span class='hljl-t'> </span><span class='hljl-n'>factorial</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>length</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>λ</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-p'>)</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>p</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>λ</span><span class='hljl-t'>
+		</span><span class='hljl-n'>k</span><span class='hljl-oB'>=</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-n'>p</span><span class='hljl-p'>)</span><span class='hljl-t'>
+		</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>τ</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-nf'>Sym</span><span class='hljl-p'>(</span><span class='hljl-n'>p</span><span class='hljl-p'>)</span><span class='hljl-t'>
+			</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>[</span><span class='hljl-n'>k</span><span class='hljl-p'>][</span><span class='hljl-n'>Int</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>τ</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>+=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>//</span><span class='hljl-n'>c</span><span class='hljl-t'>
+		</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>sum</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>sum</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>sum</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>./</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>sum</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>AltPart</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>AltOp</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>SymPart</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>SymOp</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># ... if we are doing variance decompostion then mayeb:</span><span class='hljl-t'>
+</span><span class='hljl-n'>Decomp</span><span class='hljl-t'> </span><span class='hljl-oB'>./=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>sum</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-n'>D1to2</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>Decomp</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>*</span><span class='hljl-nf'>transpose</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-n'>D1to2</span><span class='hljl-t'> </span><span class='hljl-oB'>/=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>D1to2</span><span class='hljl-p'>)</span><span class='hljl-t'> 
+</span><span class='hljl-n'>D1to2</span><span class='hljl-t'> </span><span class='hljl-oB'>*=</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>Decomp</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>])</span>
+</pre>
+
+
+<pre class="output">
+7×7 Array&#123;Float64,2&#125;:
+ 0.0178355   0.0209972   0.00667585  0.00681393  …  0.00971993  0.00383778
+ 0.0209972   0.0247193   0.00785927  0.00802182     0.011443    0.00451809
+ 0.00667585  0.00785927  0.00249878  0.00255046     0.00363818  0.00143648
+ 0.00681393  0.00802182  0.00255046  0.00260321     0.00371342  0.00146619
+ 0.00352422  0.00414894  0.00131912  0.0013464      0.00192061  0.000758326
+ 0.00971993  0.011443    0.00363818  0.00371342  …  0.00529712  0.00209149
+ 0.00383778  0.00451809  0.00143648  0.00146619     0.00209149  0.000825797
+</pre>
+
+
+
+
+<pre class='hljl'>
+<span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-oB'>⊗</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>},</span><span class='hljl-n'>B</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>})</span><span class='hljl-t'> </span><span class='hljl-n'>where</span><span class='hljl-t'> </span><span class='hljl-n'>T</span><span class='hljl-oB'>&lt;:</span><span class='hljl-t'> </span><span class='hljl-n'>Number</span><span class='hljl-t'>
+	</span><span class='hljl-n'>C</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Array</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>)</span><span class='hljl-oB'>+</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>B</span><span class='hljl-p'>)}(</span><span class='hljl-n'>undef</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>tuple</span><span class='hljl-p'>(</span><span class='hljl-nf'>size</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>,</span><span class='hljl-nf'>size</span><span class='hljl-p'>(</span><span class='hljl-n'>B</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>))</span><span class='hljl-t'>
+	</span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>,</span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>Base</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-nf'>Sym</span><span class='hljl-p'>(</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>)),</span><span class='hljl-nf'>Sym</span><span class='hljl-p'>(</span><span class='hljl-nf'>ndims</span><span class='hljl-p'>(</span><span class='hljl-n'>B</span><span class='hljl-p'>)))</span><span class='hljl-t'>
+		</span><span class='hljl-n'>C</span><span class='hljl-p'>[</span><span class='hljl-nf'>vcat</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>,</span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-oB'>...</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>A</span><span class='hljl-p'>[</span><span class='hljl-n'>x</span><span class='hljl-oB'>...</span><span class='hljl-p'>]</span><span class='hljl-oB'>*</span><span class='hljl-n'>B</span><span class='hljl-p'>[</span><span class='hljl-n'>y</span><span class='hljl-oB'>...</span><span class='hljl-p'>]</span><span class='hljl-t'> 
+	</span><span class='hljl-k'>end</span><span class='hljl-t'>
+	</span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>C</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-oB'>×</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-oB'>::</span><span class='hljl-n'>Set</span><span class='hljl-p'>,</span><span class='hljl-n'>B</span><span class='hljl-oB'>::</span><span class='hljl-n'>Set</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Set</span><span class='hljl-p'>(</span><span class='hljl-n'>Base</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>,</span><span class='hljl-n'>B</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-oB'>×</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-oB'>::</span><span class='hljl-n'>Array</span><span class='hljl-p'>,</span><span class='hljl-n'>B</span><span class='hljl-oB'>::</span><span class='hljl-n'>Array</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>collect</span><span class='hljl-p'>(</span><span class='hljl-n'>Base</span><span class='hljl-oB'>.</span><span class='hljl-nf'>product</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-p'>,</span><span class='hljl-n'>B</span><span class='hljl-p'>))</span>
+</pre>
+
+
+<pre class="output">
+× &#40;generic function with 2 methods&#41;
+</pre>
+
+
+
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="Writing2.jl">Writing2.jl</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.6 on 2021-04-27.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BODY>
+
+</HTML>

@@ -1,6 +1,20 @@
-#' I am a visual human. Lets begin!
-using GRUtils
-using Statistics
+#' Some Preliminaries:
+using GRUtils # for visualization
+using Statistics # for general purpose stats things
+using StatsBase
+
+# Currently whats being used?
+include("SimplifyComp.jl")
+include("toolkit/SymGrpAndReps.jl")
+
+#' Here we read in the raw data. I have elected to restrict our attention to 2018 and 2019 because those are the most complete years. See Table:
+#' Year | Waves | Waves w/ 0 Judge Origins Listed | Waves w/ 5 Judge Origins Listed | Total Number of Judge Origins | Waves w/ 3 Sub Scores Listed | Waves w/ 5 Sub Scores Listed | Total number of Judge Scores
+#'-----|-----|-----|-----|-----|-----|-----|-----
+#'2017 | 7328 | 5210 | 2118 | 10590 | 299 | 7029 | 36042
+#'2018 | 6639 | 336 | 6303 | 31515 | 0 | 6639 | 33195
+#'2019 | 7648 | 79 | 7569 | 37845 | 0 | 7648 | 38240
+#'All | 21615 | 5625 | 15990 | 79950 | 299 | 21316 | 107477
+
 
 #' # Table of Contents
 #' ## Abstract
@@ -50,40 +64,31 @@ using Statistics
 #' The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality. I.e. Test
 #' H₀: Mean(Match Scores) - Mean(No Match Scores) = 0
 #' H₁: Mean(Match Scores) - Mean(No Match Scores) != 0
-include("SurfingInfo.jl")
-HasMatch = filter(x->x.I_match==true, waves)
-DiffInMeans = map(x->mean(x.panelBinary[:Match]) - mean(x.panelBinary[:NoMatch]), HasMatch)
+HasMatch = filter(x->x.I_match==true, last.(WAVES) )
+DiffInMeans = map(x->mean(x.labeledPanelBinary[:Match]) - mean(x.labeledPanelBinary[:NoMatch]), HasMatch)
 ttest(X) = mean(X) / (std(X)/sqrt(length(X)))
 println( ttest(DiffInMeans) )
 #' The difference of mean(DiffInMeans) is significant. However, the distribution of the differences in means is less compelling. 
-savefig("visuals/DistOfDiffInMeans.jl",
-	histogram(DiffInMeans,title="Distribution of Differences in Means")
-)
+savefig("visuals/DistOfDiffInMeans.jl", histogram(DiffInMeans,title="Distribution of Differences in Means") )
 #' !(visuals/DistOfDiffInMeans.png)
+
 #' We may carry out this process for each country:
 #' Note C = :AUS, :BRA, :FRA, :PRT, :USA, :ZAF
 B = [:Match, :NoMatch]
 C = sort(unique(map(x->x.athOrig, HasMatch)))
-function diffInMeansDist(c::Symbol)
+function diffInMeansDist(c::ORIG)
 	I = findall(x->x.athOrig==c, HasMatch)
 	t = ttest( DiffInMeans[I] )
-	return histogram(DiffInMeans[I],title="Difference in Means where C=$c (n=$(length(I)) and t=$t)")
+	savefig(
+		"visuals/DistOfDiffInMeansFor$(c).jl",
+		histogram(DiffInMeans[I],title="Difference in Means where C=$c (n=$(length(I)) and t=$t)")
+	)
+	return t
 end
+for c in C diffInMeansDist(c) end
 
 #' And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is signifigant for AUS, BRA, FRA, USA, ZAF.
-#' Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is both the Athlete origin and Judge origin which determine if a judge is a "matching judge" or a "non-matching judge".
-
-
-
-
-
-
-
-
-
-
-
-
+#' Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
 
 
 
@@ -92,12 +97,11 @@ end
 #' Question: What is the definition of a panel? What type of data is it?
 #' For any given heat, there are 5 judges on the judging panel. Anytime a surfer rides a wave, each of them observes the way 
 #' What does a panel look like? A lot of very different things that may seem very similar BUT ARE NOT. For example:
+Panels = map(x->x.panel,last.(WAVES))
 
-include("EquivPanelData.jl")
-display(eqPanels[1])
-display(eqPanels[3])
-display(eqPanels[5])
-
+display(Panels[1])
+display(Panels[3])
+display(Panels[5])
 
 
 #' # Methods
@@ -114,25 +118,20 @@ display(eqPanels[5])
 #' - Judge Origin
 #' - Size of Partition of Panel (Max Rank)
 #' - Rank of Judge
-
-include("RankingTensor.jl")
-println("m = $(ndims(info))")
-println(size(info))
+println("m = $(ndims(rnkData))")
+println(size(rnkData))
 
 function marginalBarPlot(M::Array{T,N}, d::Integer) where {T,N}
 	dIndex_(h::Integer) = [ i==d ? h : Colon() for i in 1:N]
-	marginal_d = [sum( M[ dIndex_(h)... ] ) for h in 1:size(M)[d] ]
+	marginal_d = [ sum( M[ dIndex_(h)... ] ) for h in 1:size(M)[d] ]
 	savefig(
-		"visuals/marginal_$(vars[d]).png",
-		barplot(
-			map(x-> "$(x)", sort(collect(keys(ToInd[vars[d]]))) ),
-			marginal_d
-		)
+		"visuals/marginal_$(rnkDataVarNames[d]).png",
+		barplot(String.(Symbol.(rnkDataVarRngs[d])), marginal_d )
 	)
 	return marginal_d
 end
 
-for d in length(vars) marginalBarPlot(info, d) end
+for d in length(rnkDataVarNames) marginalBarPlot(rnkData, d) end
 
 #' ![Judge Origin Marginal](visuals/marginals_YR.png)
 #' ![Judge Origin Marginal](visuals/marginals_EVT.png)
@@ -195,7 +194,7 @@ for d in length(vars) marginalBarPlot(info, d) end
 #' Note:
 #' ``
 #' \widehat{A*B} = ∑_{γ} (A*B)(γ)ρ(γ) 
-#' = ∑_{γ } ∑_{τ} a(γ τ^{-1})b(τ)\rho(γ )
+#' = ∑_{γ} ∑_{τ} a(γ τ^{-1})b(τ)\rho(γ )
 #' = ∑_{τ} ∑_{γτ} a(γ τ τ^{-1})b(τ)ρ(γτ)
 #' = ∑_{τ} ∑_{γτ} a(γ)b(τ)ρ(γ)ρ(τ)
 #' = ∑_{τ} b(τ)ρ(τ) ∑_{γτ} a(γ)ρ(γ) 
@@ -235,18 +234,16 @@ for d in length(vars) marginalBarPlot(info, d) end
 #' Wondering₄: if P(T | (JUD_orig==ATH_orig,Mᵣ) ) = 1/Mᵣ
 
 #' ## Method 1
-ATHandJUD_orig = intersect(keys(ToInd[:ATH_orig]),keys(ToInd[:JUD_orig]) )
-
+MATCH_ORIGS = sort(unique(map(x->x.athOrig,HasMatch)))
 GivenMatchByMᵣ = [
-sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:]) for c in ATHandJUD_orig ] )
+sum( [sum(rnkData[:,:,:,:,c,c,r,:]) for c in Int.(MATCH_ORIGS) ] )
 for r in 1:5
 ]
 println("Match conditional on Max Rank is:")
 GivenMatchByMᵣ
 
 TopGivenMatchByMᵣ = [
-sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1]) 
-for c in ATHandJUD_orig])
+sum( [ sum(rnkData[:,:,:,:,c,c,r,1]) for c in Int.(MATCH_ORIGS)])
 for r in 1:5
 ]
 println("Judge has Max Rank given Match (by Max Rank)")
@@ -261,26 +258,25 @@ E₁ = [1/r for r in 1:5]
 χsq₁ = sum(GivenMatchByMᵣ)*sum( (D₁ .- E₁).^2 ./ E₁ )
 
 #' Now...
-GivenMatchByMᵣandOrig = [
-sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,:] )
-for r in 1:5, c in ATHandJUD_orig
+GivenMatchByMᵣandOrig = [ 
+sum( rnkData[:,:,:,:,c,c,r,:] )
+for r in 1:5, c in Int.(MATCH_ORIGS)
 ]
 println("Match conditional on Max Rank (rows) and Nationality (cols)")
 display(GivenMatchByMᵣandOrig)
 
 TopGivenMatchByMᵣandOrig = [
-sum( info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1] )
-for r in 1:5, c in ATHandJUD_orig
+sum( rnkData[:,:,:,:,c,c,r,1] )
+for r in 1:5, c in Int.(MATCH_ORIGS)
 ]
 println("Judge has Max Rank given Match (by Max Rank (rows) by Nationality (cols))")
 println(TopGivenMatchByMᵣandOrig)
 
-println(ATHandJUD_orig)
+println(MATCH_ORIGS)
 D₂ = TopGivenMatchByMᵣandOrig ./ GivenMatchByMᵣandOrig
 
 #' We would expect:
-
-E₂ = [ 1/r for r in 1:5, c in ATHandJUD_orig ]
+E₂ = [ 1/r for r in 1:5, c in Int.(MATCH_ORIGS) ]
 
 #' So we have a total χ^2 of:
 χsq₂ = sum(GivenMatchByMᵣandOrig)*sum( (D₂ .- E₂).^2 ./ E₂)
@@ -288,27 +284,16 @@ E₂ = [ 1/r for r in 1:5, c in ATHandJUD_orig ]
 W = (D₂ .- E₂).^2 ./ E₂
 χsqbyctry = [ sum(GivenMatchByMᵣandOrig[:,c])*sum(W[:,c]) for c in 1:6]
 
-MᵣGivenMatch =[
-sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],3:5,:] )
-for c in ATHandJUD_orig
-]
-OrderIsMᵣ = [ 
-sum( [ sum(info[:,:,:,:,ToInd[:ATH_orig][c],ToInd[:JUD_orig][c],r,1])
-for r in 3:5 ] )
-for c in ATHandJUD_orig 
-]
+MᵣGivenMatch =[ sum(rnkData[:,:,:,:,c,c,3:5,:] ) for c in Int.(MATCH_ORIGS) ]
+OrderIsMᵣ = [ sum(rnkData[:,:,:,:,c,c,3:5,1]) for c in Int.(MATCH_ORIGS) ]
 println(OrderIsMᵣ ./ MᵣGivenMatch)
 
 #' But!!!
-include("PanelData.jl")
-
-N = length(panels)
-Ord_Parts = map(panel -> length.(panel) , panels)
+Panel_λs = map(x->x.λ_origs, last.(WAVES))
+N = length(Panel_λs)
+Ord_Parts = map(λ -> length.(λ) , Panel_λs)
 Ord_Parts_Counts = countmap(Ord_Parts)
-Ord_Parts_Props = Dict(
-	[x=>Ord_Parts_Counts[x]/N 
-	for x in keys(Ord_Parts_Counts)]
-)
+Ord_Parts_Props = Dict( [x=>Ord_Parts_Counts[x]/N  for x in keys(Ord_Parts_Counts)] )
 
 #' ``
 #' |\{ g ∈ S_d | cycles(g) = 1^{k₁},2^{k₂},…,d^{k_d} \}| = \frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }
@@ -319,7 +304,7 @@ Ord_Parts_Props = Dict(
 #' So a observed panel is an ordered partition.
 #' Y is an array of cycle counts.
 #' Below, λ, is the cycle counts.
-Y = map(panel -> [count(==(i),length.(panel)) for i in 1:5], panels)
+Y = map(panel -> [count(==(i),length.(panel)) for i in 1:5], Panel_λs)
 λ_Counts = countmap(Y)
 λ_Obs = Dict([x=>λ_Counts[x]/N for x in keys(λ_Counts)])
 λ_Thry = Dict(
@@ -332,9 +317,8 @@ Y = map(panel -> [count(==(i),length.(panel)) for i in 1:5], panels)
 )
 println(χ_sq)
 
-
 #' ... χ² is very large....
-include("EquivPanelData.jl")
+eqPanels = map(x->x.eqPanel, last.(WAVES))
 eqParts = map(eqPanel -> [count(==(i),length.(last.(eqPanel))) for i in 1:5], eqPanels )
 eqParts_Counts = countmap(eqParts)
 eqParts_Props = Dict([x=>eqParts_Counts[x]/N for x in keys(eqParts_Counts)])
@@ -366,12 +350,12 @@ eqNoM_cond_χ_sq = length(keys(λ_Thry_Cond_Origs))*sum(
 )
 
 #' what marty thought of
-D = Dict(eqInfo)
+D = Dict([wave[1] => wave[2].eqPanel for wave in WAVES])
 χ_sq_byHT = []
 χ_sq_byHT_nom = []
-for heat in partitionBy("heatId")
-	Panels = [ last.(D[x]) for x in heat[2] ]
-	Panels_nom = [ unique.(last.(D[x])) for x in heat[2] ]
+for heat in partitionBy(:heatId)
+	Panels = [ x.λ_origs for x in heat[2] ]
+	Panels_nom = [ unique.(λ) for λ in Panels ]
 	n = length(Panels)
 	λ_HT_Origs_Counts = countmap( map(x->sum(length.(x)), Panels_nom))
 	λ_HT_nOrigs_Props = Dict([x=>λ_HT_Origs_Counts[x]/n for x in keys(λ_HT_Origs_Counts)])
@@ -413,19 +397,17 @@ histogram(lParts)
 
 
 #' Comprende?
-include("EquivPanels.jl")
-INT = Dict([:AUS=>1,:BRA=>2,:ESP=>3,:FRA=>4,:PRT=>5,:USA=>6,:ZAF=>7])
 D = map(eqPanels) do x
 	y = Set.(last.(x))
 	P = Iterators.product(Sym.(y)...)
 	Perms = Array{Int8}[]
-	onPan = sort([ INT[c] for c in union(y...)])
+	onPan = sort([ Int(c) for c in union(y...)])
 	notPan = setdiff(1:7,onPan)
 	for z in P
 		p = union(z...)
 		perm = zeros(Int8, 7)
 		perm[ notPan] .= notPan
-		perm[ onPan ] .= [ INT[c] for c in p ]
+		perm[ onPan ] .= [ Int(c) for c in p ]
 		push!(Perms, perm )
 	end
 	return Perms
@@ -435,40 +417,155 @@ Reps = map(eqPanels) do x
 	y = Set.(last.(x))
 	P = Iterators.product(Sym.(y)...)
 	Perms = Array{Int8}[]
-	onPan = sort([ INT[c] for c in union(y...)])
+	onPan = sort([ Int(c) for c in union(y...)])
 	notPan = setdiff(1:7,onPan)
 	repNotPan = [ ((i==j) & (i in notPan)) ? 1 : 0 for i in 1:7, j in 1:7]
 	for z in P
 		p = union(z...)
 		perm = zeros(Int8, 7)
 		perm[ notPan] .= notPan
-		perm[ onPan ] .= [ INT[c] for c in p ]
+		perm[ onPan ] .= [ Int(c) for c in p ]
 		push!(Perms, Rep(perm))
 	end
 	return sum(Perms) / length(Perms) - repNotPan
 end
-
 
 expApp(A::Array{Float64,2}) = sum([ A^k / factorial(k) for k in 0:10] )
 
 Reps = map(x->sum(map(y->Rep(y),x))/length(x), D)
 Reps = expApp.(Reps) ./ exp(1)
 
+#=
 videofile("MomentsForMixtureElement.mp4") do
 	for n in 1:length(Reps)
 		draw(gcf(wireframe(prod(Reps[1:n]))))
 	end
 end
-
+=#
 #=
 [
 exp(im*tα)
 for α in A
 ]
-=#
 
 map(x-> map(y->Set(y[2]),x),eqPanels)
+=#
 
+#' The most granular object of study is the panel. It would not be justified to analyze our data a sequence of 13,872 panels because during each heat the set of judges is fixed (or at least it appears to be this way).
+all( all(ht[2][i-1].panel_origs == ht[2][i].panel_origs for i in 2:length(ht[2])) for ht in partitionBy(:heatId) ) 
+#' For this reason we will be mostly interested in heat-level dynamics of the panel. This is similar to the game-level approach Price takes in analyzing NBA refereeing (as opposed to simply many foul calls).
+#' A panel is comprised of a set of distinct humans (Judges), J = {j₁, j₂, ..., j₅}, and their origns by the multiset J_c:C→𝑵.
+#' Multisets are interesting. Roman defines a multiset on a set A, as an element of A×N. Blizzard gives in broad overview of different approaches to multisets in [The Development of Multiset Theory], and takes a more normative approach in [Dedekind Multisets and Function Shells]. We will not delve into this, but they are important to understand in the construction below:
+#' DEFN: A multiset on a set S, is a function f:S→𝑵.
+#' Rmk: Some authors use the pair (S,f) to define a multiset. While it may bring us comfort to know the underlying set which the function is defined on, this is merely a luxury of defining a multiset. In an observational setting one does not nessisary know the underlying set, only the support of f, ie. the set of all elements mapped to a non-zero number. For example, the judges in a heat are selected from a pool of judges provided by the WSL for that event. Specifically, suppose it is march ___ 2018, Caio Ibelli rides the first wave of the WSL 2018 Mens Championship Tour, when all 5 judges provide their scores, Caio Ibelli is awarded a score of:
+round(mean(sort(WAVES[1][2].judge_scores)[2:4]),digits=2)
+#' Not a dramatic first wave eh? But maybe you want to know a bit more about the sub scores that resulted in a wave score of 0.43 . The panel is as follows:
+WAVES[1][2].panel
+#' We can certainly deduce the nationalities of 5 of the 8 Judges in the event pool.
+WAVES[1][2].panel_origs
+#' Where are the remaining 3 judges from? Well, we have to wait for the next heat because these judges are the panel for this heat.
+#' In the next heat, Michael Rodrigues is the first to ride a wave, receiving a 0.3.
+round(mean(sort(partitionBy(:heatId)[2][2][1].judge_scores)[2:4]),digits=2)
+#' This feels similar to the first wave of last heat, are the judges the same?
+partitionBy(:heatId)[2][2][1].panel
+#' Looks like No. Okay, well are some of them the judges the same? Certainly. We could have answered that even before the Caio Ibelli took the first wave of 2018 because if there were two panels, each with five judges, and no judges were the same, then there would be at least 10 total judges for the event, a breach of WSL rulebook. So, which of the judges from heat 1 are on the panel from round 2?
+#' we know there are at least:
+println([AUS => 2, BRA => 2, ESP => 1, USA => 1, ZAF => 1])
+#' If we assumed the panels were disjoint, we could deduce that the pool of judges for the event, at least, consisted of:
+println([AUS => 3, BRA => 3, ESP => 1, USA => 2, ZAF => 1])
+#` However, our information from the rulebook tells us that this certainly cannot be the case.
+
+#' Though the definition of a multiset on A as a function f:C→N is plesant to work with, it omits some of the structure intrinsic to a multiset. Namely, consider how a multiset arrises in an applied setting. We have some knowledge or infomation about the judges, ie. some function k: J_pool → C, which maps a judge in the judging pool to their nationality c ∈ C. How do we arrive at *the* f:C→N ? By: `` f(c) = ∑_{j ∈ J} 1_{k(j)=c} ``. Evidently f is the sum of simple functions of our information. So f really isn't representative of much and truly depends on some reference set or information. Additionally, if we had additional structure on J, for example a total order where ``j₁ < j₂ < … < j₅ ``, its not entriely clear how we can extend the structure to the multiset.
+
+#` Hence, we define: a multiset on a set A is an equivalence class of ``𝓁(A):= ⋃_{n∈𝑵ˣ}A^{×n} `` where ×n denotes the nth cartesian power. And let ``M(A) := 𝓁(A)_{/~}`` where x~y iff. ``y ∈ S_{|x|}x`` , and |x| is the number of entries of x. (NOTE: S_n acts on an n-tuple by permuting the positions of the entries).
+
+#' M(A) has some nice properties:
+#'   - Let ``V_A := \span \{e_a|a∈A \}`` over 𝑪. Given any function ``α:M(A)→𝑪``, we may define ``v ∈ T(V_A)`` by ``v = ∑_{W ∈ M(A)} α(W)∑_{x∈W}v_x`` which is completely symmetric by definition of W.
+#`   - We can define ⊗:𝓁(A)x𝓁(A)→ by
+
+partitionBy(:heatId)[2][2][1].panel_origs
+partitionBy(:heatId)[1][2][1].panel_origs
+
+# are in you observe
+partitionBy(:heatId)[1][2][1].panel
+partitionBy(:heatId)[2][2][1].panel_origs
+
+
+#' some utilities that will be of use
+⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
+
+×(A::Set,B::Set) = Set(Base.product(A,B))
+×(A::Array,B::Array) = collect(Base.product(A,B))
+
+
+# this is succinct Julia for create a multidimensional array with 
+# 		Prob(arrangement of judges) = D[arrangement of judges]/sum(D)
+D = zeros(Float64, (7,7,7,7,7) );
+for P in Panel_λs
+	c = prod( factorial.(length.(P)) )
+	for a in Base.product( Sym.(P)...)
+		D[ Int.(vcat(a...))... ] += 1/c
+	end
+end
+
+#CHK
+sum(D)
+length(Panels)
+
+#' D is currently the entire data set, This isn't partitularly accurate of a view of the data. Instead lets chop shit up.
+
+Y = Array{<:Number,5}[]
+H = map(x->map(y->y.λ_origs,x),last.(partitionBy(:heatId)) );
+for ht_λs in H
+	Yᵢ = zeros(Float32, (7,7,7,7,7))
+	for λ in ht_λs
+		c = prod( factorial.(length.(λ)) )
+		for a in Base.product( Sym.(λ)...)
+			Yᵢ[ Int.(vcat(a...))... ] += 1/c
+		end
+	end
+	push!(Y,Yᵢ)
+end
+
+#' First note that since there are varying numbers of waves in a heat so, the sums of Yᵢ are distributed as #waves in heat.
+histogram(sum.(Y))
+
+μ = sum(Y)/ length(Y) ;
+AbsErr = map(y-> abs.(y - μ), Y);
+histogram( sum.(AbsErr) ) 
+
+SqErr = map(y -> mapreduce(prod,+,Base.product(y-μ,y-μ)), Y)
+
+histogram( sum.(
+
+
+#' Asymptotically cycle lengths are asymptotically normal? So Asymptotically, partition blocks of size k will have normally distributed sub reps with params based on k? in which case by ind. normal + ind. normal = ind. normal, we have asymptotic normality of partition sizes?
+
+
+#' Now just some decompositions
+
+PartSizeDecomp = [zeros(Float64, ntuple(i->7,k) ) for k in 1:5]
+for λ in Panel_λs
+	c = prod( factorial.(length.(λ)) )
+	for p in λ
+		k=length(p)
+		for a in Sym(p)
+			PartSizeDecomp[k][Int.(a)...] += 1//c
+		end
+	end
+end
+PSD = PartSizeDecomp
+sum(sum.(PSD))
+sum.(PSD)
+sum.(PSD) ./ sum(sum.(PSD))
+AltPart = AltOp.(PSD)
+SymPart = SymOp.(PSD)
+
+# ... if we are doing variance decompostion then mayeb:
+PSD ./= sum(sum.(PSD))
+D1to2 = PSD[1]*transpose(PSD[1])
+D1to2 /= sum(D1to2) 
+D1to2 *= sum(PSD[2])
 
 
 

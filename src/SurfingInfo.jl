@@ -1,6 +1,5 @@
 using JSON: parse
 include("toolkit/Multisets.jl")
-include("toolkit/SymGrpAndReps.jl")
 
 isoDict = Dict([
     "Australia" => :AUS,
@@ -18,16 +17,11 @@ isoDict = Dict([
     "Spain" => :ESP,
     "United States" => :USA
 ])
-ISOs = sort(unique(collect(values(isoDict))))
-
-#KeyVars = ["evtYears", "evtOrig", "evtName", "rnd", "heat"]
-#Index = Dict([ var => Dict() for var in [ ] ])
-#Ind["evtYear"]
 
 data = parse( open("Data/CleanAllDataCC.txt", "r"))
 
 waves = []
-WaveIds = []
+WaveIds = String[]
 for wid in sort(collect(keys(data)))
     if data[wid]["nJudOrigs"] == 5 & data[wid]["nSubScos"] == 5
         origs = unique(data[wid]["subScoOrig"])
