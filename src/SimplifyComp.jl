@@ -117,6 +117,9 @@ for wid in WaveIds
 		push!(partition_binary, data[wid]["subScoOrig"][I] .== data[wid]["athOrig"] )
 		push!(partition_origs, data[wid]["subScoOrig"][I])
 	end
+	scos = unique(first.(panelInfo))
+	part = ntuple(i->last.(panelInfo[findall(x->x[1]==scos[i],panelInfo)]),length(scos))
+
 
     wave = (
         id=wid,
@@ -152,6 +155,7 @@ for wid in WaveIds
 
         λ_origs = partition_origs,
         λ_binary = partition_binary,
+        λ_c = part,
         
         panel_scores= Multiset(data[wid]["subSco"]),
         panel_origs= Multiset(data[wid]["subScoOrig"]),
