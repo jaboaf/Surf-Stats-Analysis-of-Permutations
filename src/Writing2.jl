@@ -8,55 +8,16 @@ include("SimplifyComp.jl")
 include("toolkit/SymGrpAndReps.jl")
 
 #' Here we read in the raw data. I have elected to restrict our attention to 2018 and 2019 because those are the most complete years. See Table:
-#' Year | Waves | Waves w/ 0 Judge Origins Listed | Waves w/ 5 Judge Origins Listed | Total Number of Judge Origins | Waves w/ 3 Sub Scores Listed | Waves w/ 5 Sub Scores Listed | Total number of Judge Scores
-#'-----|-----|-----|-----|-----|-----|-----|-----
-#'2017 | 7328 | 5210 | 2118 | 10590 | 299 | 7029 | 36042
-#'2018 | 6639 | 336 | 6303 | 31515 | 0 | 6639 | 33195
-#'2019 | 7648 | 79 | 7569 | 37845 | 0 | 7648 | 38240
-#'All | 21615 | 5625 | 15990 | 79950 | 299 | 21316 | 107477
-
-
-#' # Table of Contents
-#' ## Abstract
-#' ## Introduction
-#' ## Data
-#' ## The Simple Approach
-#' ### Formulation
-#' ### Results
-#' ### Lingering Questions
+#' |Year | Waves | Waves w/ 0 Judge Origins Listed | Waves w/ 5 Judge Origins Listed | Total Number of Judge Origins | Waves w/ 3 Sub Scores Listed | Waves w/ 5 Sub Scores Listed | Total number of Judge Scores |
+#' | -----|-----|-----|-----|-----|-----|-----|----- |
+#' | 2017 | 7328 | 5210 | 2118 | 10590 | 299 | 7029 | 36042 |
+#' | 2018 | 6639 | 336 | 6303 | 31515 | 0 | 6639 | 33195 |
+#' | 2019 | 7648 | 79 | 7569 | 37845 | 0 | 7648 | 38240 |
+#' | -----|-----|-----|-----|-----|-----|-----|----- |
+#' | All | 21615 | 5625 | 15990 | 79950 | 299 | 21316 | 107477 |
 
 #' ## Motivation for A Different Approach
 
-
-#' ## Concrete
-#' Does nationality influence the World Surf League Championship Tour?
-#' If so, how?, to what degree?, and does this vary depending on nationality?
-
-#' # Introduction
-#' The World Surf League (WSL) is the most prominent organizer of international surf compeitions. Each year the WSL organizes a variety of "tours" which include Mens and Womens versions of Big Wave events, the "Longboard Tour", the "Qualifying Series", and the "Championship Tour" (CT). 
-
-#' ## Format
-#' Each year, the 32 highest ranked (shortboard) surfers are invited to participate in the "Championship Tour" (CT), which constists of 11 surf compeitions in 7 different countries. Each competition has 7 rounds, each consisting of 1 to 16 heats, and each heat has 2 to 3 surfers. Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves. The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat. In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat. Each round has a rule that determines which surfers advance, and what (round,heat) they advance to. Surfers that do not advance "exit" the event, and are given some number of points (the closer the exit is to the compeitions final round, the higher the amount of points).
-
-#' ## How are waves scored?
-#' In any given heat, there is judging panel comprised of 5 judges. Anytime a surfer attempts to ride a wave, each judge analyzes the surfer's ride with respect to the following criteria and write down a score:
-#'   - Commitment and degree of difficulty
-#'   - Innovative and progressive maneuvers
-#'   - Combination of major maneuvers
-#'   - Variety of maneuvers
-#'   - Speed, power, and flow
-#' Note: that Different elements of this list may be emphasized more or less depending on the location, conditions, and changes of conditions. (Chapter 13 Article 182)
-#' Additionally, the General Judging Rules (Chapter 13; Article 183; Section 1,2) state that judges should be visually separated, should not discuss scores, and may not change their scores.
-
-#' Though there are 5 judges and 5 scores, the score a surfer receives, called the "wave score", is the trimmed mean of the scores given by the 5 judges. This is very important information and particularly interesting because it distinguishes the *existence* of biased judges from the effect of biased judging (if it exists).
-
-#' ## The Judging Process
-#' The role of judges is not limited to the five judges on a panel. For each Men's CT event, there is 1 international Head Judge, 7 international judges, and 1 international priority Judge (Chapter 13, Article 179.01). And Chapter 13, article 179.17 states that "At CT Events, the number of judges from any one regional area is limited to 3". For each heat, the WSL Head Judge must assure there are at least 5 judges on the panel for each heat and that they are a subset of the 7 International Judges and 1 International Head Judge (Chapter 13, Article 179.13).
-
-#' 5 judges are selected from a pool of 8 judges to form a panel for a heat. During that heat, when a surfer rides a wave, each judge independently observes the ride and writes down a score (based on some broadly defined criteria), which is some number in {0.0, 0.1, 0.2, ..., 9.8, 9.9, 10.0}.
-
-#' ## Data
-#' We collected some incredibly rich data on surf compeitions from the 2017, 2018, and 2019 seasons of the Mens World Championship Tour (WCT). Each year the World Surf League (WCT) holds 10 to 11 surf competitions, which are called "events". While the format of events have changed slightly between the 2017 and 2019 seasons, they are all very similar. Each event consists of 7 rounds, and within each round there are some number of heats. A heat is the level at which intra-athlete competition takes place and may consist of 2 or 3 surfers. Throughout a timed heat (usually between 22 and 35 minutes), each athlete may surf any number of waves and their "heat score" is the sum of the scores of their two highest scoring waves. 
 
 #' # The Simple Approach
 #' Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.
@@ -90,14 +51,14 @@ for c in C diffInMeansDist(c) end
 #' And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is signifigant for AUS, BRA, FRA, USA, ZAF.
 #' Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
 
-
-
-
 #' ## Judging Panel Data
 #' Question: What is the definition of a panel? What type of data is it?
 #' For any given heat, there are 5 judges on the judging panel. Anytime a surfer rides a wave, each of them observes the way 
 #' What does a panel look like? A lot of very different things that may seem very similar BUT ARE NOT. For example:
 Panels = map(x->x.panel,last.(WAVES))
+
+
+
 
 display(Panels[1])
 display(Panels[3])
@@ -143,80 +104,6 @@ for d in length(rnkDataVarNames) marginalBarPlot(rnkData, d) end
 #' ![Judge Rank Marginal](visuals/marginals_RANK.png)
 
 
-
-
-#' # Definitions
-#'   - **The Symmetric Group on a set, ``X``** is ``S_X := Isomorphisms(X,X)``. When ``|X|<\infty``,``S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} ``
-#' 
-#'   - ``S_d := S_{\{ 1 ,\dots, d\}}. ``
-#'
-#'  - When G is a Group, and ``\mathbb{F}`` is a Field, the **Group Algebra of G over ``F``**, denoted ``\mathbb{F}[G]``, is the space of formal linear combinations of elements of G. Elements of ``\mathbb{F}[G]`` are of the form: ``c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i``, where ``c_i \in \mathbb{F}, g_i \in G``. Note that ``i\neq j \implies g_i \neq g_j`` because G is a set of elements, so no element occurs with multiplicity. For example, ``c_1 g + c_2 g \not\in \mathbb{F}[G]`` whereas ``(c_1 + c_2)g \in \mathbb{F}[G]``.
-#'
-#'  - ``\mathbb{F}[S_d]`` is comprised on formal linear combinations of elements of ``S_d``. This may be understood as two different ways:
-#'     - There exists a function ``a:S_n \rightarrow \mathbb{F}`` and ``A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]``.
-#'     - Or: `` A = [ \pi_1 \dots  \pi_{d!} ] \begin{bmatrix}a_{\pi_1} \\ \vdots  \\ a_{\pi_{d!}} \end{bmatrix} = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] ``,where ``\tau \in S_d, a_\tau \in \mathbb{F}``.
-#' 
-#'   - **Addition in ``\mathbb{F}[S_n]``** is defined by ``A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) := \sum_\tau (a_\tau + b_\tau) \tau ``
-#' 
-#'   - **Scalar Multiplication in ``\mathbb{F}[S_d]``** is ``c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau``.
-#' 
-#'   - Multiplication in ``\mathbb{F}[S_d]`` is *defined* by:
-#'     ``A*B =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
-#'     :=\sum_{\gamma \in S_d}(\sum_{\tau,\pi | \tau\pi=\gamma} a_\tau b_\pi) \gamma
-#'     = \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma ``.
-#' 
-
-#' We should not over complicate ``*``. The *definition* of ``*`` may look odd, but it exactly the same as our basic understanding of multiplication:
-#' ``
-#' (\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)
-#' = \sum_{  \tau} (a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)
-#' = \sum_{  \tau} \sum_{\pi }  (a_\tau\tau) * (b_\pi \pi)
-#' = \sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi
-#' =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma
-#' =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
-#' ``
-#' Even though ``(∑_{τ} a_τ τ) *(∑_{π} b_π π)`` is equal to the intuitive form, ``∑_{τ}\sum_{π} a_τ b_π τπ``, the latter is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, ``*`` merely extends multiplication in the Field,``\cdot: \mathbb{F} \times \mathbb{F} \rightarrow \mathbb{F}``, and the operation in the group, ``∘``, by ``a_τ τ * b_π π = a_τ⋅b_π τ∘π = a_τ b_π τπ``, where the last equality is simply notation-reduction.
-#' 
-#' A measure on ``S_d``, is an element of the group algebra ``\mathbb{C}[S_n]``.
-#' A measure on ``S_d``, ``F = ∑_{τ ∈ S_d} f_τ τ``, is a probability measure on ``S_d`` if and only if ``∀ τ ∈ S_d f_τ \geq 0 `` and ``∑_{τ ∈ S_d} f_τ = 1 ``.
-#' 
-#' A linear representation of a group G, is a group homomorphism, ``\rho : (G,\circ) \rightarrow (GL(V),\cdot)``. A group homomorphism satisfies:
-#'   
-#'   - `` ∀ x,y ∈ G \quad ρ(x∘y) = ρ(x) \cdot ρ(y)`` where ``\cdot`` is multiplication in ``GL(V)``.
-#'   - `` ρ(e) = I ``, where e is the identity element in ``G`` and I is the identity element in ``GL(V)``.
-#'   - ``∀ x ∈ G, ρ(x^{-1}) = ρ(x)^*``, where ``^*`` denotes involution in ``GL(V)``.
-#' 
-#' The representation of a measure F, is: `` \hat{F} := ∑_{τ ∈ S_n} P(τ) ρ(τ) ``.
-#' Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. 
-#' 
-#' **Convolution of two functions on ``S_d``** is a binary operation `` A * B := ∑_{τ ∈ S_n} a(τ) b(τ^{-1}g)``.
-#' 
-#' Note:
-#' ``
-#' \widehat{A*B} = ∑_{γ} (A*B)(γ)ρ(γ) 
-#' = ∑_{γ} ∑_{τ} a(γ τ^{-1})b(τ)\rho(γ )
-#' = ∑_{τ} ∑_{γτ} a(γ τ τ^{-1})b(τ)ρ(γτ)
-#' = ∑_{τ} ∑_{γτ} a(γ)b(τ)ρ(γ)ρ(τ)
-#' = ∑_{τ} b(τ)ρ(τ) ∑_{γτ} a(γ)ρ(γ) 
-#' = ∑_{τ} b(τ)ρ(τ) \hat{A}
-#' = \hat{A} ∑_{τ} b(τ)\rho(τ)
-#' = \hat{A} \cdot \hat{B}
-#' ``
-#' 
-#' We take ``ρ_d`` the permutation representation acting on the vector space ``V := \mathbb{R}^d`` with basis indexed by ``\{1,…,d\}``. So a typical element of V is of the form: 
-#' 
-#' ``
-#' \begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} 
-#' = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} 
-#' = a^1 e_1 + a^2 e_2 + \dots a^n e_n
-#' ``
-#' 
-#' This could be rewritten as ``∑_{i ∈ \{1,…,n\} } a^i e_i``. But remember, we are interested in functions that act on the basis.
-#' 
-#' 
-#' 
-#' Many authors call ``*`` "convolution", however this terminology is superfluous.
-#' 
 #' # Analysis
 #' One thing I could change:
 #' - instead giving every element of rth partition rank  give them each:
@@ -289,21 +176,18 @@ OrderIsMᵣ = [ sum(rnkData[:,:,:,:,c,c,3:5,1]) for c in Int.(MATCH_ORIGS) ]
 println(OrderIsMᵣ ./ MᵣGivenMatch)
 
 #' But!!!
-Panel_λs = map(x->x.λ_origs, last.(WAVES))
-N = length(Panel_λs)
-Ord_Parts = map(λ -> length.(λ) , Panel_λs)
-Ord_Parts_Counts = countmap(Ord_Parts)
-Ord_Parts_Props = Dict( [x=>Ord_Parts_Counts[x]/N  for x in keys(Ord_Parts_Counts)] )
 
 #' ``
-#' |\{ g ∈ S_d | cycles(g) = 1^{k₁},2^{k₂},…,d^{k_d} \}| = \frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }
-#' ⟹ P(1^k_1, … , d^k_d) = \frac{\frac{d!}{\prod_{j=1}^{d} k_j!j^k_j }}{d!} = \frac{1}{\prod_{j=1}^{d} k_j!j^k_j }
+#' |\{ g ∈ S_d | cycles(g) = 1^{k₁},2^{k₂},…,d^{k_d} \}| = \frac{d!}{∏_{j=1}^{d} k_j!j^k_j }
+#' ⟹ P(1^k_1, … , d^k_d) = \frac{\frac{d!}{∏_{j=1}^{d} k_j!j^k_j }}{d!} = \frac{1}{∏_{j=1}^{d} k_j!j^k_j }
 #' ``
 #' Panels is the Array of the observed Panels, each of which is ordered by score.
 #' We do not have a total order for every panel
 #' So a observed panel is an ordered partition.
 #' Y is an array of cycle counts.
 #' Below, λ, is the cycle counts.
+Panel_λs = map(x->x.λ_origs,last.(WAVES))
+N = length(WAVES)
 Y = map(panel -> [count(==(i),length.(panel)) for i in 1:5], Panel_λs)
 λ_Counts = countmap(Y)
 λ_Obs = Dict([x=>λ_Counts[x]/N for x in keys(λ_Counts)])
@@ -391,73 +275,13 @@ savefig("visuals/Partition_nom_χ_sq_byHT_Hist.png", histogram(χ_sq_byHT_nom))
 #' ![Judge Origin Marginal](visuals/Partition_χ_sq_byHT_Hist.png)
 #' ![Judge Origin Marginal](visuals/Partition_nom_χ_sq_byHT_Hist.png)
 
-#' Question: Are lengths of partions asymptotically normal?
-lParts = length.(eqPanels)
-histogram(lParts)
-
-
-#' Comprende?
-D = map(eqPanels) do x
-	y = Set.(last.(x))
-	P = Iterators.product(Sym.(y)...)
-	Perms = Array{Int8}[]
-	onPan = sort([ Int(c) for c in union(y...)])
-	notPan = setdiff(1:7,onPan)
-	for z in P
-		p = union(z...)
-		perm = zeros(Int8, 7)
-		perm[ notPan] .= notPan
-		perm[ onPan ] .= [ Int(c) for c in p ]
-		push!(Perms, perm )
-	end
-	return Perms
-end
-
-Reps = map(eqPanels) do x
-	y = Set.(last.(x))
-	P = Iterators.product(Sym.(y)...)
-	Perms = Array{Int8}[]
-	onPan = sort([ Int(c) for c in union(y...)])
-	notPan = setdiff(1:7,onPan)
-	repNotPan = [ ((i==j) & (i in notPan)) ? 1 : 0 for i in 1:7, j in 1:7]
-	for z in P
-		p = union(z...)
-		perm = zeros(Int8, 7)
-		perm[ notPan] .= notPan
-		perm[ onPan ] .= [ Int(c) for c in p ]
-		push!(Perms, Rep(perm))
-	end
-	return sum(Perms) / length(Perms) - repNotPan
-end
-
-expApp(A::Array{Float64,2}) = sum([ A^k / factorial(k) for k in 0:10] )
-
-Reps = map(x->sum(map(y->Rep(y),x))/length(x), D)
-Reps = expApp.(Reps) ./ exp(1)
-
-#=
-videofile("MomentsForMixtureElement.mp4") do
-	for n in 1:length(Reps)
-		draw(gcf(wireframe(prod(Reps[1:n]))))
-	end
-end
-=#
-#=
-[
-exp(im*tα)
-for α in A
-]
-
-map(x-> map(y->Set(y[2]),x),eqPanels)
-=#
-
 #' The most granular object of study is the panel. It would not be justified to analyze our data a sequence of 13,872 panels because during each heat the set of judges is fixed (or at least it appears to be this way).
 all( all(ht[2][i-1].panel_origs == ht[2][i].panel_origs for i in 2:length(ht[2])) for ht in partitionBy(:heatId) ) 
 #' For this reason we will be mostly interested in heat-level dynamics of the panel. This is similar to the game-level approach Price takes in analyzing NBA refereeing (as opposed to simply many foul calls).
-#' A panel is comprised of a set of distinct humans (Judges), J = {j₁, j₂, ..., j₅}, and their origns by the multiset J_c:C→𝑵.
+#' A panel is comprised of a set of distinct humans (Judges), J = {j₁, j₂, ..., j₅}, and their origns by the multiset ``J_c:C→ℕ``.
 #' Multisets are interesting. Roman defines a multiset on a set A, as an element of A×N. Blizzard gives in broad overview of different approaches to multisets in [The Development of Multiset Theory], and takes a more normative approach in [Dedekind Multisets and Function Shells]. We will not delve into this, but they are important to understand in the construction below:
-#' DEFN: A multiset on a set S, is a function f:S→𝑵.
-#' Rmk: Some authors use the pair (S,f) to define a multiset. While it may bring us comfort to know the underlying set which the function is defined on, this is merely a luxury of defining a multiset. In an observational setting one does not nessisary know the underlying set, only the support of f, ie. the set of all elements mapped to a non-zero number. For example, the judges in a heat are selected from a pool of judges provided by the WSL for that event. Specifically, suppose it is march ___ 2018, Caio Ibelli rides the first wave of the WSL 2018 Mens Championship Tour, when all 5 judges provide their scores, Caio Ibelli is awarded a score of:
+#' A Defn: A multiset on a set A, is a function f:A→ℕ.
+#' Rmk: Some authors use the pair (A,f) to define a multiset. While it may bring us comfort to know the underlying set which the function is defined on, this is merely a luxury of defining a multiset. In an observational setting one does not nessisary know the underlying set, only the support of f, ie. the set of all elements mapped to a non-zero number. For example, the judges in a heat are selected from a pool of judges provided by the WSL for that event. Specifically, suppose it is march ___ 2018, Caio Ibelli rides the first wave of the WSL 2018 Mens Championship Tour, when all 5 judges provide their scores, Caio Ibelli is awarded a score of:
 round(mean(sort(WAVES[1][2].judge_scores)[2:4]),digits=2)
 #' Not a dramatic first wave eh? But maybe you want to know a bit more about the sub scores that resulted in a wave score of 0.43 . The panel is as follows:
 WAVES[1][2].panel
@@ -475,14 +299,6 @@ println([AUS => 2, BRA => 2, ESP => 1, USA => 1, ZAF => 1])
 println([AUS => 3, BRA => 3, ESP => 1, USA => 2, ZAF => 1])
 #` However, our information from the rulebook tells us that this certainly cannot be the case.
 
-#' Though the definition of a multiset on A as a function f:C→N is plesant to work with, it omits some of the structure intrinsic to a multiset. Namely, consider how a multiset arrises in an applied setting. We have some knowledge or infomation about the judges, ie. some function k: J_pool → C, which maps a judge in the judging pool to their nationality c ∈ C. How do we arrive at *the* f:C→N ? By: `` f(c) = ∑_{j ∈ J} 1_{k(j)=c} ``. Evidently f is the sum of simple functions of our information. So f really isn't representative of much and truly depends on some reference set or information. Additionally, if we had additional structure on J, for example a total order where ``j₁ < j₂ < … < j₅ ``, its not entriely clear how we can extend the structure to the multiset.
-
-#` Hence, we define: a multiset on a set A is an equivalence class of ``𝓁(A):= ⋃_{n∈𝑵ˣ}A^{×n} `` where ×n denotes the nth cartesian power. And let ``M(A) := 𝓁(A)_{/~}`` where x~y iff. ``y ∈ S_{|x|}x`` , and |x| is the number of entries of x. (NOTE: S_n acts on an n-tuple by permuting the positions of the entries).
-
-#' M(A) has some nice properties:
-#'   - Let ``V_A := \span \{e_a|a∈A \}`` over 𝑪. Given any function ``α:M(A)→𝑪``, we may define ``v ∈ T(V_A)`` by ``v = ∑_{W ∈ M(A)} α(W)∑_{x∈W}v_x`` which is completely symmetric by definition of W.
-#`   - We can define ⊗:𝓁(A)x𝓁(A)→ by
-
 partitionBy(:heatId)[2][2][1].panel_origs
 partitionBy(:heatId)[1][2][1].panel_origs
 
@@ -490,17 +306,26 @@ partitionBy(:heatId)[1][2][1].panel_origs
 partitionBy(:heatId)[1][2][1].panel
 partitionBy(:heatId)[2][2][1].panel_origs
 
-
 #' some utilities that will be of use
 ⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
+⊗(a::NTuple{T},b::NTuple{T}) where T  = (a...,b...)
 
 ×(A::Set,B::Set) = Set(Base.product(A,B))
 ×(A::Array,B::Array) = collect(Base.product(A,B))
 
+#=
+E(X::Array,i)=dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=setdiff(1:ndims(X),i))
+E(X::Array,I::NTuple)=dropdims(sum(X,dims=i),setdiff(1:ndims(X),I))
+cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
+cov(X::Array,I::NTuple{K},j::K) where K<:Integer = E(X,(I...,j))-E(X,I)⊗E(X,j)
+cov(X::Array,i::K,J::NTuple{K}) where K<:Integer = E(X,(i,J...))-E(X,i)⊗E(X,J)
+cov(X::Array,I::NTuple{K},J::NTuple{k}) where K<:Integer =E(X,(I...,J...))-E(I)⊗E(J)
+=#
 
 # this is succinct Julia for create a multidimensional array with 
 # 		Prob(arrangement of judges) = D[arrangement of judges]/sum(D)
 D = zeros(Float64, (7,7,7,7,7) );
+
 for P in Panel_λs
 	c = prod( factorial.(length.(P)) )
 	for a in Base.product( Sym.(P)...)
@@ -512,7 +337,7 @@ end
 sum(D)
 length(Panels)
 
-#' D is currently the entire data set, This isn't partitularly accurate of a view of the data. Instead lets chop shit up.
+#' D is currently the entire data set, This isn't partitularly accurate of a view of the data. Instead lets chop it up.
 
 Y = Array{<:Number,5}[]
 H = map(x->map(y->y.λ_origs,x),last.(partitionBy(:heatId)) );
@@ -530,24 +355,85 @@ end
 #' First note that since there are varying numbers of waves in a heat so, the sums of Yᵢ are distributed as #waves in heat.
 histogram(sum.(Y))
 
+#'
 μ = sum(Y)/ length(Y) ;
 AbsErr = map(y-> abs.(y - μ), Y);
-histogram( sum.(AbsErr) ) 
+SqErr = map(y-> y.^2,AbsErr);
+SqrtErr = map(y-> sqrt.(y),AbsErr);
+histogram( sum.(AbsErr) )
 
-SqErr = map(y -> mapreduce(prod,+,Base.product(y-μ,y-μ)), Y)
 
+Y = Array{<:Number,5}[]
+Hts = map(x->map(y->y.λ_origs,x),last.(partitionBy(:heatId)) );
+for ht_λs in H
+	Yᵢ = zeros(Float32, (7,7,7,7,7))
+	for λ in ht_λs
+		c = prod( factorial.(length.(λ)) )
+		for a in Base.product( Sym.(λ)...)
+			Yᵢ[ Int.(vcat(a...))... ] += 1/c
+		end
+	end
+	push!(Y,Yᵢ)
+end
 
-#' Asymptotically cycle lengths are asymptotically normal? So Asymptotically, partition blocks of size k will have normally distributed sub reps with params based on k? in which case by ind. normal + ind. normal = ind. normal, we have asymptotic normality of partition sizes?
+Hts = map(x->x[1]=>map(y->(round(mean(y.judge_scores),digits=2),y.λ_origs),x[2]),partitionBy(:heatId));
+sort!(Hts)
+# Heat x Mean judge score x panel
+# since judge score is rounded to 2 decimal places, sco range needs to be 1000
+H = zeros(Float32,(910,1000,7,7,7,7,7));
+for (i,ht) in enumerate(Hts)
+	for (s,λ) in ht[2]
+		sco = Int(round(s*100))
+		c = prod(factorial.(length.(λ)))
+		for a in Base.product( Sym.(λ)...)
+			H[i,sco,Int.(vcat(a...))... ] += 1/c
+		end
+	end
+end
+#=
+scoPD = [sum(H[:,c,:,:,:,:,:]) for c in 1:100]
+scoPDF = scoPD / sum(scoPD)
+scoCDF = [sum(scoPDF[1:k]) for k in eachindex(scoPDF)] / sum(scoPDF)
+
+ht_sco_PDs = sum(H,dims=[3,4,5,6,7])
+sco_ht_PDs = permutedims(dropdims(ht_sco_PDs,dims=(3,4,5,6,7)),[2,1])
+sco_ht_PDFs = mapslices(x->x/sum(x), sco_ht_PDs,dims=1)
+sco_ht_CDFs = mapslices(x->cumsum(x/sum(x)), sco_ht_PDs,dims=1)
+=#
+# see this plot
+plot([i for i in 0.1:0.1:10],sco_ht_CDFs)
+# now I'd like to find some c that minimizes |shCFS 1 - c|
+# I think this is the mean
+#=
+wslHts = map(x->x[1]=>map(y->(round(mean(sort(y.judge_scores)[2:4]),digits=2),y.λ_origs),x[2]),partitionBy(:heatId));
+wslH = zeros(Float32,(910,1000,7,7,7));
+for (i,ht) in enumerate(wslHts)
+	for (s,λ) in ht[2]
+		sco = Int(round(s*100))
+		c = prod(factorial.(length.(λ)))
+		for a in Base.product( Sym.(λ)...)
+			wslH[i,sco,Int.(vcat(a...)[2:4])... ] += 1/c
+		end
+	end
+end
+wslscoPD = dropdims(sum(wslH, dims=(1,3,4,5)),dims=(1,3,4,5) )
+wslscoPDF = wslscoPD/sum(wslscoPD)
+wslscoCDF = cumsum(wslscoPDF)
+
+ht_wslsco_PDs = dropdims(sum(wslH,dims=(3,4,5)),dims=(3,4,5))
+wslsco_ht_PDs = permutedims(ht_wslsco_PDs, [2,1])
+wslsco_ht_PDFs = mapslices(x->x/sum(x), wslsco_ht_PDs,dims=1)
+wslsco_ht_CDFs = mapslices(x->cumsum(x), wslsco_ht_PDFs,dims=1)
+=#
 
 #' Now just some decompositions
-
 PartSizeDecomp = [zeros(Float64, ntuple(i->7,k) ) for k in 1:5]
 for λ in Panel_λs
 	c = prod( factorial.(length.(λ)) )
 	for p in λ
 		k=length(p)
 		for a in Sym(p)
-			PartSizeDecomp[k][Int.(a)...] += 1//c
+			PartSizeDecomp[k][Int.(a)...] += 1/c
 		end
 	end
 end
@@ -559,12 +445,65 @@ AltPart = AltOp.(PSD)
 SymPart = SymOp.(PSD)
 
 # ... if we are doing variance decompostion then mayeb:
-PSD ./= sum(sum.(PSD))
-D1to2 = PSD[1]*transpose(PSD[1])
-D1to2 /= sum(D1to2) 
-D1to2 *= sum(PSD[2])
+#			... so my brain ended up doing whats below
+#	it seems like I ought to refactor this, perhaps write some math down and see what comes.
+#=
+P1_2 = PSD[1]⊗PSD[1] /sum(PSD[1])^2
+P1_2 *= mean(PSD[2]) / mean(P1_2)
+est_c1_2 = map(c->sum(abs.(PSD[2]-c*P1_2)), -2:0.1:5)
+plot(-2:0.1:5,est_c1_2, hold=true)
+c1_2 = (-2:0.1:5)[findmin(est_c1_2)[2]]
+
+P1_3 = PSD[1]⊗PSD[1]⊗PSD[1] /sum(PSD[1])^3
+P1_3 *= mean(PSD[3])/ mean(P1_3)
+est_c1_3 = map(c->sum(abs.(PSD[3]-c*P1_3)), -2:0.1:5)
+plot(-2:0.1:5,est_c1_3)
+c1_3 = (-2:0.1:5)[findmin(est_c1_3)[2]]
+
+P1_4 = PSD[1]⊗PSD[1]⊗PSD[1]⊗PSD[1] /sum(PSD[1])^4;
+P1_4 *= mean(PSD[4]) / mean(P1_4);
+est_c1_4 = map(c->sum(abs.(PSD[4]-c*P1_4)), -2:0.1:5)
+plot(-2:0.1:5,est_c1_4)
+c1_4 = (-2:0.1:5)[findmin(est_c1_4)[2]]
+
+P1_5 = PSD[1]⊗PSD[1]⊗PSD[1]⊗PSD[1]⊗PSD[1] /sum(PSD[1])^5;
+P1_5 *= mean(PSD[5]) / mean(P1_5);
+est_c1_5 = map(c->sum(abs.(PSD[5]-c*P1_5)), -2:0.1:5)
+plot(-2:0.1:5,est_c1_5)
+c1_5 = (-2:0.1:5)[findmin(est_c1_5)[2]]
+legend("c1^2","c1^3","c1^4","c1^5")
+
+P12_3 = (PSD[1]⊗PSD[2] + PSD[2]⊗PSD[1]) /2*(sum(PSD[1])*sum(PSD[2]))
+P12_3 *= mean(PSD[3]-c1_3*P1_3)/ mean(P12_3)
+est_c12_3 = map(c->sum(abs.((PSD[3]-c1_3*P1_3)-c*P12_3)), -2:0.01:5)
+plot(-2:0.01:5,est_c12_3)
+c12_3 = (-2:0.01:5)[findmin(est_c12_3)[2]]
+
+P12_4 = (PSD[2]⊗PSD[2])/sum(PSD[2]) +(PSD[2]⊗PSD[1]⊗PSD[1]+PSD[1]⊗PSD[2]⊗PSD[1]+PSD[1]⊗PSD[1]⊗PSD[2])/(3*sum(PSD[1])^2 *sum(PSD[2]))
+P12_4 *= mean(PSD[4]-c1_4*P1_4)/ mean(P12_4)
+est_c12_4 = map(c->sum(abs.((PSD[4]-c1_4*P1_4)-c*P12_4)), -2:0.1:5)
+plot(-2:0.1:5,est_c12_4)
+c12_4 = (-2:0.1:5)[findmin(est_c12_4)[2]]
+Figure()
 
 
 
 
 
+diffs = map(x->length(x.panel)==1 ? 0 : maximum([x.panel[i][1] - x.panel[i-1][1] for i in 2:length(x.panel)]), last.(WAVES))
+relativediffs = map(x->length(x.panel)==1 ? 0 : mean(x.judge_scores)/maximum([x.panel[i][1] - x.panel[i-1][1] for i in 2:length(x.panel)]), last.(WAVES))
+histogram(relativediffs[findall(!=(Inf), relativediffs)])
+relativediffs = map(x->length(x.panel)==1 ? 0 : mean(x.judge_scores)/maximum([round(x.panel[i][1] - x.panel[i-1][1],digits=2) for i in 2:length(x.panel)]), HasMatch)
+
+relativeSpread = map(x->(maximum(x.judge_scores)-minimum(x.judge_scores))/mean(x.judge_scores), last.(WAVES))
+histogram(relativeSpread)
+
+relativeStd = map(x->std(x.judge_scores)/mean(x.judge_scores), last.(WAVES))
+
+farfromedgesStd = map(x->std(x.judge_scores)/maximum([10-mean(x.judge_scores),mean(x.judge_scores)]), last.(WAVES))
+histogram(farfromedgesStd)### SEEEE THIS
+
+spread = map(x->(maximum(x.judge_scores)-minimum(x.judge_scores)),last.(WAVES) )
+fromedge = map(x->maximum([10-mean(x.judge_scores),mean(x.judge_scores)]), last.(WAVES))
+spread ./fromedge
+=#
