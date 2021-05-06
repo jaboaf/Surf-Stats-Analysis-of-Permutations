@@ -43,6 +43,9 @@ function period(p::Perm)
 	return k
 end
 
+fucntion cycles(p::Perm)
+	
+
 SymGroup(S::Set) = [ (Perm(t)) for t in Sym(S::Set) ]
 
 # Conceptually I dont like these. SymGroup() is not 
