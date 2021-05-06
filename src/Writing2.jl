@@ -536,11 +536,8 @@ histogram( sum.(AbsErr) )
 
 SqErr = map(y -> mapreduce(prod,+,Base.product(y-μ,y-μ)), Y)
 
-histogram( sum.(
-
 
 #' Asymptotically cycle lengths are asymptotically normal? So Asymptotically, partition blocks of size k will have normally distributed sub reps with params based on k? in which case by ind. normal + ind. normal = ind. normal, we have asymptotic normality of partition sizes?
-
 
 #' Now just some decompositions
 
