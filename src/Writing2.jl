@@ -314,8 +314,8 @@ partitionBy(:heatId)[2][2][1].panel_origs
 ×(A::Array,B::Array) = collect(Base.product(A,B))
 
 #=
-E(X::Array,i)=dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=setdiff(1:ndims(X),i))
-E(X::Array,I::NTuple)=dropdims(sum(X,dims=i),setdiff(1:ndims(X),I))
+E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )
+E(X::Array,I::NTuple) =dropdims(sum(X,dims=setdiff(1:ndims(X),I)),dims=tuple(setdiff(1:ndims(X),I)...))
 cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
 cov(X::Array,I::NTuple{K},j::K) where K<:Integer = E(X,(I...,j))-E(X,I)⊗E(X,j)
 cov(X::Array,i::K,J::NTuple{K}) where K<:Integer = E(X,(i,J...))-E(X,i)⊗E(X,J)
@@ -507,3 +507,18 @@ spread = map(x->(maximum(x.judge_scores)-minimum(x.judge_scores)),last.(WAVES) )
 fromedge = map(x->maximum([10-mean(x.judge_scores),mean(x.judge_scores)]), last.(WAVES))
 spread ./fromedge
 =#
+kClassesDecomp = [zeros(Float32,ntuple(i->7,k)) for k in 1:5 ];
+PartSizeDecomp = [zeros(Float32,7) for k in 1:5 ];
+for λ in Panel_λs
+	k = length(λ)
+	Classes = map(p->sum(e_.(Int.(p))) * 1/length(p) ,λ)
+	Decomp = reduce(⊗,Classes)
+	kClassesDecomp[k] += Decomp
+	for p in λ
+		sz = length(p)
+		PartSizeDecomp[sz] += sum(e_.(Int.(p))) / 5
+	end
+end
+kCD = kClassesDecomp;
+PSD = PartSizeDecomp;
+[sum([kCD[k][t...] for t in Sym(k)]) for k in 1:5]
