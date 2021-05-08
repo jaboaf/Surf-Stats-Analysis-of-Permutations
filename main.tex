@@ -4,6 +4,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{array}
 %
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}
@@ -19,51 +21,6 @@
 \begin{document}
 \maketitle
 \tableofcontents
-
-\begin{abstract}
-We Construct a general methods to analyze permutations.
-We present an empirical method for analyzing ordered in order to test for nationality bias in International Surf Competitions.
-We show this method can be applied in other settings, particularly for random graphs.
-
-To state what we are setting out to do in its full generality simply:
-
-- We are interested in a (finite) set of things, $E = \{e_1, e_2, \dots, e_n \} $
-	
-		- the number of things we are interested in is $|E| = n$
-
-- We observe some data, $D = (d_i)_i^N$
-		- each data point provides some information about a subset $ \{ e_a \: e_b \: \dots e_c \} \subseteq E$.
-		- The number of things we observe are $|\{ e_a \: e_b \: \dots e_c \} |$ = k
-        - We can observe
-        	- a full ordering, for example $ [e_c \:  e_a \dots e_b] $
-			- or a partial ordering, for example $ [e_c \: \{e_a, \dots, e_b\}], $equivalently $  [e_c \: \{e_b, \dots, e_a\}] $
-            - or no ordering at all.
-            
-- We wish to assign $\mathbb{P}(Data | Model)$
-Model  is 
-
-\end{abstract}
-
-
-\section{Introduction}
-
-\paragraph{Ordered data} Recommendation systems attempt to leverage information regarding one’s preferences to suggest new content (e.g. music, movies) or products (e.g. books). Ranked-choice voting is used for local, provincial/state, and national level elections across the globe. Many institutions, such as Cornell University, use ranked-choice for its elections. In sports, orderings frequently determine tournament structures and season schedules, and in games or general forms of competition, ordered data is a natural way to express outcomes.
-
-\paragraph{Graphical Data} Some Stuff about graphs blah blah blah THIS IS EVERYWHERE and everyone loves graphs.
-
-\section{Background: Surfing}
-Surfing has a long history, starting in BLANK with BLANK and spreading throughout the BLANK. Its origins are aesthetic and subliminal.
-
-With growing interest in the dynamic sport, organized surf competition emerged over the past 60 years. The International Surfing Federation was founded in the 1960s and held a single event, the World Surfing Championships, every two years. After the ISF struggled with the event’s format and sponsorships, Fred Hemmings and Randy Rarick founded the world governing body of professional surfing, called International Professional Surfers (IPS). From 1976 to 1982, the IPS administered a series of events, called the World Circuit. Starting in 1983, the Association of Surfing Professionals (ASP) took over the operations of the ISP and renamed the “World Circuit,” the “World Championship Tour” (WCT). In 2015 the ASP rebranded to the World Surf League (WSL) and renamed the “World Championship Tour,” the “Championship Tour” (CT).  
-
-The WSL Championship Tour (CT) is a series of events in which surfers are allocated points based on their placement in each of the constituent events and the surfer with the most points at the end of the season is crowned the WSL CT champion. While event formats and point allocation mechanisms have changed, surfers that advance though more rounds of an event are allocated more points. In addition to Championship Tour (CT), the WSL operates multiple Qualifying Series (QS): QS10000, QS6000, QS3000, QS1500, and QS1000. The number associated with a certain qualifying series indicates the number of points awarded to the winner of one of its constituent events. The specific breakdown of points awarded for various placement at QS events can be found in Appendix B of the WSL Rule Book.
-
-In this paper, we focus on the 2017, 2018, and 2019 seasons of the Men’s Championship Tour because it offers the fullest set of waves that list judge scores along with their nationality.
-
-However, a wide range of non-performance based biases are documented and researched using various methods; for example, Price and Wolfers study own-race bias in NBA refereeing using [        ], [   ] and [  ] investigate nationality bias in synchronized swimming judging using [       ], and ordering bias of gymnastics judges. These are only a few examples in sports, but the social-cognitive underpinnings of biases are a key area of research in psychology and legal studies.
-
-This study uses 21,615 waves surfed in 2017, 2018, and 2019 seasons to empirically analyze the role of judge nationalities in the Men's Championship Tour.
-
 \section{Construction}
 \subsection{Motivation}
 Our goal is to determine if judges have a tendency to give higher scores to surfers from their home country when compared to judges with a different home country.
@@ -73,7 +30,7 @@ For any given ride, there is one surfer. The surfer has a nationality. Each judg
 Matching Judges = {judge on Panel | judge nationality = surfer nationality }
 Non-Matching Judges = {judge on Panel | judge nationality != surfer nationality}
 
-A judge in Matching Judges is called a match. A judge in Non-Matching Judges is called a non-match. This may seem to be a fairly straightforward statistical problem where testing for differences in means or rank tests may be applied. (These come with some dissatifactions though: wave scores are certainly not determined by parametric distributions of judge countries (they are functions of wave quality and surfer performance), we can only carry out rank tests on an individual wave because that is the only level at which scores are I.I.D, going up to heat level ie. multiple waves gives lots of variability from wave to wave and iid assumptions would be ridiculous.)
+A judge in Matching Judges is called a match. A judge in Non-Matching Judges is called a non-match. This may seem to be a fairly straightforward statistical problem where testing for differences in means or rank tests may be applied. (These come with some dissatisfactions though: wave scores are certainly not determined by parametric distributions of judge countries (they are functions of wave quality and surfer performance), we can only carry out rank tests on an individual wave because that is the only level at which scores are I.I.D, going up to heat level i.e. multiple waves gives lots of variability from wave to wave and I.I.D. assumptions would be ridiculous.)
 
 (In a way) we can answer our question by labelling each judge on the panel for a wave using $M :=\{$Match, Non-Match$\}$, and analyzing the frequencies of arrangements of M: [Match, Non-Match], [Non-Match, Match].
 
@@ -81,30 +38,275 @@ However, in analyzing our data from the "Match or Non-match" standpoint we have 
 
 To analyze the orders of judges by nationality, it suffices to analyze the orderings of the set $C := \{AUS, BRA, FRA, \dots, ZAF\}$, which is the set of all nationalities of judges who scored any wave from 2017 to 2019.
 
-In 2019 WCT, event      , round     , heat   , wave    . The surfer is     . The panel is composed of 5 judges with nationalities {  ,  ,  ,  ,  }. For this wave the matching judges are { , }, and the non-matching judges are { , , }.
+\section{Introduction}
+The World Surf League (WSL) is the most prominent organizer of international surf competitions.  Each year the WSL organizes a variety of ”tours” which include Men's and Women's versions of Big Wave events, the ”Longboard Tour”, the ”Qualifying Series”, and the ”Championship Tour” (CT)
 
-In order to carry out these analyses with rigor, we must construct some methods for permutations.
+ Does nationality influence the World Surf League Championship Tour? If so, how?, to what degree?, and does this vary depending on nationality?
+
+\subsection{Format}
+Each  year,  the  32  highest  ranked  (short board)  surfers  are  invited  to  participate  in  the”Championship Tour” (CT), which consists of 11 surf competitions in 7 different countries.Each competition has 7 rounds, each consisting of 1 to 16 heats, and each heat has 2 to 3surfers.  Within a heat, a surfer may attempt to ride any number of waves, but their final heat score is the sum of their two highest scoring waves.  The surfer with the highest heat score places 1st in the heat, the surfer with the next highest heat score places 2nd in the heat.In some rounds, heats consist of 3 surfers, in which case the surfer with the third highest heat score will place 3rd in the heat.
+
+\subsection{Data}
+The World Surf League (WSL) holds a variety of tours or series' at the professional or amateur level (similar to how the MLB organizes A, AA, and AAA baseball). A "tour" or "series" is a sequence of events. Tours have seasons that typically last no more than 365 days and they tend to be contained within one calendar year (i.e. there is a 2019 season of a tour).
+
+We collected some rich data on the 2017, 2018, and 2019 seasons of the Men's Championship Tour (CT). This is the highest level of competitive short board surfing in the world. Each season typically consists of 10 or 11 surf competitions, which are called "events". The format of an event has changed throughout our sample, but they are fairly similar. An event consists of 7 or 8 rounds, and within each round there are some number of heats. A "heat" is the level where direct competition between athletes takes place. Typically, there are 2 or 3 surfers in a heat and the duration is between 22 and 35 minutes. During a heat, a surfer may attempt to ride any number of waves. Anytime a surfer rides a wave, they receive a non-zero score determined by the scores of a judging panel. There are 5 judges on a panel for any given heat. They are visually separated and do not discuss scores. When a surfer takes a wave, they each observe the ride and write down a score which is some number between 0.1 and 10.0 and it is precise up to the tenths place. The highest and lowest scores given by the panel are dropped, and the surfer receives the mean of the 3 remaining scores for their ride, this is called the "wave score". These are rounded to 2 digits. At any given point in a heat, a surfer has a "heat score", which is the sum of their two highest scores, and simply the sum of their scores if they have surfed 0, 1, or 2 waves. When the time allocated for a heat elapses, a horn will sound, and the surfer with the highest heat score is awarded first place, the surfer with the second highest score is awarded second, and so on, if there are more surfers. The result of finishing a heat in a particular place depends on the round.  Each round has a rule that determines which surfers advance, and what (round,heat) they advance to.  Surfers that do not advance ”exit” the event and are given some number of points. (The longer a surfer stays in an event, the more points they are allocated at an exit). The 2019 event format is depicted below.
+THOUGHT: Maybe i should add number of points to the exists.
+\includegraphics[width=\textwidth]{./src/visuals/2019EvtFormat.jpeg}
+
+\subsubsection{Data Collection}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c| }
+\multicolumn{2}{c}{} & \multicolumn{2}{c}{Origins Listed} & \multicolumn{2}{c}{Sub Scores listed} \\
+\hline
+Year & Waves & 0 Origins & 5 Origins & 3 Sub Scores & 5 Sub Scores \\ 
+\hline
+2017 & 7328 & 5210 & 2118  & 299 & 7029  \\
+2018 & 6639 & 336 & 6303  & 0 & 6639  \\
+2019 & 7648 & 79 & 7569  & 0 & 7648 \\
+\hline
+All & 21615 & 5625 & 15990 & 299 & 21316 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Random Variables}
+Simply put, we collected some information on a real world random process. The source of this information is www.worldsurfleague.com .
+
+\section{The Simple Approach}
+Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.
+The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality, i.e. test $H_0: \mu_M  - \mu_{\neg M} = 0$ vs. $H_1: \mu_M -\mu_{\neg M} \neq 0$.
+
+
+% ##### DIFF IN MEANS ########
+6.71160420326186
+\includegraphics[width=\textwidth]{./src/visuals/DistOfDiffInMeans.png}
+
+
+Note there is no Diff In Means for ESP because there are 0 waves where AthOrig = ESP and ESP in Judge Origs
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForAUS.png}
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForBRA.png}
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForFRA.png}
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForPRT.png}
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForUSA.png}
+\includegraphics[width=6cm]{./src/visuals/DistOfDiffInMeansForZAF.png}
+
+
+The difference of mean(DiffInMeans) is significant. However, the distribution of the differences in means is less compelling. 
+
+\includegraphics[width=5cm, height=4cm]{./src/visuals/marginal_RND.png}
+
+And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is significant for AUS, BRA, FRA, USA, ZAF. Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
+
+\section{The Judging Panel}
+In this section we delve a bit deeper into the intricacies of judging process, what a judging panel looks like from a statistical perspective, and some oddities involved with the data format. This section is in shambles.
+\subsection{The Judging Process}
+Though there are 5 judges and 5 scores, the score a surfer receives, called the "wave score", is the trimmed mean of the scores given by the 5 judges. This is very important information and particularly interesting because it distinguishes the \textit{existence} of biased judges from the effect of biased judging (if it exists).
+
+The role of judges is not limited to the five judges on a panel. For each Men's CT event, there is 1 international Head Judge, 7 international judges, and 1 international priority Judge (Chapter 13, Article 179.01). And Chapter 13, article 179.17 states that "At CT Events, the number of judges from any one regional area is limited to 3". For each heat, the WSL Head Judge must assure there are at least 5 judges on the panel for each heat and that they are a subset of the 7 International Judges and 1 International Head Judge (Chapter 13, Article 179.13).
+
+Note: that Different elements of this list may be emphasized more or less depending on the location, conditions, and changes of conditions. (Chapter 13 Article 182) Additionally, the General Judging Rules (Chapter 13; Article 183; Section 1,2) state that judges should be visually separated, should not discuss scores, and may not change their scores.
+
+Though there is no formal rubric for judging, the following criteria are emphasized.
+\begin{itemize}
+\item Commitment and degree of difficulty
+\item Innovative and progressive maneuvers
+\item Combination of major maneuvers
+\item Variety of maneuvers
+\item Speed, power, and flow
+\end{itemize}
+Since there are a wide range of locations or wave conditions, the relative importance of an element on this list will vary. The elements of that the judges believe are particularly important on a given day are sometimes communicated to surfers and viewers.
+
+\subsection{The Panel Data}
+JOJO: Can you just pick one (or maybe two) heats to use as running examples please? What heat characteristics would we like here. We don't have to look too far.
+
+There are many beautifully intricate parts the data, but this one caught our interests.
+Question: What is the definition of a panel? What type of data is it?
+For any given heat, there are 5 judges on the judging panel. Anytime a surfer rides a wave, each of them independently observes the wave and writes down a score. 
+
+What does a panel look like? A lot of very different things that may seem very similar BUT ARE NOT. For example:
+
+The most granular object of study is the panel. It would not be justified to analyze our data a sequence of 13,872 panels because during each heat the set of judges is fixed (or at least it appears to be this way).
+
+For this reason we will be mostly interested in heat-level dynamics of the panel. This is similar to the game-level approach Price takes in analyzing NBA refereeing (as opposed to simply many foul calls). A panel is comprised of a set of distinct humans, called judges. We denote the set of judges as $J=\{j_1, j_2, j_3,j_4, j_5\}$, and their origins by the multiset $J_c:C\rightarrow\mathbb{N}$. Multisets are interesting. Roman defines a multiset on a set A, as an element of A×N. Blizzard gives in broad overview of different approaches to multisets in [The Development of Multiset Theory], and takes a more normative approach in [Dedekind Multisets and Function Shells]. We will not delve into this, but they are important to understand in the construction below:
+
+A definition: A multiset on a set A, is a function $f:A\rightarrow\mathbb{N}$.
+
+Some authors use the pair (A,f) to define a multiset. While it may bring us comfort to know the underlying set which the function is defined on, this is merely a luxury of defining a multiset. In an observational setting one does not necessarily know the underlying set, only the support of f, i.e. the set of all elements mapped to a non-zero number. For example, the judges in a heat are selected from a pool of judges provided by the WSL for that event. Specifically, suppose it is march 
+%___
+2018, Caio Ibelli rides the first wave of the WSL 2018 Men's Championship Tour, when all 5 judges provide their scores, Caio Ibelli is awarded a score of:
+%round(mean(sort(WAVES[1][2].judge_scores)[2:4]),digits=2)
+Not a dramatic first wave eh? But maybe you want to know a bit more about the sub scores that resulted in a wave score of 0.43 . The panel is as follows:
+%WAVES[1][2].panel
+We can certainly deduce the nationalities of 5 of the 8 Judges in the event pool.
+%WAVES[1][2].panel_origs
+
+Where are the remaining 3 judges from? Well, we have to wait for the next heat because these judges are the panel for this heat. In the next heat, Michael Rodrigues is the first to ride a wave, receiving a 0.3.
+%round(mean(sort(partitionBy(:heatId)[2][2][1].judge_scores)[2:4]),digits=2)
+This feels similar to the first wave of last heat, are the judges the same?
+%partitionBy(:heatId)[2][2][1].panel
+Looks like No. Okay, well are some of them the judges the same? Certainly. We could have answered that even before the Caio Ibelli took the first wave of 2018 because if there were two panels, each with five judges, and no judges were the same, then there would be at least 10 total judges for the event, a breach of WSL rule book. So, which of the judges from heat 1 are on the panel from round 2?
+we know there are at least:
+[AUS => 2, BRA => 2, ESP => 1, USA => 1, ZAF => 1]
+ If we assumed the panels were disjoint, we could deduce that the pool of judges for the event, at least, consisted of:
+println([AUS => 3, BRA => 3, ESP => 1, USA => 2, ZAF => 1])
+However, our information from the rule book tells us that this certainly cannot be the case.
+
+\subsection{Multisets}
+Though the definition of a multiset on A as a function $f:A\rightarrow\mathbb{N}$ is pleasant to work with, it omits some of the structure intrinsic to a multiset. Namely, consider how a multiset arises in an applied setting. We have some knowledge or information about the judges, ie. some function $k: J_{pool} → C$, which maps a judge in the judging pool to their nationality $c\in C$. How do we arrive at the $f:C\rightarrow\mathbb{N}$ ? By: $f(c) = \sum_{j\in J} 1_{k(j)=c}$. Evidently f is the sum of simple functions of our information. So f really isn't representative of much and truly depends on some reference set or information. Additionally, if we had additional structure on J, for example a total order where $j_1<j_2<j_3 <j_4<j_5$, its not entirely clear how we can extend the structure to the multiset.
+
+Hence, we define: a multiset on a set A is **an** equivalence class of $l(A)$ where:
+$l(A):= \bigcup_{n\in\mathbb{N}}A^{×n}$ where ×n denotes the nth Cartesian power. Note that this is certainly a disjoint union.
+$M(A) := l(A)/\sim$ where $x\sim y$ if and only if $\#x=\#y $ and $\exists \tau \in S_{\#x}$ s.t. $\tau x=y$, where $\#x:=n $ s.t. $ x\in A^{×n}$. 
+To show that $M(A)$ is well defined, we must show that $\sim$ is an equivalence relation:
+\begin{itemize}
+\item Claim: $x\sim x$. PF: $ e \in S_{\#x}$ so ex = x and $\#x=\#x$, thus $ x\sim x$.
+\item Claim: $ x\sim y \implies y\sim x$. PF: Assume $x\sim y$, i.e. $\#x = \#y$ and $ \exists \tau \in S_{\#x} $ s.t. $\tau x = y$. So, $S_{\#x}=S_{\#y} \implies \tau^{-1} \in S_{\#y}$, and $\tau^{-1}y = \tau^{-1}\tau x = ex = x$. And we have $ \#y=\#x$, thus $y\sim x$.
+\item Claim $ [x\sim y \:\And\:  y \sim z] \implies x \sim z $.Assume $x\sim y$ and $y\sim z$. $\#x=\#y$ and $\#y=\#z$ implies that $\#x=\#z$ and $S_{\#x}=S_{\#y}=S_{\#z}$. By assumption $\exists \tau, \gamma \in S_{\#x}$ s.t. $\tau x=y$ and $\gamma y=z$. So $z = \gamma y = \gamma \tau x $ and $\gamma\tau \in S_{\#x}$. Thus, $x\sim z$.
+\end{itemize}
+
+Further, let us define:
+$\otimes:l(A)\times l(B)\rightarrow l(A\cup B)$ by $\otimes(x,y) = x\otimes y = (x^1,\dots,x^m,y^1,\dots,y^n)$. This is well defined because $x\otimes y \in (A\cup B)^{\times(m+n)} \subset l(A\cup B)$.
+And define $\otimes:M(A)\times M(B)\rightarrow M(A\cup B)$  by $\otimes(mA,mB):=\{\otimes(x,y) \mid (x,y)\in mA\times mB\} = \{x \otimes y \mid (x,y)\in mA\times mB\}$
+
+To be clear: \textit{$M(A)$ is a set of equivalence classes of $l(A)$ under $\sim$,} and a multiset on A, denoted mA, is an element of $M(A)$, i.e. mA is an equivalence class. Though $(mA^1,\dots,mA^k)$ and $\otimes(mA^1,\dots,mA^k)=mA^1\otimes\dots\otimes mA^k$ look very similar, they are not the same.
+\begin{itemize}
+\item $(mA^1,\dots,mA^k)$ is a k-tuple of multisets on A which means it is an element of $M(A)^{\times k}$ and thus an element of $l(M(A))$ because $M(A)^{\times k} \subset l(M(A))$.
+\item $\otimes(mA^1,\dots,mA^k)=mA^1 \otimes\dots\otimes mA^k$ is not in $M(A)$, rather it is a subset of an element of $M(A)$, specifically, $mA^1 \otimes\dots\otimes mA^k \subset \{ \tau x \mid  x\in mA^1\otimes\dots\otimes mA^k \:\text{and}\: \tau \in S_{\#x} \} = mA \in M(A)$.
+\end{itemize}
+This construction has some nice properties:
+\begin{itemize}
+\item Let $V_A := span\{e_a \mid a \in A\}$ over $\mathbb{R}$ (any field with char 0 should do i think). Given any function $\alpha:M(A)\rightarrow\mathbb{R}$ we may define $v \in T(V_A)$ by $v = \sum_{W \in M(A)} \alpha(W) \sum_{x\in W}v_x$, which is completely symmetric by definition of W ($v_x = e_{x^1}\otimes\dots\otimes e_{x^{\#x}}$)
+\item Any $p:mA\rightarrow\mathbb{R}$ satisfying $\sum_{t\in mA} p(t) = 1$, defines a probability distribution. Moreover, we may represent this as $P \in T(V_A)$ by $P=\sum_{t\in mA} p(t)v_t$.
+\item And more to come.
+\end{itemize}
+
+\begin{definition}: An \textbf{ordered partition} of a multiset mA is a k-tuple of multisets on A, $\lambda=(mA^1,\dots,mA^k)$, satisfying $\otimes\lambda=\otimes(mA^1,\dots,mA^k)=mA^1\otimes\dots\otimes mA^k \subseteq mA$. And by definition of $\#, \#\lambda=k$. \end{definition}
+
+\begin{definition}: The set of ordered partitions of a multiset $mA\in M(A)$ is $\mathbb{\Pi}_{mA}:=\{\lambda \in l(M(A)) \mid \otimes\lambda \subseteq mA\}$. \end{definition}
+
+\begin{definition}: An unordered partition of a multiset mA, is a multiset of multisets on A, call it $K$, where an arbitrary element $k\in K$ satisfies $\otimes k \subset mA$. By definition of multiset, $K=\{ \tau k \mid \tau \in S_{\#k}\}$.\end{definition}
+
+JOJO can you show that the function definition by blizzard is a faithful representation of this ?? that would be useful. Think slowly here Representation in a discrete set function space should be the same thing that you understand concretely in GL(V).
+
+\subsubsection{Various actions of permutations}
+The actions of permutations on different mathematical objects can be a bit confusing. We desire to be clear and consistent with our notation:
+\begin{itemize}
+\item $\tau \in S_d= S_{\{1,\dots,d\}}$ acts on the set $\{1,2,\dots,d\}$ by acting on the elements of the set $\tau\{1,2,\dots,d\} = \{\tau(1),\tau(2),\dots,\tau(d)\}$.
+\item $\tau\in S_d$ acts on d-tuples by permuting the \textbf{positions} of the entries.
+\item When we wish to discuss a permutation acting on the \textbf{elements} of an n-tuple, we will write $\hat{\tau}$, formally $\hat{\tau}:\{1,\dots,d\}^{\times n} \rightarrow \{1,\dots,d\}^{\times n}$ and is defined by $\hat{\tau}(z_1,z_2,\dots,z_n) := (\tau(z_1),\tau(z_2),\dots,\tau(z_n))$.
+\end{itemize}
+
+For a concrete example let $d=3, x=(USA,AUS,BRA), y=(1,1,2)$ and 
+$$\tau = \begin{pmatrix} 1 & 2 & 3\\ 3 & 2 & 1 \end{pmatrix}$$
+
+$\tau$ acts on by x by rearranging the entries of x, i.e. $\tau x = \tau(USA,AUS,BRA) =(BRA,AUS,USA)$.
+$\tau$ acts on by y by rearranging the entries of y, i.e. $\tau y = \tau(1,1,2) =(2,1,1)$.
+
+$\hat{\tau}x$ cannot act on x because $\tau$ is not defined on $\{AUS,BRA,USA\}$.
+$\hat{\tau}x$ acts on y by applying $\tau$ to each entry of y, i.e. $\hat{\tau}y = \hat{\tau}(1,1,2) =(\tau(1),\tau(1),\tau(2) ) =(3,3,2)$.
+
+\subsection{Partitions And Exchangeability}
+This notion of a partition is different than the typical ones. P Martin and others use a Partition Algebra first introduced by Brauer in 1913?, we are no experts in this realm but the notion seems most useful when analyzing the automorphisms of partitions of a set. Multisets cannot be accommodated (JOJO you must be more informed than this come on man).
+
+A more statistical interpretation of partitions appears in a seminal paper on population genetics by Kingman in 1978 (Random Partitions in Population Genetics). More abstract interpretations come in a later paper (The Representation of Partition Structures). The partitions defined are integer partitions (which is the typical interpretation, see also Vershik's paper Statistical Mechanics of Combinatorial Partitions and Their Limit Shapes). Integer partitions are no different than **set** partitions, one can pass freely between the two by taking the carnality of sets, with one assumption: that the elements of the set are exchangeable. This is defined in Pitman's 1995 paper, (Exchangeable and Partially Exchangeable Random Partitions). "Partial Exchangeability" is a very intuitive notion. Consider a random variable, $\lambda$, which takes values in the set of ordered set partitions of $\{1,\dots,n\}$, denoted $\Pi_n$. And consider its probability distribution, $p:\mathbb{\Pi}_n\rightarrow\mathbb{R}$.  $p$ is partially exchangeable iff. $\forall \lambda \in \Pi_n \forall \tau \in S_{\#\lambda} \quad p(|\lambda^{1}|,\dots,|\lambda^{\#\lambda}|) = p(|\lambda^{\tau^{-1}(1)}|,\dots, |\lambda^{\tau^{-1}(\#\lambda)}|)$. In English, this means that the probability of observing some ordered partition with $\lambda_1$ blocks of size 1, $\lambda_2$ blocks of size 2, …, $\lambda_n$ blocks of size n is the same regardless of the order of the blocks (to be clear $\lambda_k := |\{k \mid  |\lambda^j| = k \}|$). This defines \textbf{part}-ial exchangeability.
+
+The definition of plain old exchangeability is distinct. A random partition $A \in \Pi$ is exchangeable if and only if $p(A) = \hat{\tau}p(A) \quad \forall \tau\in S_n$.
+
+Recall:
+Let $\tau \in S_k$. How does $\tau$ act on $(A^{1},\dots,A^{k})$ ? By $\tau(A^{1},…,A^{k}) = (A^{\tau^{-1}(1)},\dots,A^{\tau^{-1}(1)})$, i.e. moving $i^{th}$ argument to the $\tau(i)^{th}$ position. So it makes sense to define $\tau\otimes(A^{1},\dots,A^{k}) = \otimes(A^{\tau^{-1}(1)},\dots,A^{\tau^{-1}(k)})$ because we have defined it that way for functions, and $\otimes$ is a function.
+
+In the case of the first wave of 2018, ridden by Caio Ibelli: $A=(\{BRA, ZAF\},\{ESP, AUS, USA\})$ and $A \in \Pi_{\{AUS,BRA,ESP,USA,ZAF\}}$. So $\tau:=(1 2)\in S_2$, acts on A by $\tau(\{BRA, ZAF\},\{ESP, AUS, USA\}) = (\{ESP, AUS, USA\},\{BRA, ZAF\})$.
+
+Pitman calls this the "natural action of permutations of $\{1,…,n\}$  on $\lambda$ and refers to earlier references by Kingman and a delightful survey of exchangeability by Aldous (Exchangeability and related topics)(we have altered the quote to use {1,…,n} instead of Pitman's $N_n$). The "natural action" of permutations of a set X on a partition of X is a subjective notion. We agree Pitman's thinking here and are fans of the chapeau. 
+In practice this looks like taking some $\gamma \in S_{\{AUS,BRA,ESP,USA,ZAF\}}$. 
+\[\gamma=
+\begin{pmatrix} 
+\text{AUS} & \text{BRA} & \text{ESP} & \text{ESP} & \text{ZAF}\\
+\text{BRA}  & \text{ESP} & \text{ZAF} & \text{AUS} & \text{ESP}
+\end{pmatrix}
+\] (this is arbitrary choice). 
+
+\(
+\begin{pmatrix}
+1 & 2 & 3\\
+a & b & c
+\end{pmatrix}
+\)
+
+$ \hat{\gamma}(\{BRA, ZAF\},\{ESP, AUS, USA\}) =(\gamma\{BRA, ZAF\},\gamma\{ESP, AUS, USA\}) $
+$ =(\{\gamma(BRA),\gamma(ZAF)\},\{\gamma(ESP),\gamma(AUS),\gamma(USA)\}) = (\{AUS, ESP\},\{ZAF, BRA, AUS\}) $
+
+In this concrete setting, the definition of exchangeability requires that $P(\{BRA,ZAF\},\{ESP,AUS,USA\}) = P(\{\gamma(BRA),\gamma(ZAF)\},\{\gamma(ESP),\gamma(AUS),\gamma(USA)\})$ for every permutation $\gamma$ of $\{AUS,BRA,ESP,USA,ZAF\}$. If the distribution over ordered panels is exchangeable, then we can assert: the probability of any arrangement of judges is equal to the the probability of that arrangement under any permutation of judge labels. Further analysis would be required to see if this holds conditional on a surfer's country. But is this the right notion of exchangeability that we are after?
+
+Remember the first wave of the second heat of 2018? Michael Rodrigues started the heat of with a whopping 0.3, but taking the panel the under an equivalence relation that Judge1 $\sim$Judge2 if and only if Judge1's score = Judge2's score, we ended up with an ordered partition of the panel: $([BRA],[AUS,AUS,USA],[BRA])$. Our desired exchangeability is: $P([BRA],[AUS,AUS,USA],[BRA]) = P\hat{\gamma}([BRA],[AUS,AUS,USA],[BRA])$
+
+Taking a similar $$\gamma:=\begin{pmatrix} AUS & BRA & USA \\ BRA & USA & AUS \end{pmatrix}$$ as before, $P(\gamma[BRA],\gamma[AUS,AUS,USA],\gamma[BRA])= P([\gamma(BRA)],[\gamma(AUS),\gamma(AUS),\gamma(USA)],[\gamma(BRA)])$ = $P([USA],[BRA,BRA,AUS],[USA])$. This seems a little hard to expect, at least within our heat, because the panel for this heat consists of 2 Australian judges, 2 Brazilian judges, and 1 American judge. Or maybe we would like to be strict and require that arrangements, with their multiplicities, are equally probable under any permutation of judge origins?
+
+(JOJO i need you to be able to pin down when this is a "fair" or somewhat "fair" expectation and when it is not. Does this necessitate that countries are equally represented? Yes i think, if we are seeing ordered arrangements of our full multiset, but no if we are seeing ordered arrangements of a subset of the multiset, for example, we could have exactly 5 judges of each country. But it is also viable if we have >= 5 judges from each ctry. How does the definition change when we use $\gamma\in S_{ctry set}$ vs. $\gamma\in S_5$? Generalizing this seems incredibly fun.   .... Thinking about this a bit more, we could just frame everything in terms of orbits of a multiset mA or partition of mA, which depends on the group of choice. If we take $S_{\#\lambda}$ as the group, the orbit of some $\lambda \in \Pi_{mA}$ is the set of permutations of the blocks. If we take the group to be $S_C$, the orbit of $\otimes\lambda$, (under applications of $\hat{\gamma}$), will be the permutations of frequencies of element of the multiset. Note that if we take $\lambda$ alone, we must apply $\hat{\hat{\gamma}}$ for $\gamma \in S_C$. Now, what if we take a combined orbit?)
+
+Regardless of whether this is a fair notion, you may notice that we passed the action of $\gamma $ to the elements of our multiset, without justification. This is not justified. Nor have we defined anything that would work this way (yet).These are the difficulties with multisets that motivate our definitions and a lot of the interest in these panels.
+
+\subsection{Definitions Of Exchangeability}
+A probability distribution on multiset partions $P: \Pi_{mA}\rightarrow \mathbb{R}$ is.....
+\textbf{Partially exchangeable} if and only if: 	$\forall \lambda \in \Pi_{mA}\:  \forall\tau\in S_{\#\lambda} \quad P\lambda = P(mA^1,…,mA^k)= P\tau(mA^1,…,mA^k)= P\tau\lambda $
+
+\textbf{Exchangeable} if and only if:
+$\forall \lambda \in \Pi_{mA}\:\forall \gamma\in S_n\quad P\circ\otimes\lambda=P\circ\gamma\circ\otimes\lambda $ where $n:=\sum_k k\lambda_k$ (note that $\gamma$ is applied to elements of $\otimes\lambda$ which are all n-tuples so action of $S_n$ makes sense.
+
+\textbf{Label exchangeable} if and only if $\forall \lambda \in \Pi_{mA} \: \forall \beta \in S_A \quad P\circ\otimes\lambda = P\circ\hat{\beta}\circ\otimes\lambda$ 
+
+\textbf{Intra-multiplicity exchangeable} if and only if 
+$ \forall \lambda \in \Pi_{mA} \forall \beta \in \prod_{k=1}^{\#mA} S_{\lambda_k} \quad P\otimes\lambda=P\hat{\beta}\otimes\lambda$
+
+and for $\omega\in\otimes\lambda, \hat{\beta}\omega=\hat{\beta}(\omega_1,\dots,\omega_n) = (\beta\omega_1,\dots,\beta\omega_n)$.
+
+I have a bag of judges from in 2018 or 2019
+%(Y_2018 bag for 2018, Y_2019 bag for 2019)
+%((evt1 bag, …,evt11 bag), (evt1 bag,…,evt11bag))
+
+%given pool = (n_AUS,n_BRA,n_ESP,n_FRA,n_PRT,n_USA,n_ZAF)
+%given panel = (k_AUS,k_BRA,k_ESP,k_FRA,k_PRT,k_USA,k_ZAF)
+
+%P(Heat | Panel ) = (1/#waves∑(k_AUS!k_BRA!k_ESP!k_FRA!k_PRT!k_USA!k_ZAF / 5!)∏1/λ_i!) 
+%P(Heat | Panel ) = (1/(n_AUS)(n_AUS-1)…(n_AUS-k_AUS))⋅…⋅(1/(n_ZAF)(n_ZAF-1)…(n_ZAF-k_ZAF))(1/#waves∑(k_AUS!k_BRA!k_ESP!k_FRA!k_PRT!k_USA!k_ZAF / 5!)∏1/λ_i!) 
+
+JOJO how bout we implement a multivariate-hypergeometric model for panel composition, you can use multinomial prior, and i think you can probably get marginals that look like multinomials, but you will have some vector p corresponding to ORIG concentration to estimate, but i think we know what p is empirically for almost every event. So we should be able to assess deviations from our expectations, or just do this fully bayesian (but then we'd end up with a result for an estimate of a quantity we already know... in most cases.)
+
+JOJO How bout you actually just make a quick through all of the rank tests you know / can find. they really aren't too hard to code, just do it. Then we can see how well they do, and maybe improve upon them? Figure out WHY they work or don't work.
+
+\subsection{Lets talk about equivalence classes and the axiom of choice}
+
+
+\section{Methods}
+Throughout:
+$M = \{Match,Non-Match\} = \{M,\neg M\}$. $C = \{AUS,BRA,ESP,FRA,PRT,USA,ZAF\}$. $D = \{1,\dots,d\}$
+$V_M := \{e_{Match},e_{Non-Match}\} $, $V_C = \{ e_{AUS},e_{BRA},\dots,e_{ZAF} \}$
+
+Lets explore the Data!
+We have lots of missing Judge Origins from panels in the 2017 World Surf League season so we will omit the 2017 season ... for now (This begs an interesting question which we should return to later). We have constructed a multidimensional array, aka an m-way, cross classified, contingency table. We have m classification factors:
+\begin{itemize}
+\item WSL Season
+\item Event
+\item Round
+\item Heat
+\item Ahtlete Origin
+\item Judge Origin
+\item Size of Partition of Panel (Max Rank)
+\item Rank of Judge
+\end{itemize}
+
 
 \subsection{Symmetric Group}
-\begin{definition}[The Symmetric Group on a set, $X$,] is $S_X := Isomorphisms(X,X)$. When $|X|<\infty$, $S_X = \{ \tau :X\rightarrow X \mid Image(\tau) = X \}  = \{\tau:X\rightarrow X \mid \{\tau(x) \mid x \in X\} = X \} $
-\end{definition}
-\begin{definition} $S_d := S_{\{ 1 ,\dots, d\}}. $\end{definition}
+\begin{definition}When G is a Group, and $\mathbb{F}$ is a Field, the Group Algebra of G over $\mathbb{F}$, denoted $\mathbb{F}[G]$, is the space of formal linear combinations of elements of G. Elements of $\mathbb{F}[G]$ are of the form: $c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i$, where $c_i \in \mathbb{F}, g_i \in G$. Note that $i\neq j \implies g_i \neq g_j$ because G is a set of elements, so no element occurs with multiplicity. For example, $c_1 g + c_2 g \not\in \mathbb{F}[G]$ whereas $(c_1 + c_2)g \in \mathbb{F}[G]. $\end{definition}
 
-\begin{definition}When G is a Group, and $\mathbb{F}$ is a Field, the \textbf{Group Algebra of G over \mathbb{F}}, denoted $\mathbb{F}[G]$, is the space of formal linear combinations of elements of G. Elements of $\mathbb{F}[G]$ are of the form: $c_1 g_1 + \dots + c_n g_n = \sum^n_{i=1} c_i g_i$, where $c_i \in \mathbb{F}, g_i \in G$. Note that $i\neq j \implies g_i \neq g_j$ because G is a set of elements, so no element occurs with multiplicity. For example, $c_1 g + c_2 g \not\in \mathbb{F}[G]$ whereas $(c_1 + c_2)g \in \mathbb{F}[G]. $\end{definition}
-
-\begin{remark} $\mathbb{F}[S_d]$ is comprised on formal linear combinations of elements of $S_d$. This may be understood as two different ways:
-There exists a function $ a:S_n \rightarrow \mathbb{F}$ and $A :=  \sum_{\tau \in S_d} a(\tau) \tau \quad \in \mathbb{F}[S_n]$.
-So: \[ A = [ \pi_1 \dots  \pi_{d!} ]  \] \[ \begin{pmatrix}a_{\pi_1}  \\  \vdots  \\  a_{\pi_{d!} }\end{pmatrix}\] = \sum_{\tau \in S_d } a_\tau \tau \in \mathbb{F} [S_d] \],where $\tau \in S_d, a_\tau \in \mathbb{F}$.
-\end{remark}
-
-\begin{definition}[Addition in $\mathbb{F}[S_n]$] is defined by $A+B = (\sum_{\tau} a_\tau \tau) + (\sum_\tau b_\tau \tau) = \sum_\tau (a_\tau + b_\tau) \tau $ \end{definition}
-\begin{definition}[Scalar Multiplication in $\mathbb{F}[S_d]$] is $c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau$\end{definition}
+\begin{remark} $\mathbb{F}[S_d]$ is comprised on formal linear combinations of elements of $S_d$. A generic element, $A \in \mathbb{F}[S_n]$ looks like, $\sum_{\tau \in S_d} a(\tau)\tau$, which we will typically write as $\sum_\tau a_\tau \tau$. \end{remark}
+\begin{definition}Addition in $\mathbb{F}[S_n]$ is defined by $A+B = (\sum_{\tau}a_{\tau}\tau) + (\sum_{\tau}b_{\tau}\tau) = \sum_{\tau} (a_{\tau}+b_{\tau})\tau $ \end{definition}
+\begin{definition}Scalar Multiplication in $\mathbb{F}[S_d]$ is $c(A) = c(\sum_{\tau} a_\tau \tau)  = \sum_{\tau} ca_\tau \tau$\end{definition}
 \begin{definition} Multiplication in $\mathbb{F}[S_d]$ is \textit{defined} by
 $ A*B 
 =(\sum_{\tau} a_\tau \tau)* (\sum_\pi b_\pi \pi)
 =\sum_{\gamma \in S_d}(\sum_{  \tau,\pi | \tau\pi = \gamma  } a_\tau b_\pi) \gamma
-= \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma
-$ \end{definition}
+= \sum_{\gamma \in S_d}(\sum_{  \tau \in S_d} a_\tau b_{\tau^{-1}\gamma} ) \gamma$ \end{definition}
 
 \begin{remark} We should not over complicate $*$.
 The \textit{definition} of $*$ may look odd, but it exactly the same as our basic understanding of multiplication: \(
@@ -117,51 +319,20 @@ The \textit{definition} of $*$ may look odd, but it exactly the same as our basi
 \). Even though $(\sum_{  \tau} a_\tau\tau) *(\sum_{\pi }   b_\pi \pi)$ is equal to the intuitive form, $\sum_{  \tau}\sum_{\pi } a_\tau b_\pi \tau \pi $, this is not an element of the the group algebra because elements are repeated in the sum, hence our chosen definition. Also, $*$ merely extends multiplication in the Field,$\cdot$, and the operation in the group, $\circ $, by $a_\tau \tau * b_\pi \pi = a_\tau \cdot b_\pi \tau \circ\pi = a_\tau b_\pi \tau \pi$, where the last equality is simply notation-reduction. 
 \end{remark}
 
-\begin{remark} Many authors call $*$ "convolution", however this terminology is superfluous. A*B(\psi) = A*B\psi $
-
-\end{remark}
-
 \subsection{Probability on The Symmetric Group}
 \begin{definition} A measure on $S_d$, is an element of the group algebra $\mathbb{C}[S_n]$.\end{definition}
-\begin{definition} A measure on $S_n$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_n$ if and only if $\forall \tau \in S_n f_\tau \geq 0 $ and $\sum_{\tau \in S_n} f_\tau = 1 $
+\begin{definition} A measure on $S_d$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_d$ if and only if $\forall \tau \in S_d f_\tau \geq 0 $ and $\sum_{\tau \in S_n} f_\tau = 1 $
 \end{definition}
-
-\begin{definition} A linear representation of a group G, is a group homomorphism, $\rho : (G,\circ) \rightarrow (GL(V),\cdot)$. A group homomorphism satisfies:
-\item \(\forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y) \) where $\cdot $ is multiplication in $GL(V)$.
-\item \( \rho(e) = I \), where e is the identity element in $G$ and I is the identity element in $ GL(V) $.
-\item \( \forall x \in G, \rho(x^{-1}) = \rho(x)^*, \text{ where * denotes involution in GL(V)} \).
-\end{definition}
-
-\begin{definition}The representation of a measure F, is: $ \hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau) $. \end{definition}
-Note: This is sometimes called the Fourier transform at a representation, I avoid that lingo. 
-
-\begin{definition}(Convolution of two functions on $S_n$) is a binary operation $ A * B := \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g) $. equivalently:
-\end{definition}
-
-Note: $ \widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma) 
-= \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma )
-= \sum_{\tau} \sum_{\gamma\tau } a(\gamma\tau \tau^{-1})b(\tau)\rho(\gamma\tau )
-= \sum_{\tau} \sum_{\gamma\tau } a(\gamma )b(\tau)\rho(\gamma)\rho(\tau ) $
-$ = \sum_{\tau} b(\tau)\rho(\tau ) \sum_{\gamma\tau } a(\gamma )\rho(\gamma) 
-= \sum_{\tau} b(\tau)\rho(\tau ) \hat{A}
-= \hat{A} \sum_{\tau} b(\tau)\rho(\tau )
-= \hat{A} \cdot \hat{B} $
-
-We take $\rho_n $ the permutation representation acting on the vector space $V := \mathbb{R}^n$ with basis indexed by $ \{1, \dots n\} $. So a typical element of V is of the form: 
-\[ \begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} = a^1 e_1 + a^2 e_2 + \dots a^n e_n \]which could be rewritten as $\sum_{i \in \{1,\dots,n\} } a^i e_i$. But remember, we are interested in functions that act on the basis.
-
-For Example: $V_{M} := [ e_{\text{Match}} \: e_{\text{Non-Match}} ]$
-For Example  : $V_{C} = [ e_{\text{AUS}} \: e_{\text{BRA}} \: \dots \: e_{\text{ZAF}} ]$
 
 
 \subsection{Statistical Model for Permutations}
 
-Idea #1:
-Parameter Space (integer partitions of n): \(\Theta := \{ \theta \in \mathbb{N}^n \mid \sum_i \theta_i = n \} \)
-Parametric Distribution (indicator on conjugate class): \( P_\theta(\tau) := \frac{ 1}{ |CL(\theta)| }1_{ \tau \in CL(\theta) } \)
-Model: \( \mathcal{M}_\Theta := \{P_\theta \mid \theta \in \Theta \} \)
+Idea 1:
+Parameter Space (integer partitions of n): $\Theta := \{ \theta \in \mathbb{N}^n \mid \sum_i \theta_i = n \} $
+Parametric Distribution (indicator on conjugate class): $ P_\theta(\tau) := \frac{ 1}{ |CL(\theta)| }1_{ \tau \in CL(\theta) } $$
+Model: $ \mathcal{M}_\Theta := \{P_\theta \mid \theta \in \Theta \} $
 
-Idea #2
+Idea 2
 Parameter Space: \( \Theta := S_n\)
 Parametric Distribution: \( P_\pi (\tau) := (\frac{1}{2})^{\{n}\)
 
@@ -194,11 +365,11 @@ Many models either implicitly or explicitly identify a distribution on a set of 
 What is a distribution on Permutations? Anything that can assign a number to an element of the symmetric group, ie. any function $f$ of the form \(f:\mathcal{S}_n \rightarrow \mathbf{R}_+ \). So what kind of things do we want from such a function? Here are the literature's axioms. 
 % See Probability Models on Rankings by Critchlow, Flinger, Verducci
 
-Re: label invariance & reversibility....
-    don't these follow if you properly construct a model on the symmetric group?
+Re: label invariance and reversibility....
+don't these follow if you properly construct a model on the symmetric group?
 
 Re: strong unimodality
-    There are enough unimodal disrtibutions and models out there. Critchlow,Flinger,Verducci, dont give a reason this should be the case. I can construct useful, non-unimodal distributions.
+There are enough unimodal disrtibutions and models out there. Critchlow,Flinger,Verducci, dont give a reason this should be the case. I can construct useful, non-unimodal distributions.
     
 complete concensus, and L-decomposability
 
@@ -238,23 +409,6 @@ Recall: $ F = X_{i+1}X_{i}^{-1}$ and $B = X_{i}X_{i+1}^{-1}$. Observe the relati
 
 Perhaps we are interested in the difference between backwards and forwards innovations, ie. the distribution, $F - B$. Which is the same as $F - F^{-1}$ and $B^{-1} - B$. The magnitude of the difference 
 
-
-\subsection{Empirical Distributions}
-We normally don't give this much thought, but it requires some here:
-Each "data point" is an arrangement.
-
-
-
-\section{Families of Distributions}
-\subsection{General Exponential Models}
-\subsection{Hyperbolic Functions}
-Note: Using sinh and conh might lead to a more enlightening proof.f
-Also, the remaining identities for hyperbolic functions follow from these)
-$\sinh(\rho_\tau) := \frac{e^{\rho_\tau} - e^{-\rho_\tau}}{2} = \frac{e^{2\rho_\tau} - 1}{2e^\rho_\tau} = -\sinh(-\rho_\tau)$
-$\cosh(\rho_\tau) := \frac{e^{\rho_\tau} + e^{-\rho_\tau}}{2} = \frac{1+e^{-2\rho_\tau}}{2e^{-\rho_\tau}}= \cosh(-\rho_\tau)$
-
-Reminder: $e^{\rho_\tau}$ is an operator (which one may consider as a permutation with exponential density). If we let $A := e^{\rho_\tau} $ and $B:= e^{-\rho_\tau}$
-
 \section{All of the defns}
 \subsection{Symmetric Group}
 \begin{definition}[Symmetric Group] The Symmetric Group is denoted $S_X$, and satisfies the following:
@@ -265,6 +419,27 @@ Reminder: $e^{\rho_\tau}$ is an operator (which one may consider as a permutatio
 \end{itemize}
 \end{definition}
 
+\begin{definition} A linear representation of a group G, is a group homomorphism, $\rho : (G,\circ) \rightarrow (GL(V),\cdot)$. A group homomorphism satisfies:
+\item \(\forall x,y \in G \quad \rho(x\circ y) = \rho(x) \cdot \rho(y) \) where $\cdot $ is multiplication in $GL(V)$.
+\item \( \rho(e) = I \), where e is the identity element in $G$ and I is the identity element in $ GL(V) $.
+\item \( \forall x \in G, \rho(x^{-1}) = \rho(x)^{-1}\)
+\end{definition}
+We take $\rho_n $ the permutation representation acting on the vector space $V := \mathbb{R}^n$ with basis indexed by $ \{1, \dots n\} $. So a typical element of V is of the form: 
+\[ \begin{pmatrix} a^1 \\ a^2 \\ \vdots \\ a^n \end{pmatrix} = \begin{pmatrix} a^1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ a^2 \\ \vdots \\ 0 \end{pmatrix} + \dots + \begin{pmatrix} 0 \\  \vdots \\ 0\\ a^n \end{pmatrix} = a^1\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} + a^2\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix} + \dots + a^n\begin{pmatrix} 0 \\  \vdots \\ 0\\ 1\end{pmatrix} = a^1 e_1 + a^2 e_2 + \dots a^n e_n \]which could be rewritten as $\sum_{i \in \{1,\dots,n\} } a^i e_i$. 
+
+\begin{definition}The representation of a measure F, is: $ \hat{F} := \sum_{\tau \in S_n} P(\tau) \rho(\tau) $. \end{definition}
+
+\begin{definition}(Convolution of two functions on $S_n$) is a binary operation $ A * B (g) := \sum_{\tau \in S_n} a(\tau) b(\tau^{-1}g) $. equivalently:
+\end{definition}
+
+Note: $ \widehat{A*B} = \sum_{\gamma} (A*B)(\gamma)\rho(\gamma) 
+= \sum_{\gamma } \sum_{\tau} a(\gamma \tau^{-1})b(\tau)\rho(\gamma )
+= \sum_{\tau} \sum_{\gamma\tau } a(\gamma\tau \tau^{-1})b(\tau)\rho(\gamma\tau )
+= \sum_{\tau} \sum_{\gamma\tau } a(\gamma )b(\tau)\rho(\gamma)\rho(\tau ) $
+$ = \sum_{\tau} b(\tau)\rho(\tau ) \sum_{\gamma\tau } a(\gamma )\rho(\gamma) 
+= \sum_{\tau} b(\tau)\rho(\tau ) \hat{A}
+= \hat{A} \sum_{\tau} b(\tau)\rho(\tau )
+= \hat{A} \cdot \hat{B} $
 \subsection{Graphs}
 Some disclaimers:
 The set of bi-directed graphs is a strict subset of the set of all graphs. 
