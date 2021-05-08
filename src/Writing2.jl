@@ -18,7 +18,7 @@ include("toolkit/SymGrpAndReps.jl")
 
 #' ## Motivation for A Different Approach
 
-
+#-----------------------------------------------------------------------------
 #' # The Simple Approach
 #' Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.
 
@@ -28,25 +28,28 @@ include("toolkit/SymGrpAndReps.jl")
 HasMatch = filter(x->x.I_match==true, last.(WAVES) )
 DiffInMeans = map(x->mean(x.labeledPanelBinary[:Match]) - mean(x.labeledPanelBinary[:NoMatch]), HasMatch)
 ttest(X) = mean(X) / (std(X)/sqrt(length(X)))
-println( ttest(DiffInMeans) )
-#' The difference of mean(DiffInMeans) is significant. However, the distribution of the differences in means is less compelling. 
-savefig("visuals/DistOfDiffInMeans.jl", histogram(DiffInMeans,title="Distribution of Differences in Means") )
-#' !(visuals/DistOfDiffInMeans.png)
 
-#' We may carry out this process for each country:
-#' Note C = :AUS, :BRA, :FRA, :PRT, :USA, :ZAF
+savefig("visuals/DistOfDiffInMeans.png", histogram(DiffInMeans,title="Distribution of Differences in Means") )
+
+# We may carry out this process for each country:
+# Note C = :AUS, :BRA, :FRA, :PRT, :USA, :ZAF
 B = [:Match, :NoMatch]
 C = sort(unique(map(x->x.athOrig, HasMatch)))
 function diffInMeansDist(c::ORIG)
 	I = findall(x->x.athOrig==c, HasMatch)
-	t = ttest( DiffInMeans[I] )
+	N = length(I)
+	t = round(ttest( DiffInMeans[I]), digits=6)
+	m = round(mean(DiffInMeans[I]), digits=6)
 	savefig(
-		"visuals/DistOfDiffInMeansFor$(c).jl",
-		histogram(DiffInMeans[I],title="Difference in Means where C=$c (n=$(length(I)) and t=$t)")
+		"visuals/DistOfDiffInMeansFor$(c).png",
+		histogram(DiffInMeans[I],title="Difference in Means | Athlete Orig = $c (N=$N, μ̂=$m, t=$t")
 	)
 	return t
 end
 for c in C diffInMeansDist(c) end
+#-----------------------------------------------------------------------------
+
+
 
 #' And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is signifigant for AUS, BRA, FRA, USA, ZAF.
 #' Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
@@ -316,10 +319,10 @@ partitionBy(:heatId)[2][2][1].panel_origs
 #=
 E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )
 E(X::Array,I::NTuple) =dropdims(sum(X,dims=setdiff(1:ndims(X),I)),dims=tuple(setdiff(1:ndims(X),I)...))
-cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
-cov(X::Array,I::NTuple{K},j::K) where K<:Integer = E(X,(I...,j))-E(X,I)⊗E(X,j)
-cov(X::Array,i::K,J::NTuple{K}) where K<:Integer = E(X,(i,J...))-E(X,i)⊗E(X,J)
-cov(X::Array,I::NTuple{K},J::NTuple{k}) where K<:Integer =E(X,(I...,J...))-E(I)⊗E(J)
+cov(X::Array,i::K,j::K) = E(X,(i,j))-E(X,i)⊗E(X,j)
+cov(X::Array,I::NTuple{K},j::K) = E(X,(I...,j))-E(X,I)⊗E(X,j)
+cov(X::Array,i::K,J::NTuple{K}) = E(X,(i,J...))-E(X,i)⊗E(X,J)
+cov(X::Array,I::NTuple{K},J::NTuple{k}) =E(X,(I...,J...))-E(I)⊗E(J)
 =#
 
 # this is succinct Julia for create a multidimensional array with 
