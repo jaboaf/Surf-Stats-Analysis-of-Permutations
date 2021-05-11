@@ -7,29 +7,12 @@ using StatsBase
 include("SimplifyComp.jl")
 include("toolkit/SymGrpAndReps.jl")
 
-#' Here we read in the raw data. I have elected to restrict our attention to 2018 and 2019 because those are the most complete years. See Table:
-#' |Year | Waves | Waves w/ 0 Judge Origins Listed | Waves w/ 5 Judge Origins Listed | Total Number of Judge Origins | Waves w/ 3 Sub Scores Listed | Waves w/ 5 Sub Scores Listed | Total number of Judge Scores |
-#' | -----|-----|-----|-----|-----|-----|-----|----- |
-#' | 2017 | 7328 | 5210 | 2118 | 10590 | 299 | 7029 | 36042 |
-#' | 2018 | 6639 | 336 | 6303 | 31515 | 0 | 6639 | 33195 |
-#' | 2019 | 7648 | 79 | 7569 | 37845 | 0 | 7648 | 38240 |
-#' | -----|-----|-----|-----|-----|-----|-----|----- |
-#' | All | 21615 | 5625 | 15990 | 79950 | 299 | 21316 | 107477 |
-
-#' ## Motivation for A Different Approach
-
-#-----------------------------------------------------------------------------
-#' # The Simple Approach
-#' Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.
-
 #' The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality. I.e. Test
 #' H₀: Mean(Match Scores) - Mean(No Match Scores) = 0
 #' H₁: Mean(Match Scores) - Mean(No Match Scores) != 0
 HasMatch = filter(x->x.I_match==true, last.(WAVES) )
 DiffInMeans = map(x->mean(x.labeledPanelBinary[:Match]) - mean(x.labeledPanelBinary[:NoMatch]), HasMatch)
 ttest(X) = mean(X) / (std(X)/sqrt(length(X)))
-
-savefig("visuals/DistOfDiffInMeans.png", histogram(DiffInMeans,title="Distribution of Differences in Means") )
 
 # We may carry out this process for each country:
 # Note C = :AUS, :BRA, :FRA, :PRT, :USA, :ZAF
@@ -319,10 +302,10 @@ partitionBy(:heatId)[2][2][1].panel_origs
 #=
 E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )
 E(X::Array,I::NTuple) =dropdims(sum(X,dims=setdiff(1:ndims(X),I)),dims=tuple(setdiff(1:ndims(X),I)...))
-cov(X::Array,i::K,j::K) = E(X,(i,j))-E(X,i)⊗E(X,j)
-cov(X::Array,I::NTuple{K},j::K) = E(X,(I...,j))-E(X,I)⊗E(X,j)
-cov(X::Array,i::K,J::NTuple{K}) = E(X,(i,J...))-E(X,i)⊗E(X,J)
-cov(X::Array,I::NTuple{K},J::NTuple{k}) =E(X,(I...,J...))-E(I)⊗E(J)
+cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
+cov(X::Array,I::NTuple,j::K) where {K<:Integer} = E(X,(I...,j))-E(X,I)⊗E(X,j)
+cov(X::Array,i::K,J::NTuple) where {K<:Integer} = E(X,(i,J...))-E(X,i)⊗E(X,J)
+cov(X::Array,I::NTuple,J::NTuple) =E(X,(I...,J...))-E(I)⊗E(J)
 =#
 
 # this is succinct Julia for create a multidimensional array with 
@@ -394,14 +377,38 @@ for (i,ht) in enumerate(Hts)
 	end
 end
 #=
-scoPD = [sum(H[:,c,:,:,:,:,:]) for c in 1:100]
+scorng = LinRange(0.01,10,1000)
+scoPD = E(H,2)
 scoPDF = scoPD / sum(scoPD)
-scoCDF = [sum(scoPDF[1:k]) for k in eachindex(scoPDF)] / sum(scoPDF)
+scoCDF = cumsum(scoPDF)
+plot(scorng,scoPDF,title="PDF of Score over every heat")
+plot(scorng,scoCDF,title="CDF of Score over every heat")
 
-ht_sco_PDs = sum(H,dims=[3,4,5,6,7])
-sco_ht_PDs = permutedims(dropdims(ht_sco_PDs,dims=(3,4,5,6,7)),[2,1])
-sco_ht_PDFs = mapslices(x->x/sum(x), sco_ht_PDs,dims=1)
-sco_ht_CDFs = mapslices(x->cumsum(x/sum(x)), sco_ht_PDs,dims=1)
+savefig(plot(scorng,scoPDF,title="PDF of Score over every heat"),"visuals/scorePDFallHts.png")
+
+ht_scoPDs = E(H,(1,2))
+scoPDs_ht = permutedims(ht_scoPDs, [2,1]);
+plot(scorng,scoPDs_ht)
+scoPDFs_ht = mapslices(x->x/sum(x), scoPDs_ht,dims=1)
+plot(scorng,scoPDFs_ht)
+scoCDFs_ht = mapslices(x->cumsum(x), scoPDFs_ht,dims=1)
+plot(scorng,scoCDFs_ht)
+plot(scorng,scoCDFs_ht,scorng,scoCDF,"x",markersize=.25,title="CDF of Score of Every Heat")
+
+# some transformations
+plot(scorng,mapslices(x->x .^2, scoPDFs_ht, dims=1),scorng,scoPDF .^ 2,"x",markersize=.25)
+plot(scorng,mapslices(x->x .^2, scoCDFs_ht, dims=1),scorng,scoCDF .^ 2,"x",markersize=.25)
+
+plot(scorng,mapslices(x->x .* scorng /10, scoPDFs_ht,dims=1),scorng,scoPDF .* scorng / 10,"x",markersize=.3)
+plot(scorng,mapslices(x->x .* scorng /10, scoCDFs_ht,dims=1),scorng,scoCDF .* scorng / 10,"x",markersize=.3)
+
+plot(scorng,mapslices(x->x ./ scorng *10, scoPDFs_ht,dims=1),scorng,scoPDF ./ scorng * 10,"x",markersize=.3)
+plot(scorng,mapslices(x->x ./ scorng *10, scoCDFs_ht,dims=1),scorng,scoCDF ./ scorng * 10,"x",markersize=.3)
+
+# Now the quantile function
+Qsco(u) = [ findfirst(<=(u),scoCDF)/100 for u in 0:0.01:1]
+Qsco_hts = mapslices(x->[findfirst(<=(u),x)/100 for u in 0:0.01:1],scoCDFs,dims=1)
+
 =#
 # see this plot
 plot([i for i in 0.1:0.1:10],sco_ht_CDFs)

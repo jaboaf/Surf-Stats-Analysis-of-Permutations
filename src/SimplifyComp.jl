@@ -164,25 +164,6 @@ for wid in WaveIds
     )
     push!(WAVES, wid=>wave)
 end
-#=
-rnkData = zeros(Rational,(2,10,7,16,11,7,5,5));
-rnkDataVarRngs = [collect(instances(SZN)), collect(instances(EVT)), RND, HT, collect(instances(ORIG)), JUD_ORIGS,1:5, 1:5]
-rnkDataVarNames = [:Season, :Event, :Round, :Heat, :AthOrig, :JudOrig, :MaxRank, :Rank]
-for wave in last.(WAVES)
-	szn = Int(wave.szn)
-	evt = Int(wave.evt)
-	rnd = wave.rnd
-	ht = wave.heat
-	ath_orig = Int(wave.athOrig)
-	max_rank = length(wave.λ_origs)
-
-	for (rank,part) in enumerate(wave.λ_origs)
-		for orig in part
-			rnkData[szn,evt,rnd,ht,ath_orig,Int(orig),max_rank,rank] += 1
-		end
-	end
-end
-=#
 
 ⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
 ⊗(a::NTuple{T},b::NTuple{T}) where T  = (a...,b...)
@@ -190,6 +171,16 @@ end
 ×(A::Array,B::Array) = collect(Base.product(A,B))
 
 #=
+E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )
+E(X::Array,I::NTuple) =dropdims(sum(X,dims=setdiff(1:ndims(X),I)),dims=tuple(setdiff(1:ndims(X),I)...))
+cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
+cov(X::Array,I::NTuple,j::K) where {K<:Integer} = E(X,(I...,j))-E(X,I)⊗E(X,j)
+cov(X::Array,i::K,J::NTuple) where {K<:Integer} = E(X,(i,J...))-E(X,i)⊗E(X,J)
+cov(X::Array,I::NTuple,J::NTuple) =E(X,(I...,J...))-E(I)⊗E(J)
+=#
+
+# JOJO ADD ATHLETE ORIGIN TO THIS!
+
 Hts = map(x->x[1]=>map(y->(round(mean(y.judge_scores),digits=2),y.λ_origs),x[2]),partitionBy(:heatId));
 sort!(Hts)
 # Heat x Mean judge score x panel
@@ -197,33 +188,34 @@ sort!(Hts)
 e_(i::Int) = vec([j==i ? 1 : 0 for j in 1:7])
 Mi = [zeros(7) for r in 1:5]
 Mu = [zeros(7) for r in 1:5]
-C = [zeros(7) for r in 1:5]
+M = [zeros(7) for r in 1:5]
 H = Array{Float32,7}(undef,(910,1000,7,7,7,7,7));
 for (i,ht) in enumerate(Hts)
 	for (s,λ) in ht[2]
 		sco = Int(round(s*100))
 		c = prod(factorial.(length.(λ)))
 		b = [1/factorial(length(λ[k])) for k in 1:length(λ) for r in 1:length(λ[k])]
-		C .+= map(cls->sum(e_.(cls)),λ)
 		for a in Base.product( Sym.(λ)...)
 			I = Int.(vcat(a...))
+			M .+= e_.(I)
 			Mu .+= (1/c)^(1/5) .* e_.(I)
 			Mi .+=  b .* e_.(I)
 			H[i,sco, I... ] += 1/c
 		end
 	end
 end
-=#
+
 #=
 # C for "by Country"
+b(a,b) = length(a)==length(b) ? sum([x*y for x in a for y in b]) : error("array do not have the same length")
 C = sum([M[i]⊗M[j] / (sum(M[i])*sum(M[j])) for i in 1:5 for j in 1:5])
+# R for "by Rank"
+R = sum([K[i]⊗K[j] / (sum(K[i])*sum(K[j])) for i in 1:7 for j in 1:7])
 
 # Is this the dual of M ?
 K = [[M[r][c] for r in 1:5] for c in 1:7]
 Ki = [[Mi[r][c] for r in 1:5] for c in 1:7]
 Ku = [[Mu[r][c] for r in 1:5] for c in 1:7]
-# R for "by Rank"
-R = sum([K[i]⊗K[j] / (sum(K[i])*sum(K[j])) for i in 1:7 for j in 1:7])
 
 
 #det(C)
