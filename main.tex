@@ -74,13 +74,12 @@ Simply put, we collected some information on a real world random process. The so
 
 \section{The Simple Approach}
 Our goal is to determine if judges have a tendency to give higher scores to surfers that share their same nationality.
-The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality, i.e. test $H_0: \mu_M  - \mu_{\neg M} = 0$ vs. $H_1: \mu_M -\mu_{\neg M} \neq 0$.
-
-
-% ##### DIFF IN MEANS ########
-6.71160420326186
+The straight forward approach is to test the differences in means between judges with the same nationality as the surfer and those with a different nationality. So we perform a hypothesis test where our hypotheses are:
+\[ H_0: \mu_M  - \mu_{\neg M} = 0  \quad H_1: \mu_M -\mu_{\neg M} \neq 0 \]
+And the test statistic is $ t = \frac{\bar{x}}{s/\sqrt{N}} $. Note that we are performing a one sample t-test on a series of data $(x_i)_{i=1}^N$ where $x_i := \mu_{M,i}  - \mu_{\neg M,i}$.  We'd like to call a panel for a wave our "statistical unit". This would be a lie. Not every panel is included in these tests because some panels have 0 Judges from the same country as the surfer riding the wave. Which means the difference in means between Matching judges and Non-Matching judges looks like:
+\[\frac{\sum_{j \in \text{Matching Judges}} score(j) }{|\{Matching Judges\}|} - \frac{\sum_{j \in\text{Non-Matching Judges}} score(j) }{|\{Non-Matching Judges\}|} = \frac{0}{0} - \frac{\sum_{j \in\text{Non-Matching Judges}} score(j) }{|\{Non-Matching Judges\}} \]
+This is undefined. Nonetheless, we are only interested in the difference in means when there is a match between at least one judge's nationality and the surfer's nationality. Carrying out this test, we obtain a t-value around 6.71160420326186
 \includegraphics[width=\textwidth]{./src/visuals/DistOfDiffInMeans.png}
-
 
 Note there is no Diff In Means for ESP because there are 0 waves where AthOrig = ESP and ESP in Judge Origs
 
@@ -91,13 +90,16 @@ Note there is no Diff In Means for ESP because there are 0 waves where AthOrig =
 \includegraphics[width=8cm]{./src/visuals/DistOfDiffInMeansForUSA.png}
 \includegraphics[width=8cm]{./src/visuals/DistOfDiffInMeansForZAF.png}
 
-
-The difference of mean(DiffInMeans) is significant. However, the distribution of the differences in means is less compelling. 
+The difference of mean(DiffInMeans) is significant. However, the distribution of the differences in means is certainly less compelling. 
 
 And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is significant for AUS, BRA, FRA, USA, ZAF. Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
 
+\includegraphics[width=8cm]{.src/visuals/DiffInMeansCDFbyevent.png}
+\includegraphics[width=8cm]{.src/visuals/DiffInMeansCDFbyeventOrig.png}
+
 \section{The Judging Panel}
 In this section we delve a bit deeper into the intricacies of judging process, what a judging panel looks like from a statistical perspective, and some oddities involved with the data format. This section is in shambles.
+
 \subsection{The Judging Process}
 Though there are 5 judges and 5 scores, the score a surfer receives, called the "wave score", is the trimmed mean of the scores given by the 5 judges. This is very important information and particularly interesting because it distinguishes the \textit{existence} of biased judges from the effect of biased judging (if it exists).
 
