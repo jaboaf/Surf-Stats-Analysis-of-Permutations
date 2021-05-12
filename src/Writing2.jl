@@ -292,22 +292,6 @@ partitionBy(:heatId)[1][2][1].panel_origs
 partitionBy(:heatId)[1][2][1].panel
 partitionBy(:heatId)[2][2][1].panel_origs
 
-#' some utilities that will be of use
-⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
-⊗(a::NTuple{T},b::NTuple{T}) where T  = (a...,b...)
-
-×(A::Set,B::Set) = Set(Base.product(A,B))
-×(A::Array,B::Array) = collect(Base.product(A,B))
-
-#=
-E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )
-E(X::Array,I::NTuple) =dropdims(sum(X,dims=setdiff(1:ndims(X),I)),dims=tuple(setdiff(1:ndims(X),I)...))
-cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
-cov(X::Array,I::NTuple,j::K) where {K<:Integer} = E(X,(I...,j))-E(X,I)⊗E(X,j)
-cov(X::Array,i::K,J::NTuple) where {K<:Integer} = E(X,(i,J...))-E(X,i)⊗E(X,J)
-cov(X::Array,I::NTuple,J::NTuple) =E(X,(I...,J...))-E(I)⊗E(J)
-=#
-
 # this is succinct Julia for create a multidimensional array with 
 # 		Prob(arrangement of judges) = D[arrangement of judges]/sum(D)
 D = zeros(Float64, (7,7,7,7,7) );
@@ -386,12 +370,12 @@ plot(scorng,scoCDF,title="CDF of Score over every heat")
 
 savefig(plot(scorng,scoPDF,title="PDF of Score over every heat"),"visuals/scorePDFallHts.png")
 
-ht_scoPDs = E(H,(1,2))
+ht_scoPDs = E(H,(1,2));
 scoPDs_ht = permutedims(ht_scoPDs, [2,1]);
 plot(scorng,scoPDs_ht)
-scoPDFs_ht = mapslices(x->x/sum(x), scoPDs_ht,dims=1)
+scoPDFs_ht = mapslices(x->x/sum(x), scoPDs_ht,dims=1);
 plot(scorng,scoPDFs_ht)
-scoCDFs_ht = mapslices(x->cumsum(x), scoPDFs_ht,dims=1)
+scoCDFs_ht = mapslices(x->cumsum(x), scoPDFs_ht,dims=1);
 plot(scorng,scoCDFs_ht)
 plot(scorng,scoCDFs_ht,scorng,scoCDF,"x",markersize=.25,title="CDF of Score of Every Heat")
 
@@ -406,8 +390,8 @@ plot(scorng,mapslices(x->x ./ scorng *10, scoPDFs_ht,dims=1),scorng,scoPDF ./ sc
 plot(scorng,mapslices(x->x ./ scorng *10, scoCDFs_ht,dims=1),scorng,scoCDF ./ scorng * 10,"x",markersize=.3)
 
 # Now the quantile function
-Qsco(u) = [ findfirst(<=(u),scoCDF)/100 for u in 0:0.01:1]
-Qsco_hts = mapslices(x->[findfirst(<=(u),x)/100 for u in 0:0.01:1],scoCDFs,dims=1)
+QuantileSco = [ findfirst(>(u),scoCDF)/100 for u in 0:0.001:0.999]
+Qsco_hts = mapslices(x->[findfirst(>(u),x)/100 for u in 0:0.001:0.999],scoCDFs_ht,dims=1)
 
 =#
 # see this plot
