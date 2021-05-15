@@ -21,8 +21,10 @@
 \begin{document}
 \maketitle
 \tableofcontents
-\section{Construction}
-\subsection{Motivation}
+\section{Motivation}
+We are interested in determining if there is nationality bias in international surf competition. One can measure bias in many ways, however, not all of them may be appropriate, robust, or informative. So our focus is on the which methodologies are most appropriate and why.
+
+
 Our goal is to determine if judges have a tendency to give higher scores to surfers from their home country when compared to judges with a different home country.
 
 For any given ride, there is one surfer. The surfer has a nationality. Each judge on the panel has a nationality. So we can identify two subsets of the panel:
@@ -94,11 +96,26 @@ The difference of mean(DiffInMeans) is significant. However, the distribution of
 
 And we find that differences in means between Matching and Non-matching judges, conditional on a Nationality is significant for AUS, BRA, FRA, USA, ZAF. Though we will use the term "matching judge(s)" throughout the paper, it is important to keep in mind that it is the Athlete's origin which determines whether a judge is a "matching judge" or a "non-matching judge".
 
+
 \includegraphics[width=8cm]{./src/visuals/DiffInMeansCDFbyevent.png}
 \includegraphics[width=8cm]{./src/visuals/DiffInMeansCDFbyeventOrig.png}
+\includegraphics[width=8cm]{./src/visuals/DiffInMeansCDFbyathOrig.png}
 
 \section{The Judging Panel}
-In this section we delve a bit deeper into the intricacies of judging process, what a judging panel looks like from a statistical perspective, and some oddities involved with the data format. This section is in shambles.
+Any given judging panel is comprised of 5 judges, we will denote this set of distinct humans by $J:=\{j_1,j_2,j_3,j_4,j_5\}$. Each judge has a nationality, $c_i \in \{AUS,BRA,ESP,FRA,PRT,USA,ZAF\}$. When a surfer attempts to ride a wave, each judge writes down some score $s_i \in \{0.1,0.2,\dots,9.9,10.0\}$. So for any given wave we observe 5 pairs $[(c_1,s_1),(c_2,s_2),(c_3,s_3),(c_4,s_4),(c_5,s_5)]$. Sometimes two judges have the same nationality and write down the same score. 
+
+We'd like to introduce two examples/instances of a heat that we will use throughout the paper. They are the first two heats of the 2018 season; in particular, Heat 1 and 2 of Round 1 of first event of 2018 called "Quiksilver Pro Gold Coast".
+
+In Round 1 Heat 1 of the "Gold Coast" event, located in Australia, the panel consists of 5 judges. Their nationalities are $[AUS,BRA,ESP, USA,ZAF]$. Caio Ibelli, a Brazilian surfer, takes the first wave of the heat and the panel gives the following scores for his efforts: $ [(AUS,0.5), (BRA,0.3),(ESP,0.5),(USA,0.5),(ZAF,0.3)]$. The scores are $[0.5,0.3,0.5,0.5,0.3]$, so the mean score is $1/5(0.5+0.3+0.5+0.5+0.3) = 0.42$, and the "WSL Score" is mean of the panel's scores with (one of) the highest and lowest score dropped, $1/3(0.3+0.5+0.5) = 0.4\bar{3}$, which is rounded to $0.43$. Below is the series of wave scores for the Round 1 Heat 1.
+\includegraphics[width=6cm]{./src/visuals/2018GCR1/WaveScoresByAthH1.png}
+\includegraphics[width=6cm]{./src/visuals/2018GCR1/WaveScoresH1.png}
+
+In Round 1 Heat 2 of the Gold Coast event, the panel consists of 5 judges, and their nationalities are $[AUS,AUS,BRA,BRA,USA]$. Michael Rodrigues rides the first wave of the heat and we observe the panel: $[(AUS,0.3),(AUS,0.3),(BRA,0.2),(BRA,0.5),(USA,0.3)]$. The mean score of this wave is 0.32, and the WSL score is 0.30.
+\includegraphics[width=6cm]{./src/visuals/2018GCR1/WaveScoresByAthH2.png}
+\includegraphics[width=6cm]{./src/visuals/2018GCR1/WaveScoresH2.png}
+
+There's s
+
 
 \subsection{The Judging Process}
 Though there are 5 judges and 5 scores, the score a surfer receives, called the "wave score", is the trimmed mean of the scores given by the 5 judges. This is very important information and particularly interesting because it distinguishes the \textit{existence} of biased judges from the effect of biased judging (if it exists).
@@ -118,6 +135,8 @@ Though there is no formal rubric for judging, the following criteria are emphasi
 Since there are a wide range of locations or wave conditions, the relative importance of an element on this list will vary. The elements of that the judges believe are particularly important on a given day are sometimes communicated to surfers and viewers.
 
 \subsection{The Panel Data}
+
+
 JOJO: Can you just pick one (or maybe two) heats to use as running examples please? What heat characteristics would we like here. We don't have to look too far.
 
 There are many beautifully intricate parts the data, but this one caught our interests.
@@ -155,7 +174,16 @@ However, our information from the rule book tells us that this certainly cannot 
 \subsection{Multisets}
 Though the definition of a multiset on A as a function $f:A\rightarrow\mathbb{N}$ is pleasant to work with, it omits some of the structure intrinsic to a multiset. Namely, consider how a multiset arises in an applied setting. We have some knowledge or information about the judges, ie. some function $k: J_{pool} → C$, which maps a judge in the judging pool to their nationality $c\in C$. How do we arrive at the $f:C\rightarrow\mathbb{N}$ ? By: $f(c) = \sum_{j\in J} 1_{k(j)=c}$. Evidently f is the sum of simple functions of our information. So f really isn't representative of much and truly depends on some reference set or information. Additionally, if we had additional structure on J, for example a total order where $j_1<j_2<j_3 <j_4<j_5$, its not entirely clear how we can extend the structure to the multiset.
 
-Hence, we define: a multiset on a set A is **an** equivalence class of $l(A)$ where:
+
+
+$M(A)$ may be understood as an unordered array. Suppose we have a set $A = \{x,y,z\}$, then 
+$l(A) = \{ () \}\cup \{(x),(y),(z)\} \cup \{(x,x)(x,y),(x,z),(y,x),(y,y),(y,z),(z,x),(z,y),(z,z)\} \cup \dots $
+$M(A) = \{()\}, \{(x)\},\{(y)\},\{(z)\} , \{(x,x)\}, \{(x,y),(y,x)\},  \{(x,z),(z,x)\},\{(y,y)\},\{(y,z),(z,y)\}, \dots $
+
+We introduce array notation, in which the multiset $\{(x,x,y),(x,y,x),(y,x,x)\} = [x,x,y]$ or equivalently as $[x,y,x]$, $[y,x,x]$. More formally we define an array $[ma^1,ma^2,\dots, ma^k] := S_k(ma^1,ma^2,\dots,ma^k)$
+
+
+Hence, we define: a multiset on a set A is \textbf{an} equivalence class of $l(A)$ where:
 $l(A):= \bigcup_{n\in\mathbb{N}}A^{×n}$ where ×n denotes the nth Cartesian power. Note that this is certainly a disjoint union.
 $M(A) := l(A)/\sim$ where $x\sim y$ if and only if $\#x=\#y $ and $\exists \tau \in S_{\#x}$ s.t. $\tau x=y$, where $\#x:=n $ s.t. $ x\in A^{×n}$. 
 To show that $M(A)$ is well defined, we must show that $\sim$ is an equivalence relation:
@@ -166,8 +194,8 @@ To show that $M(A)$ is well defined, we must show that $\sim$ is an equivalence 
 \end{itemize}
 
 Further, let us define:
-$\otimes:l(A)\times l(B)\rightarrow l(A\cup B)$ by $\otimes(x,y) = x\otimes y = (x^1,\dots,x^m,y^1,\dots,y^n)$. This is well defined because $x\otimes y \in (A\cup B)^{\times(m+n)} \subset l(A\cup B)$.
-And define $\otimes:M(A)\times M(B)\rightarrow M(A\cup B)$  by $\otimes(mA,mB):=\{\otimes(x,y) \mid (x,y)\in mA\times mB\} = \{x \otimes y \mid (x,y)\in mA\times mB\}$
+$\otimes:l(A)\times l(B)\rightarrow l(A\cup B)$ by $\otimes(x,y):=x\otimes y $, i.e. $ \otimes((x^1,\dots,x^m),(y^1,\dots,y^n)) =  (x^1,\dots,x^m)\otimes(y^1,\dots,y^n) =(x^1,\dots,x^m,y^1,\dots,y^n)$. This is well defined because $x\otimes y \in (A\cup B)^{\times(m+n)} \subset l(A\cup B)$. This may be interpreted as 
+And define $\otimes:M(A)\times M(B)\rightarrow M(A\cup B)$  by $\otimes(mA,mB):=\{\otimes(x,y) \mid (x,y)\in mA\times mB\} = \{x \otimes y \mid (x,y)\in mA\times mB\} = mA\otimes mB$
 
 To be clear: \textit{$M(A)$ is a set of equivalence classes of $l(A)$ under $\sim$,} and a multiset on A, denoted mA, is an element of $M(A)$, i.e. mA is an equivalence class. Though $(mA^1,\dots,mA^k)$ and $\otimes(mA^1,\dots,mA^k)=mA^1\otimes\dots\otimes mA^k$ look very similar, they are not the same.
 \begin{itemize}
@@ -176,16 +204,25 @@ To be clear: \textit{$M(A)$ is a set of equivalence classes of $l(A)$ under $\si
 \end{itemize}
 This construction has some nice properties:
 \begin{itemize}
-\item Let $V_A := span\{e_a \mid a \in A\}$ over $\mathbb{R}$ (any field with char 0 should do i think). Given any function $\alpha:M(A)\rightarrow\mathbb{R}$ we may define $v \in T(V_A)$ by $v = \sum_{W \in M(A)} \alpha(W) \sum_{x\in W}v_x$, which is completely symmetric by definition of W ($v_x = e_{x^1}\otimes\dots\otimes e_{x^{\#x}}$)
-\item Any $p:mA\rightarrow\mathbb{R}$ satisfying $\sum_{t\in mA} p(t) = 1$, defines a probability distribution. Moreover, we may represent this as $P \in T(V_A)$ by $P=\sum_{t\in mA} p(t)v_t$.
-\item And more to come.
+\item The automorphism of  a multiset, $mA$, is $S_{\#mA}$ (where $\#mA := n $ s.t.  $mA \subset A^{\times n}$).
+\item Let $V_A := span\{e_a \mid a \in A\}$ over $\mathbb{R}$ (any field with char 0 should do i think). Given any function $\alpha:M(A)\rightarrow\mathbb{R}$ we may define $v \in T(V_A)$ by $v = \sum_{W \in M(A)} \alpha(W) \sum_{w\in W}v_w$, which is completely symmetric by definition of W ($v_w = e_{w^1}\otimes\dots\otimes e_{w^{\#w}}$)
+\item Any $p:mA\rightarrow\mathbb{R}$ satisfying $\sum_{t\in mA} pt = \sum_{t\in mA} p(t^1,\dots,t^{\#t}) = 1$, defines a probability distribution. Moreover, we may represent this as some $P \in T(V_A)$ by defining $P=\sum_{t\in mA} ptv_t = \sum_{t\in mA} p(t^1,\dots,t^{\#t})v_t $. (In general we will not place parenthesis around a functions argument).
+\item With the same p as above, we may define a polynomial $F\in \mathbb{R}[x_a \mid a \in A]$by $F(x_1,\dots,x_{|A|}) = \sum_{t\in mA} ptz_t$ where $z_t $is the monomial: $\prod_{a\in A} x_a^{t_a}$ where $t_a := |\{j \mid t^j = a\}|$
 \end{itemize}
 
 \begin{definition}: An \textbf{ordered partition} of a multiset mA is a k-tuple of multisets on A, $\lambda=(mA^1,\dots,mA^k)$, satisfying $\otimes\lambda=\otimes(mA^1,\dots,mA^k)=mA^1\otimes\dots\otimes mA^k \subseteq mA$. And by definition of $\#, \#\lambda=k$. \end{definition}
+\begin{definition}: The set of ordered partitions of a multiset $mA\in M(A)$ is $\Pi_{mA}:=\{\lambda \in l(M(A)) \mid \otimes\lambda \subseteq mA\}$. \end{definition}
+\begin{definition}: An unordered partition of a multiset mA, is a multiset of multisets on A, i.e. some $K \in M(M(A))$, satisfying $k\in K \implies \otimes k \subseteq mA$. By definition of multiset, $K=\{ \tau k \mid \tau \in S_{\#k}\}$.\end{definition}
+\begin{definition}: The set of unordered partitions of a multiset $mA \in M(A)$ is $\Upsilon_{mA} := \{ U \in M(M(A)) \mid \upsilon \in U \implies \otimes\upsilon \subseteq mA \}$.  In English this is precisely saying that the set of unordered partitions is a set of multisets of multisets, each of which is an unordered partition of a particular multiset,$mA$.\end{definition}
 
-\begin{definition}: The set of ordered partitions of a multiset $mA\in M(A)$ is $\mathbb{\Pi}_{mA}:=\{\lambda \in l(M(A)) \mid \otimes\lambda \subseteq mA\}$. \end{definition}
+\begin{definition}: A multiset mA is a sub-multiset of mB if and only if 
+\end{definition}
 
-\begin{definition}: An unordered partition of a multiset mA, is a multiset of multisets on A, call it $K$, where an arbitrary element $k\in K$ satisfies $\otimes k \subset mA$. By definition of multiset, $K=\{ \tau k \mid \tau \in S_{\#k}\}$.\end{definition}
+
+\begin{remark} These look and sound a bit absurd at first, however, they are the proper definitions. We introduced If you replace "multiset" with "set, we end up with:
+The set of ordered partitions of a set A is a set of k-tuples, each of which partitions A.
+The set of unordered partitions of a A is a set of sets of sets, each of which is a unordered partition of A.
+\end{remark}
 
 JOJO can you show that the function definition by blizzard is a faithful representation of this ?? that would be useful. Think slowly here Representation in a discrete set function space should be the same thing that you understand concretely in GL(V).
 
@@ -199,12 +236,8 @@ The actions of permutations on different mathematical objects can be a bit confu
 
 For a concrete example let $d=3, x=(USA,AUS,BRA), y=(1,1,2)$ and 
 $$\tau = \begin{pmatrix} 1 & 2 & 3\\ 3 & 2 & 1 \end{pmatrix}$$
-
-$\tau$ acts on by x by rearranging the entries of x, i.e. $\tau x = \tau(USA,AUS,BRA) =(BRA,AUS,USA)$.
-$\tau$ acts on by y by rearranging the entries of y, i.e. $\tau y = \tau(1,1,2) =(2,1,1)$.
-
-$\hat{\tau}x$ cannot act on x because $\tau$ is not defined on $\{AUS,BRA,USA\}$.
-$\hat{\tau}x$ acts on y by applying $\tau$ to each entry of y, i.e. $\hat{\tau}y = \hat{\tau}(1,1,2) =(\tau(1),\tau(1),\tau(2) ) =(3,3,2)$.
+$\tau$ acts on by x by rearranging the entries of x, i.e. $\tau x = \tau(USA,AUS,BRA) =(BRA,AUS,USA)$. $\hat{\tau}$ cannot act on x because $\tau$ is not defined on $\{AUS,BRA,USA\}$.
+$\tau$ acts on by y by rearranging the entries of y, i.e. $\tau y = \tau(1,1,2) =(2,1,1)$. $\hat{\tau}$ acts on y by applying $\tau$ to each entry of y, i.e. $\hat{\tau}y = \hat{\tau}(1,1,2) =(\tau(1),\tau(1),\tau(2) ) =(3,3,2)$.
 
 \subsection{Partitions And Exchangeability}
 This notion of a partition is different than the typical ones. P Martin and others use a Partition Algebra first introduced by Brauer in 1913?, we are no experts in this realm but the notion seems most useful when analyzing the automorphisms of partitions of a set. Multisets cannot be accommodated (JOJO you must be more informed than this come on man).
@@ -241,7 +274,7 @@ In this concrete setting, the definition of exchangeability requires that $P(\{B
 
 Remember the first wave of the second heat of 2018? Michael Rodrigues started the heat of with a whopping 0.3, but taking the panel the under an equivalence relation that Judge1 $\sim$Judge2 if and only if Judge1's score = Judge2's score, we ended up with an ordered partition of the panel: $([BRA],[AUS,AUS,USA],[BRA])$. Our desired exchangeability is: $P([BRA],[AUS,AUS,USA],[BRA]) = P\hat{\gamma}([BRA],[AUS,AUS,USA],[BRA])$
 
-Taking a similar $$\gamma:=\begin{pmatrix} AUS & BRA & USA \\ BRA & USA & AUS \end{pmatrix}$$ as before, $P(\gamma[BRA],\gamma[AUS,AUS,USA],\gamma[BRA])= P([\gamma(BRA)],[\gamma(AUS),\gamma(AUS),\gamma(USA)],[\gamma(BRA)])$ = $P([USA],[BRA,BRA,AUS],[USA])$. This seems a little hard to expect, at least within our heat, because the panel for this heat consists of 2 Australian judges, 2 Brazilian judges, and 1 American judge. Or maybe we would like to be strict and require that arrangements, with their multiplicities, are equally probable under any permutation of judge origins?
+Taking a similar $\gamma:=\begin{pmatrix} AUS & BRA & USA \\ BRA & USA & AUS \end{pmatrix}$ as before, $P(\gamma[BRA],\gamma[AUS,AUS,USA],\gamma[BRA])= P([\gamma(BRA)],[\gamma(AUS),\gamma(AUS),\gamma(USA)],[\gamma(BRA)])$ = $P([USA],[BRA,BRA,AUS],[USA])$. This seems a little hard to expect, at least within our heat, because the panel for this heat consists of 2 Australian judges, 2 Brazilian judges, and 1 American judge. Or maybe we would like to be strict and require that arrangements, with their multiplicities, are equally probable under any permutation of judge origins?
 
 (JOJO i need you to be able to pin down when this is a "fair" or somewhat "fair" expectation and when it is not. Does this necessitate that countries are equally represented? Yes i think, if we are seeing ordered arrangements of our full multiset, but no if we are seeing ordered arrangements of a subset of the multiset, for example, we could have exactly 5 judges of each country. But it is also viable if we have >= 5 judges from each ctry. How does the definition change when we use $\gamma\in S_{ctry set}$ vs. $\gamma\in S_5$? Generalizing this seems incredibly fun.   .... Thinking about this a bit more, we could just frame everything in terms of orbits of a multiset mA or partition of mA, which depends on the group of choice. If we take $S_{\#\lambda}$ as the group, the orbit of some $\lambda \in \Pi_{mA}$ is the set of permutations of the blocks. If we take the group to be $S_C$, the orbit of $\otimes\lambda$, (under applications of $\hat{\gamma}$), will be the permutations of frequencies of element of the multiset. Note that if we take $\lambda$ alone, we must apply $\hat{\hat{\gamma}}$ for $\gamma \in S_C$. Now, what if we take a combined orbit?)
 
@@ -249,7 +282,7 @@ Regardless of whether this is a fair notion, you may notice that we passed the a
 
 \subsection{Definitions Of Exchangeability}
 A probability distribution on multiset partions $P: \Pi_{mA}\rightarrow \mathbb{R}$ is.....
-\textbf{Partially exchangeable} if and only if: 	$\forall \lambda \in \Pi_{mA}\:  \forall\tau\in S_{\#\lambda} \quad P\lambda = P(mA^1,…,mA^k)= P\tau(mA^1,…,mA^k)= P\tau\lambda $
+\textbf{Partially exchangeable} if and only if: 	$\forall \lambda \in \Pi_{mA}\:  \forall\tau\in S_{\#\lambda} \quad P\lambda =P\tau\lambda$, i.e. $P(mA^1,…,mA^k)= P\tau(mA^1,…,mA^k) $
 
 \textbf{Exchangeable} if and only if:
 $\forall \lambda \in \Pi_{mA}\:\forall \gamma\in S_n\quad P\circ\otimes\lambda=P\circ\gamma\circ\otimes\lambda $ where $n:=\sum_k k\lambda_k$ (note that $\gamma$ is applied to elements of $\otimes\lambda$ which are all n-tuples so action of $S_n$ makes sense.
@@ -276,6 +309,14 @@ JOJO how bout we implement a multivariate-hypergeometric model for panel composi
 JOJO How bout you actually just make a quick through all of the rank tests you know / can find. they really aren't too hard to code, just do it. Then we can see how well they do, and maybe improve upon them? Figure out WHY they work or don't work.
 
 \subsection{Lets talk about equivalence classes and the axiom of choice}
+
+\subsection{Cumulants}
+These seem to be considered mostly when the random variable is a number or a vector. We do not have either of those.
+Propose: Cumulant of a tensor (of rank d) defined by automorphisms, which we could consider as measurable maps. Just as the first cumulant of a vector is defined by the first moment, this can be the case for a tensor. 
+
+Some citations:
+T.P. Speed Cumulants and Partition Lattices I,II, ...
+
 
 
 \section{Methods}
@@ -325,25 +366,19 @@ The \textit{definition} of $*$ may look odd, but it exactly the same as our basi
 \begin{definition} A measure on $S_d$, $F = \sum_{\tau \in S_n} f_\tau \tau $, is a probability measure on $S_d$ if and only if $\forall \tau \in S_d f_\tau \geq 0 $ and $\sum_{\tau \in S_n} f_\tau = 1 $
 \end{definition}
 
-
 \subsection{Statistical Model for Permutations}
+Parameter Space: $\Theta = [0,d]\subseteq \mathbb{R} $
+Likelihood Function: $P:S_d \times \Theta \rightarrow \mathbb{R}$ defined by $ (\tau,\theta) \mapsto \frac{\theta^{c(\tau)}}{\prod_{k=1}^d \theta +k-1} $ where $ c(\tau) $ is the number of cycles in $\tau $
+Prior: $R: \Theta \rightarrow \mathbb{R} $, is the uniform distribution, i.e. $ R(\theta) = 1/d $.
+$ \int_{[0,d]} \prod_{i=1}^N P(Y^{(i)},\theta) R(\theta) d\theta = \int \frac{\theta^{\sum_i c(Y^{(i)}) }}{(\prod_{k=1}^d \theta +k-1)^N} \frac{1}{d} d\theta $
+... this is very difficult to integrate by hand, we could just do it numerically.
+... if we take an MLE approach we get a constraint: $\frac{\sum_i c(Y^{(i)})}{n} = \sum_{k=1}^d \frac{\theta}{\theta+k-1}$
+EWENS urn problem
+Same Parameter space, and prior, diff Likelihood, $P:\Pi\times\Theta\rightarrow\mathbb{R}$ given by $(\lambda,\theta) \mapsto \frac{\theta^{\#\lambda}}{\prod_k^d k^{\lambda_k} \prod_k^d \theta +k-1} $
+Also tough do integrate by hand
 
-Idea 1:
-Parameter Space (integer partitions of n): $\Theta := \{ \theta \in \mathbb{N}^n \mid \sum_i \theta_i = n \} $
-Parametric Distribution (indicator on conjugate class): $ P_\theta(\tau) := \frac{ 1}{ |CL(\theta)| }1_{ \tau \in CL(\theta) } $$
-Model: $ \mathcal{M}_\Theta := \{P_\theta \mid \theta \in \Theta \} $
+Both have big polynomials in the denominators (which have nice coefficients) and high degree on top, i don't know how to deal with this besides numerical integration.
 
-Idea 2
-Parameter Space: \( \Theta := S_n\)
-Parametric Distribution: \( P_\pi (\tau) := (\frac{1}{2})^{\{n}\)
-
-
-Note: for any $A \in 2^{S_n} $, P(A) is not a number. P(A) is a set, namely the image of P when restricted to A. 
-
-Given any probability measure, $P$, on $S_n$, the probability of $A$ w.r.t $P$ is $ P_A  := \sum_{\tau \in A} P(\tau) $, which may be represented as $\hat{P}_A := \sum_{\tau \in A} P(\tau) \rho(\tau) $, observe $\hat{P}_A = \sum_{\tau \in A} \hat{P}_\tau $. 
-
-Point Mass at $\gamma$: $ P_\gamma(\tau) = 1 $ if $\tau = \gamma$ else 0
-( MGF is $\exp(\hat{P}_\gamma)$ )
 
 See other section.... I don't know why they are detached FIX!
 
@@ -377,23 +412,6 @@ complete concensus, and L-decomposability
 \subsection{Methods of Constructing Distributions}
 
 \section{Statistical Models}
-\subsection{A Model for a Data Set}
-Consider a set of data, \( \mathbf{X} := \{ x_i \}_{i=1}^N\)
-Let \(
-\Theta := \{ \theta \in \mathbf{R}_{\geq 0}^d \mid  \|\theta\|_1 = 1\} = \{x\in \mathbf{R}_{\geq 0}^d \mid \sum_{i=1}^d \theta_i = 1\} 
-\) 
-which defines the model, \(
-\mathcal{M}_\Theta = \{ P_\theta \mid \theta \in \Theta \}
-\)
-What is $P_\theta$?
-
-Well it could be a lot of things. We will present a couple of options and compare them. But first we make a key observation. 
-We could have $ \forall \pi \in \mathcal{S}_n \: P_\theta(\pi) = P_\theta(\pi^{-1}) $
-Or define some $c(\cdot):\mathcal{S}_n \rightarrow \mathbf{R} $ where $. c(\pi) = c(\pi^{-1}) $ so that $ \forall \pi \in \mathcal{S}_n \: P_\theta(\pi) + P_\theta(\pi^{-1})  = c( \pi ) $. More generally, $c(\cdot) $ would be considered a class function
-
-Suppose \( P_\theta(\pi) := \frac{1}{n!}\sum_{i=1}^n \theta_i\theta_{\pi(i)} = \frac{1}{n!}\theta^t P_\pi\theta \) 
-This would satisfy constant on conjugacy classes. ie. $ P_\theta(\pi) = P_\theta(\pi^{-1}) $
-
 \subsection{A Model for a Data Sequence}
 Suppose we are given a set of labels, L, and observe a sequence of N data points: $ (X_i \in S_L)_{i=1}^N$
 It doesn't matter whether we wish to think of $X_i$ as a matrix or a element in the group... all the same.
