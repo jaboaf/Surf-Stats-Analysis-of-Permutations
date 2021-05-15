@@ -335,7 +335,7 @@ histogram( sum.(AbsErr) )
 
 Y = Array{<:Number,5}[]
 Hts = map(x->map(y->y.λ_origs,x),last.(partitionBy(:heatId)) );
-for ht_λs in H
+for ht_λs in Hts
 	Yᵢ = zeros(Float32, (7,7,7,7,7))
 	for λ in ht_λs
 		c = prod( factorial.(length.(λ)) )
@@ -479,8 +479,6 @@ est_c12_4 = map(c->sum(abs.((PSD[4]-c1_4*P1_4)-c*P12_4)), -2:0.1:5)
 plot(-2:0.1:5,est_c12_4)
 c12_4 = (-2:0.1:5)[findmin(est_c12_4)[2]]
 Figure()
-
-
 
 
 

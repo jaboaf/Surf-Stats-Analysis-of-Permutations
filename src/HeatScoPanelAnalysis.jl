@@ -40,11 +40,13 @@ C = sum([M[i]⊗M[j] / (sum(M[i])*sum(M[j])) for i in 1:5 for j in 1:5])
 R = sum([K[i]⊗K[j] / (sum(K[i])*sum(K[j])) for i in 1:7 for j in 1:7])
 
 # simply panel data prob dist.
-P = E(H,3,4,5,6,7) / sum(H);
+P = E(H,(3,4,5,6,7)) / sum(H);
 # probability vector variate
 F_m = mapreduce(v->v/sum(v),⊗,M);
+F_k = mapreduce(v->v/sum(v),⊗,K);
 F_mi = mapreduce(v->v/sum(v),⊗,Mi);
 F_mu = mapreduce(v->v/sum(v),⊗,Mu);
+
 
 
 
