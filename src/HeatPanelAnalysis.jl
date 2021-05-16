@@ -4,6 +4,7 @@ N = 910
 S = SymOp(P)
 total = sum(P)
 Y = Array{<:Number,5}[]
+Hts = map(x->map(y->y.λ_c,x),last.(partitionBy(:heatId)));
 for ht_λs in Hts
 	Yᵢ = zeros(Float32, (7,7,7,7,7))
 	for λ in ht_λs
