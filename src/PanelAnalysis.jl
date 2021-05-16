@@ -8,6 +8,7 @@ for λ in Panel_λs
 		P[ Int.(vcat(a...))... ] += 1/c
 	end
 end
+
 #=
 s = 0
 D = zeros(Float64, (5,5,5,5,5,5,5) );
@@ -19,21 +20,3 @@ for t in multiset_permutations([c for i in 1:4 for c in JUD_ORIGS],5)
 	s += P[Int.(t)...]
 end
 =#
-
-N = 910
-S = SymOp(P)
-total = sum(P)
-Y = Array{<:Number,5}[]
-Hts = map(x->map(y->y.λ_origs,x),last.(partitionBy(:heatId)) );
-for ht_λs in Hts
-	Yᵢ = zeros(Float32, (7,7,7,7,7))
-	for λ in ht_λs
-		c = prod( factorial.(length.(λ)) )
-		for a in Base.product( Sym.(λ)...)
-			Yᵢ[ Int.(vcat(a...))... ] += 1/c
-		end
-	end
-	push!(Y,Yᵢ)
-end
-# turn heats in to densities
-Y = 
