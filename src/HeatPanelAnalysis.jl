@@ -1,4 +1,4 @@
-include("PanelAnalysis")
+include("PanelAnalysis.jl")
 
 N = 910
 S = SymOp(P)
@@ -16,18 +16,30 @@ for ht_λs in Hts
 	push!(Y,Yᵢ)
 end
 
+Yd = map(y->y/sum(y),Y)
+
 W = sum.(Y)
 
 # Total Variation
 TV = map(y-> y-SymOp(y) ,Y);
+ATV = map(y-> 1/2*abs.(y-SymOp(y)) ,Yd);
+
+BV = [abs.(P-SymOp(P))];
+
+
+KS
+
+#=
 DevTV = map(y-> abs.(y) - SymOp(abs.(y)),TV)
 
 # Abs Total Var
-ATV = map(y-> abs.(y-SymOp(y)) ,Y);
-DevATV = map(y-> abs.(y - SymOp(y)),ATV);
-DevDevATV = map(y-> abs.(y - SymOp(y)),DevATV);
-Dev3ATV = map(y-> abs.(y - SymOp(y)),DevDevATV);
-Dev4ATV = map(y-> abs.(y - SymOp(y)),DevDevATV);
+
+DevATV = map(y-> 1/2*abs.(y - SymOp(y)),ATV);
+Dev2ATV = map(y-> 1/2*abs.(y - SymOp(y)),DevATV);
+Dev3ATV = map(y-> 1/2*abs.(y - SymOp(y)),Dev2ATV);
+Dev4ATV = map(y-> 1/2*abs.(y - SymOp(y)),Dev3ATV);
+Dev5ATV = map(y-> 1/2*abs.(y - SymOp(y)),Dev4ATV);
+Dev6ATV = map(y-> 1/2*abs.(y - SymOp(y)),Dev5ATV);
 
 
 DevTVanother = map(y-> y-SymOp(y),TV);
@@ -51,13 +63,17 @@ oplot(sum.(DevATV))
 oplot(sum.(DevDevATV))
 oplot(sum.(Dev3ATV))
 
-plot(1/2 .* sum.(ATV) ./ W)
-oplot(1/2 .* sum.(DevATV) ./ W)
-oplot(1/2 .* sum.(DevDevATV) ./ W)
-oplot(1/2 .* sum.(Dev3ATV) ./ W)
-oplot(1/2 .* sum.(Dev4ATV) ./ W)
+plot(sum.(ATV) , ylim=(0,1))
+oplot(sum.(DevATV) )
+oplot(sum.(Dev2ATV) )
+oplot(sum.(Dev3ATV) )
+oplot( sum.(Dev4ATV) )
+=#
+
+#=
+Note:
+Taking 1/2^(k+1) * DevkATV ./W gives kth symmetric proportional error
 
 
-
-Dev2TV = map(y-> y - SymOp(y),DevTV)
+=#
 
