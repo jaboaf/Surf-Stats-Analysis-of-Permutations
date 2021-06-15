@@ -1,11 +1,9 @@
 # Multi
-struct Multi
+Spar <: Array{ }
 println(typeof(Multi))
 println(dump(Multi))
 
-
-
-Multi.parameters = 
+Multi.parameters = Core.svec(5,5,5,5,5)
 
 #=
 DataType <: Type{T}
@@ -28,5 +26,7 @@ DataType <: Type{T}
   zeroinit::Bool
   isinlinealloc::Bool
   has_concrete_subtype::Bool
-
 =#
+
+
+type SparseArray{Tv,Ti,N} <: AbstractSparseArray{Tv,Ti,N} where {Ti <: NTuple{N,<:Integer}, Tv, N}

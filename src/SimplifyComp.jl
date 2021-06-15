@@ -41,10 +41,12 @@ sznDict = Dict(["2018"=>WCT18, "2019"=>WCT19])
 
 # varRng takes in element of field name s of a wave ∈ WAVES and returns sorted {wave.s | wave ∈ WAVES}
 function varRng(s::Symbol)
-	Rng=Set()
-	for wave in WAVES
-		push!(Rng, wave[2][s])
-	end
+	Rng=Set(NamedTuple{(s,)}.(last.(WAVES)))
+	return sort(collect(Rng))
+end
+
+function varRng(S::NTuple{N,Symbol}) where N
+	Rng=Set(NamedTuple{S}.(last.(WAVES)))
 	return sort(collect(Rng))
 end
 
@@ -53,6 +55,16 @@ function partitionBy(s::Symbol)
 	partition = [b => [] for b in By]
 	for wave in WAVES
 		i = findfirst(==(wave[2][s]), By) # note: can call field of named tuple with []
+		push!(partition[i][2], wave[2] )
+	end
+	return partition
+end
+
+function partitionBy(S::NTuple{N,Symbol}) where N
+	By = varRng(S)
+	partition = [b => [] for b in By]
+	for wave in WAVES
+		i = findfirst(==(NamedTuple{S}(wave[2])), By) # note: can call field of named tuple with []
 		push!(partition[i][2], wave[2] )
 	end
 	return partition
@@ -85,22 +97,27 @@ for wave in data
 end
 
 WAVES = []
+Tups = []
 for wid in WaveIds
+	c = data[wid]["subScoOrig"]
+	s = data[wid]["subSco"]
     panelInfo =  sort(data[wid]["subSco"] .=> data[wid]["subScoOrig"])
     binaryPanelInfo = sort(data[wid]["subSco"] .=> (data[wid]["subScoOrig"] .== data[wid]["athOrig"]))
 
-    labPan = []
-    binaryLabPan = Dict([:Match => [], :NoMatch => [] ])
+    invlabPan = []
+    binaryLabPan = [0 => [], 1 => [] ]
     for c in unique(last.(panelInfo))
     	I = findall(==(c), data[wid]["subScoOrig"])
-    	push!(labPan, sort(data[wid]["subSco"][I])=>data[wid]["subScoOrig"][I])
+    	push!(invlabPan, sort(data[wid]["subSco"][I])=>data[wid]["subScoOrig"][I])
     	if c==data[wid]["athOrig"]
-    		binaryLabPan[:Match] = data[wid]["subSco"][I]
+    		push!(binaryLabPan[1][2], data[wid]["subSco"][I]...)
     	else
-    		push!(binaryLabPan[:NoMatch], data[wid]["subSco"][I]... )
+    		push!(binaryLabPan[2][2], data[wid]["subSco"][I]... )
     	end
     end
-    eqPan = sort(labPan)
+    labPan = unique.(last.(invlabPan)) .=> first.(invlabPan)
+
+    eqPan = sort(invlabPan)
     if !(isordered(first.(eqPan)))
 		cond = true
 		while cond
@@ -110,17 +127,12 @@ for wid in WaveIds
 			cond = eval( !(isordered( collect(first.(eqPan)) )) )
 		end
 	end
+	eqPart = ntuple(i->eqPan[i][2],length(eqPan))
+	eqPartBinary = map(p-> p .== data[wid]["athOrig"],eqPart)
 
-    partition_binary = []
-    partition_origs = []
-	for s in sort(unique(data[wid]["subSco"]))
-		I = findall(x-> x==s, data[wid]["subSco"])
-		push!(partition_binary, data[wid]["subScoOrig"][I] .== data[wid]["athOrig"] )
-		push!(partition_origs, data[wid]["subScoOrig"][I])
-	end
 	scos = unique(first.(panelInfo))
-	part = ntuple(i->last.(panelInfo[findall(x->x[1]==scos[i],panelInfo)]),length(scos))
-
+	part_c = ntuple(i->last.(panelInfo[findall(x->x[1]==scos[i],panelInfo)]),length(scos))
+	part_b = ntuple(i->last.(binaryPanelInfo[findall(x->x[1]==scos[i],binaryPanelInfo)]),length(scos))
 
     wave = (
         id=wid,
@@ -154,21 +166,31 @@ for wid in WaveIds
 
         eqPanel = eqPan,
 
-        λ_origs = partition_origs,
-        λ_binary = partition_binary,
-        λ_c = part,
+        λ_c = part_c,
+        λ_b = part_b,
+        λ_eqc = eqPart,
+        λ_eqb = eqPartBinary,
+
+        m_c = map(c->count(==(c),data[wid]["subScoOrig"]), tuple(JUD_ORIGS...) ),
+        m_b = map(ind->count(==(ind), last.(binaryPanelInfo)),(0,1) ),
+        m_c_supp = map(c-> c in data[wid]["subScoOrig"], tuple(JUD_ORIGS...) ),
         
         panel_scores= Multiset(data[wid]["subSco"]),
         panel_origs= Multiset(data[wid]["subScoOrig"]),
 		I_match = Int(data[wid]["athOrig"] in data[wid]["subScoOrig"])
     )
     push!(WAVES, wid=>wave)
+    push!(Tups, wave)
 end
 
 ⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
 ⊗(a::NTuple{T},b::NTuple{T}) where T  = (a...,b...)
+⊗(a::NTuple{N,T},b::NTuple{M,T}) where {T,N,M}  = (a...,b...)
 ×(A::Set,B::Set) = Set(Base.product(A,B))
 ×(A::Array,B::Array) = collect(Base.product(A,B))
+⊕(V::Vararg{Array{T,N} where N,m}) where {T,m} = [ sum(filter(x->size(x)==d,V)) for d in unique(size.(V)) ] 
+⨁(A::Array{Array{T,N} where N,1}) where T <: Number = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
+⨂(A::Array{Array{T,N} where N,1}) where T <: Number = reduce(⊗,A)
 
 
 E(X::Array,i::K) where {K<:Integer} =dropdims( sum(X,dims=setdiff(1:ndims(X),i)),dims=tuple(setdiff(1:ndims(X),i)...) )

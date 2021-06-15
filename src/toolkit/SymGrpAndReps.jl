@@ -143,7 +143,7 @@ end
 
 # Alternating operations
 # for a permutation
-function AltOp( M::Array{<:Number, d}) where d
+function AltOp( M::Array{<:Number,d}) where d
     return 1//factorial(d)* mapreduce( p -> sgn(p)*permutedims(M, p), +, Sym(d) )
 end
 # for a d-dimensional array
