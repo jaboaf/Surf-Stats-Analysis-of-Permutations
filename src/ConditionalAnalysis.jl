@@ -53,28 +53,6 @@ for p in procs plot(LinRange(0,1,length(p[2][1])),p[2][1] ./ p[2][2],ylim=(0,1),
 
 # NOTE THESE ARE FOR partion by m_c_supp
 
-#=
-Regarding a Probability algebra:
-Segal (1953) defined a proabability algebra as the pair (R,E) where R is an algebra and E is a distinguished linear function that satisfy:
-1) \forall a \in R, E(a^2) \geq 0, and E(a^2) = 0 only if a = 0.
-2) \forall a \in R \exists \mu s.t. E(ab^2) \leq \muE(b^2) \forall b \in R
-3) R has a unit, e, and E(e) = 1.
-
-We mention this because of the signifigance of segal's works and to contrast it with our construction.
-Re 1): The norm gaurentees this.
-Re 2): We do not require this, however our construction satisfies this. For arbitary a, take \mu_a to be the maximal entry.
-Re 3): Our construction does not adhere to this. Instead, the unit, e, is the tensor of all 1s and the expectation functional is pointwise multiplication by e.
-In our setting, \mathbb{P}(e) = 1, and E(a)=1 iff a is a probability measure.
-This makes a lot more sense in the commutative case because for every a, a = 1*a, so P(a) should equal P(1*a)
-because P: T^d(V) \rightarrow \mathbb{R} may be defined on \{e_w\} as P(v) = ||p*v||.
-so we'd hope that p*1 = p
-
-
-=#
-
-
-
-
 
 #=
 Lebanon and Mao, Non-Parametric Modelling of Ranked Data

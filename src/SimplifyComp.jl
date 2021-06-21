@@ -184,12 +184,16 @@ for wid in WaveIds
 end
 
 ⊗(A::Array{T},B::Array{T}) where T<: Number = prod.(Base.product(A,B))
+⊗(V::Vararg{Array{T}}) where T<: Number =reduce(⊗,V) 
 ⊗(a::NTuple{T},b::NTuple{T}) where T  = (a...,b...)
 ⊗(a::NTuple{N,T},b::NTuple{M,T}) where {T,N,M}  = (a...,b...)
 ×(A::Set,B::Set) = Set(Base.product(A,B))
 ×(A::Array,B::Array) = collect(Base.product(A,B))
-⊕(V::Vararg{Array{T,N} where N,m}) where {T,m} = [ sum(filter(x->size(x)==d,V)) for d in unique(size.(V)) ] 
+⊕(V::Vararg{Array{T,N} where N}) where T = [ sum(filter(x->size(x)==d,V)) for d in unique(size.(V)) ] 
+# maybe
+# ⊕(V::Vararg{Array{T,N} where N,m}) where {T,m} = 
 ⨁(A::Array{Array{T,N} where N,1}) where T <: Number = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
+⨁(A::Array{Array{T},1}) where T<:Number = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
 ⨂(A::Array{Array{T,N} where N,1}) where T <: Number = reduce(⊗,A)
 
 
@@ -199,3 +203,7 @@ cov(X::Array,i::K,j::K) where {K<:Integer} = E(X,(i,j))-E(X,i)⊗E(X,j)
 cov(X::Array,I::NTuple,j::K) where {K<:Integer} = E(X,(I...,j))-E(X,I)⊗E(X,j)
 cov(X::Array,i::K,J::NTuple) where {K<:Integer} = E(X,(i,J...))-E(X,i)⊗E(X,J)
 cov(X::Array,I::NTuple,J::NTuple) =E(X,(I...,J...))-E(I)⊗E(J)
+
+
+#corr(X,Y) = 
+
