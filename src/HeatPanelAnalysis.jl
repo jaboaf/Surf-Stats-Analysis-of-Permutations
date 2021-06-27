@@ -17,10 +17,40 @@ for ht_λs in Hts
 end
 
 Yd = map(y->y/sum(y),Y)
-
 W = sum.(Y)
 
 # Total Variation
+
+NonSym = map(y-> sum(1/2*abs.(y - SymOp(y))), Y);
+AntiSym = map(y-> sum(1/2*abs.(AltOp(y))), Y);
+plot(NonSym)
+plot(AntiSym)
+plot(AntiSym ./ W)
+histogram(NonSym)
+histogram(NonSym ./ W)
+histogram(AntiSym)
+histogram(AntiSym ./ W)
+
+
+CD = map(H-> map(h->embedd(h;minimal=true),H),Hts);
+CDnonSym = map(cd->map(y->y-SymOp(sum(cd)/length(cd)),cd),CD);
+CDantiSym = map(cd->map(y->AltOp(y),cd),CD);
+pntwiseCD = map(H->vcat.(H...),CD);
+pntCDnonSym = map(H->vcat.(H...),CDnonSym);
+
+
+for H in CDnonSym plot(map(sum(abs.(h)), H),hold=true) end
+
+for h in pntwiseCD plot(hcat(vec(h)...),hold=true) end
+
+for h in pntwiseCD plot(LinRange(0,1,length(h)),hcat(unique(h)...),hold=true) end
+for h in pntCDnonSym plot(LinRange(0,1,length(h)),hcat(vec(pntwiseCD[1])...)) end
+for h in pntCDnonSym plot(hcat(unique(h)...),hold=true) end
+for h in pntCDnonSym plot(hcat(sort.(unique(h))...),hold=true) end # Seee THIS
+
+
+
+
 TV = map(y-> y-SymOp(y) ,Y);
 ATV = map(y-> 1/2*abs.(y-SymOp(y)) ,Yd);
 ATVfromS = map(y-> 1/2*abs.(y-S) ,Yd);

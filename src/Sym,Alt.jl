@@ -100,7 +100,6 @@ size.(QLvs)
 
 barplot([sum.(TLs) sum.(TLvs) sum.(TQs) sum.(TQvs)],labels=["TLs","TLvs","TQs","TQvs"])
 
-
 barplot([sum.(TL_b) sum.(TL) sum.(TQ_b) sum.(TQ)],labels=["TLe_b","TL","TQe_b","TQ"])
 barplot(sum.(TL_subc),label="TLe_subc")
 barplot(sum.(TQ_subc),label="TQe_subc")

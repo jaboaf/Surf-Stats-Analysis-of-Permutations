@@ -93,7 +93,7 @@ for wave in data
 	wave[2]["heat"] = Base.parse(Int, wave[2]["heat"])
 	wave[2]["athOrig"] = isoDict[ wave[2]["athOrig"] ]
 	wave[2]["subScoOrig"] = map(x->isoDict[x], wave[2]["subScoOrig"])
-	wave[2]["subSco"] = Float16.(wave[2]["subSco"])
+	wave[2]["subSco"] = map(x->round(x,digits=1),wave[2]["subSco"])
 end
 
 WAVES = []
@@ -101,18 +101,18 @@ Tups = []
 for wid in WaveIds
 	c = data[wid]["subScoOrig"]
 	s = data[wid]["subSco"]
-    panelInfo =  sort(data[wid]["subSco"] .=> data[wid]["subScoOrig"])
-    binaryPanelInfo = sort(data[wid]["subSco"] .=> (data[wid]["subScoOrig"] .== data[wid]["athOrig"]))
+    panelInfo =  sort(s.=> data[wid]["subScoOrig"])
+    binaryPanelInfo = sort(s .=> (data[wid]["subScoOrig"] .== data[wid]["athOrig"]))
 
     invlabPan = []
     binaryLabPan = [0 => [], 1 => [] ]
     for c in unique(last.(panelInfo))
     	I = findall(==(c), data[wid]["subScoOrig"])
-    	push!(invlabPan, sort(data[wid]["subSco"][I])=>data[wid]["subScoOrig"][I])
+    	push!(invlabPan, sort(s[I])=>data[wid]["subScoOrig"][I])
     	if c==data[wid]["athOrig"]
-    		push!(binaryLabPan[1][2], data[wid]["subSco"][I]...)
+    		push!(binaryLabPan[1][2], s[I]...)
     	else
-    		push!(binaryLabPan[2][2], data[wid]["subSco"][I]... )
+    		push!(binaryLabPan[2][2], s[I]... )
     	end
     end
     labPan = unique.(last.(invlabPan)) .=> first.(invlabPan)
@@ -155,7 +155,7 @@ for wid in WaveIds
         currentPoints=data[wid]["currentPoints"],
         endingPoints=data[wid]["endingPoints"],
         
-        judge_scores=data[wid]["subSco"],
+        judge_scores=s,
         judge_origs=data[wid]["subScoOrig"],
 
         panel=panelInfo,
@@ -175,7 +175,7 @@ for wid in WaveIds
         m_b = map(ind->count(==(ind), last.(binaryPanelInfo)),(0,1) ),
         m_c_supp = map(c-> c in data[wid]["subScoOrig"], tuple(JUD_ORIGS...) ),
         
-        panel_scores= Multiset(data[wid]["subSco"]),
+        panel_scores= Multiset(s),
         panel_origs= Multiset(data[wid]["subScoOrig"]),
 		I_match = Int(data[wid]["athOrig"] in data[wid]["subScoOrig"])
     )
@@ -194,6 +194,7 @@ end
 # ⊕(V::Vararg{Array{T,N} where N,m}) where {T,m} = 
 ⨁(A::Array{Array{T,N} where N,1}) where T <: Number = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
 ⨁(A::Array{Array{T},1}) where T<:Number = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
+⨁(A::Array{Array{T,N},1}) where {T<:Number,N} = [ sum(filter(x->size(x)==d,A)) for d in sort(unique(size.(A))) ]
 ⨂(A::Array{Array{T,N} where N,1}) where T <: Number = reduce(⊗,A)
 
 

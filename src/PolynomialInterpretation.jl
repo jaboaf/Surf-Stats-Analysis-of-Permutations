@@ -1,6 +1,7 @@
 include("PanelAnalysis.jl")
 
 # N is the number of variables
+
 struct Monomial{D,R}
 	coeff::R
 	pwrs::NTuple{D,<:Integer}
