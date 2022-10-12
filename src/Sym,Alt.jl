@@ -1,6 +1,6 @@
 using StatsBase
 include("SimplifyComp.jl")
-WAVES = sort(last.(WAVES));
+WAVES = Tups;
 
 # COUNTRY aka JudOrigs
 M = [ w.m_c for w in WAVES];
@@ -87,18 +87,19 @@ TQvs = ⨁(map(x->embedd(x;strong=true,countinblock=true),Q));
 μₛ(D::Array{Array{T,N} where N}) where T<:Number = map(x->sum(abs.(SymOp(x))),⨁(D))
 
 size(TL)
-size(QL)
+size(TQ)
 
 size.(TLv)
-size.(QLv)
+size.(TQv)
 
 size.(TLs)
-size.(QLs)
+size.(TQs)
 
 size.(TLvs)
-size.(QLvs)
+size.(TQvs)
 
-barplot([sum.(TLs) sum.(TLvs) sum.(TQs) sum.(TQvs)],labels=["TLs","TLvs","TQs","TQvs"])
+barplot([sum.(TLs) sum.(TLvs) sum.(TQs) sum.(TQvs)])
+legend(["TLs","TLvs","TQs","TQvs"])
 
 barplot([sum.(TL_b) sum.(TL) sum.(TQ_b) sum.(TQ)],labels=["TLe_b","TL","TQe_b","TQ"])
 barplot(sum.(TL_subc),label="TLe_subc")

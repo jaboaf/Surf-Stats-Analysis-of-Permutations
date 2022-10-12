@@ -7,7 +7,7 @@ end
 
 #struct Sym{T}
 #	S::Set{T,1}
-#end
+#end3
 
 # Making perms into functors
 function (p::Perm{T})(x::T) where T return p.A[x] end
